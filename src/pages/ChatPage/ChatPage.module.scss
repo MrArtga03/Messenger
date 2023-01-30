@@ -1,0 +1,29 @@
+@import '/src/assets/styles/colors';
+
+.listUsers {
+    display: flex;
+
+    .listUsers__collectionChats {
+        width: 30%;
+        height: 100vh;
+        background: $color-background;
+
+        .listUsers__title {
+            border-bottom: 1px solid $color-line;
+
+            .listUsers__title__span {
+                color: $color-text;
+    
+                .listUsers__title__span_margin {
+                    margin: 5px 0px 5px 15px;
+                }
+            }
+        }
+    }
+
+    .listUsers__chat {
+        width: 100%;
+        height: 100vh;
+        background: $color-chat;
+    }
+}
