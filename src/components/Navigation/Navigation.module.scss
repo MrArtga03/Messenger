@@ -1,0 +1,25 @@
+@import '/src/assets/styles/colors';
+
+.Navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1C1D22;
+    border-bottom: 1px solid $color-line;
+
+    .Navigation__Content {
+        
+        .Navigation__Content__text_margin {
+            margin: 5px 0px 5px 15px;
+            color: $color-text;
+        }
+    }
+
+    .Navigation__link {
+        text-decoration: none;
+        font-size: 18px;
+        color: $color-text;
+        margin: 0px 15px 0px 0px;
+    }
+}
+
