@@ -9,7 +9,7 @@ import MenuPage from './pages/MenuPage/MenuPage';
 import Navigation from './components/Navigation/Navigation';
 
 const App = () => {
-  return (
+ return (
     <>
       <Navigation/>
       <Routes>

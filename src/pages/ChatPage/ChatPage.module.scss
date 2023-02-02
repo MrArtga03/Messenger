@@ -22,8 +22,47 @@
     }
 
     .listUsers__chat {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        flex-direction: column;
         width: 100%;
         height: 100vh;
         background: $color-chat;
+
+        .chat {
+            width: 100%;
+            height: 100%;
+        }
+
+        .input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            .input__form {
+                
+                .input__form_input {
+                    margin: 0px 5px 0px 0px;
+                    font-size: 18px;
+                    background: $color-interlocutors-message;
+                    color: #fff;
+                    padding: 8px 12px;
+                    width: 608px;
+                    height: 40px;
+                    border-radius: 8px;
+                }
+
+                .input__form_button {
+                    font-size: 18px;
+                    background: $color-interlocutors-message;
+                    color: #fff;
+                    width: 100px;
+                    height: 40px;
+                    border-radius: 8px;
+                }
+            }
+        }
     }
 }
