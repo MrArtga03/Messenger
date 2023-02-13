@@ -24,6 +24,7 @@
       padding: 5px 10px;
       border-radius: 6px 0px 6px 6px;
       background: $color-my-message;
+      word-break: break-word;
       &_message {
         margin-right: 5px;
         font-size: 14px;
@@ -67,6 +68,7 @@
       padding: 5px 10px;
       border-radius: 0px 6px 6px 6px;
       background: $color-interlocutors-message;
+      word-break: break-word;
       &_message {
         color: $color-text;
         margin-right: 5px;
