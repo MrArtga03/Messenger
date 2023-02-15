@@ -1,10 +1,10 @@
-@import '/src/assets/styles/colors';
+@import "/src/assets/styles/colors";
 
 .listUsers {
   display: flex;
 
   &__collectionChats {
-    width: 30%;
+    width: 400px;
     overflow: hidden;
     background: $color-background;
 
