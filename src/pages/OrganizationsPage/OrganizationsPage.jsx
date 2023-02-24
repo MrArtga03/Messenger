@@ -5,14 +5,12 @@ import styles from "./OrganizationsPage.module.scss";
 
 const OrganizationsPage = () => {
   return (
-    <section className={styles.Organization}>
-      <nav className={styles.Organization__nav}>
-        <ul className={styles.Organization__ul}>
-          <span className={styles.Organizatio__span}>
-            <Link to='/chat' className={styles.Organization__link}>
-              Chat
-            </Link>
-          </span>
+    <section className={styles.organization}>
+      <nav className={styles.nav_organization}>
+        <ul className={styles.ul_organization}>
+          <Link to='/chat' className={styles.organization__link}>
+            Chat
+          </Link>
         </ul>
       </nav>
     </section>

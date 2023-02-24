@@ -1,25 +1,36 @@
 @import '/src/assets/styles/colors';
 
-.Navigation {
+.navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #1C1D22;
+    background: $color-background;
     border-bottom: 1px solid $color-line;
 
-    .Navigation__Content {
-        
-        .Navigation__Content__text_margin {
+    .title_container {
+
+        .title {
             margin: 5px 0px 5px 15px;
             color: $color-text;
+            
+            font: {
+                weight: 400;
+                size: 24px;   
+            }
         }
     }
 
-    .Navigation__link {
-        text-decoration: none;
-        font-size: 18px;
-        color: $color-text;
-        margin: 0px 15px 0px 0px;
+    .nav_container {
+
+        .ul_container {
+            
+            .nav__link {
+                text-decoration: none;
+                font-size: 18px;
+                color: $color-text;
+                margin: 0px 15px 0px 0px;
+            }
+        }
     }
 }
 

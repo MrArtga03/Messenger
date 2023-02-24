@@ -1,35 +1,19 @@
-import React, { memo, useState } from "react"
+import React, { memo } from "react"
 
 import styles from "./Message.module.scss"
 
-const Message = ({ message, random }) => {
-  const date = new Date()
-  const [time, setTime] = useState(`${date.getHours()}:${date.getMinutes()}`)
-
+const Message = ({ message, isOwner, time }) => {
   return (
-    <>
-      {random === 0 ? (
-        <section className={styles.my_message__box}>
-          <div className={styles.my_message__box_context}>
-            <span className={styles.my_message__box_context_message}>
-              {message}
-            </span>
-            <span className={styles.my_message__box_context_time}>{time}</span>
-          </div>
-        </section>
-      ) : (
-        <section className={styles.oponent_message__box}>
-          <div className={styles.oponent_message__box_context}>
-            <span className={styles.oponent_message__box_context_message}>
-              {message}
-            </span>
-            <span className={styles.oponent_message__box_context_time}>
-              {time}
-            </span>
-          </div>
-        </section>
-      )}
-    </>
+    <section className={isOwner === 0 ? styles.my_message_box : styles.oponent_message_box}>
+      <div className={isOwner === 0 ? styles.my_box_context : styles.oponent_box_context}>
+        <span className={isOwner === 0 ? styles.my_context_message : styles.oponent_context_message}>
+          {message}
+        </span>
+        <span className={isOwner === 0 ? styles.my_context_time : styles.oponent_context_time}>
+          {time}
+        </span>
+      </div>
+    </section>
   )
 }
 

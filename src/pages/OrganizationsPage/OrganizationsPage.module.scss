@@ -1,11 +1,11 @@
 @import '/src/assets/styles/colors';
 
-.Organization {
+.organization {
     display: flex;
     align-items: center;
     background: $color-background;
 
-    .Organization__link {
+    .organization__link {
         font-size: 20px;
         color: $color-text;
         text-decoration: none;
