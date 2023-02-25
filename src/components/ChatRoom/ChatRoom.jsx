@@ -11,28 +11,33 @@ import styles from './ChatRoom.module.scss'
 const ChatRoom = () => {
   const inputRef = createRef()
   const date = new Date()
+  const diapozon = /[0-9A-Za-zА-Яа-я]/
   const time = `${date.getHours()}:${date.getMinutes()}`
   const lastMessage = document.getElementById("box")
 
-  const [messages, setMessages] = useState([])
+  // Переменные состояния
   const [message, setMessage] = useState("")
+  const [messages, setMessages] = useState([])
+  const [count, setCount] = useState(0)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [cursorPosition, setCursorPosition] = useState()
-
+  
   // Отправка сообщения по кнопке
   const onClickSendMessage = useCallback((e) => {
     e.preventDefault()
 
-    if (message === '') {
+    if (message === '' && diapozon.test(message)) {
       return 
     }
+
+    setCount(() => count + 1)
 
     setMessages((prev) => [
       ...prev,
       {
+        id: `message - ${count}`,
         time: time,
         text: message,
-        index: message.toString(),
         owner: Math.round(Math.random(0, 1))
       },
     ])
@@ -40,7 +45,7 @@ const ChatRoom = () => {
     lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
     
     setMessage('')
-  }, [message, time, lastMessage])
+  }, [message, time, lastMessage, count])
 
   // Появление Picker по нажатию на кнопку
   const onClickSetShowEmji = useCallback((e) => {
@@ -49,7 +54,7 @@ const ChatRoom = () => {
   }, [showEmojiPicker])
 
   // Добавление эмодзи в сообщение
-  const onClickEmojiPicker = useCallback((e) => {
+  const onClickEmojiPicker = (e) => {
     const ref = inputRef.current
     ref.focus()
     const start = message.substring(0, ref.selectionStart)
@@ -58,7 +63,7 @@ const ChatRoom = () => {
     setMessage(text)
     inputRef.current.selectionEnd = start.length + e.native.length
     setCursorPosition(start.length + e.native.length)
-  }, [inputRef, message])
+  }
 
   useEffect(() => {
     inputRef.current.selectionEnd = cursorPosition;
@@ -69,32 +74,43 @@ const ChatRoom = () => {
     const diapozon = /[0-9A-Za-zА-Яа-я]/
     const textarea = document.getElementById("textArea")
 
-    if(e.key === 'Enter' && diapozon.test(message)) {
+    // Событие по нажатию на Enter
+    if(e.key === 'Enter' && diapozon.test(message) && e.ctrlKey !== true) {
+      setCount(() => count + 1)
       setMessages((prev) => [
         ...prev,
         { 
+          id: `message - ${count}`,
           time: time,
           text: message,
-          index: message.toString(),
           owner: Math.round(Math.random(0, 1))
         },
       ])
       
-      setMessage('')
+      textarea.style.cssText = 'height:' - textarea.scrollHeight - 'px';
       lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
+      setMessage('')
     } 
+    // Событие по нажатию на Ctrl + Enter
     else if (e.ctrlKey && e.key === 'Enter') {
       setMessage(message + '\n')
+      textarea.style.cssText = 'height: auto; padding: 0';
+      textarea.style.cssText = 'height:' + textarea.scrollHeight + 'px';
       textarea.style.removeProperty("white-space")
+    }
+    // Событие по нажатию на Backspace
+    else if (e.key === 'Backspace') {
+      textarea.style.cssText = 'height: auto; padding: 0';
+      textarea.style.cssText = 'height:' - textarea.scrollHeight - 'px';
+      setMessage('')
     }
     else if(e.key === 'Enter') {
       setMessage(message.replace('\n', ''))
       textarea.style.whiteSpace = "nowrap"
     }
     
-  }, [message, time, lastMessage])
+  }, [message, time, lastMessage, count])
   
-
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
@@ -105,7 +121,7 @@ const ChatRoom = () => {
           >
             {messages.map((message) => (
               <Message
-                key={message.index}
+                key={message.id}
                 isOwner={message.owner}
                 message={message.text}
                 time={message.time}
@@ -133,17 +149,17 @@ const ChatRoom = () => {
           </button>
 
           <textarea
-            placeholder={"Enter message"}
+            className={styles.input_text}
+            id="textArea"
+            name="message"
+            type="text"
             value={message}
             ref={inputRef}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={clickCombinations}
             wrap="hard"
             autoFocus
-            id="textArea"
-            name="message"
-            type="text"
-            className={styles.input_text}
+            placeholder={"Enter message"}
           />
 
           <button

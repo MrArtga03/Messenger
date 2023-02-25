@@ -8,7 +8,7 @@ const OrganizationsPage = () => {
     <section className={styles.organization}>
       <nav className={styles.nav_organization}>
         <ul className={styles.ul_organization}>
-          <Link to='/chat' className={styles.organization__link}>
+          <Link to='/chat' className={styles.organization_link}>
             Chat
           </Link>
         </ul>

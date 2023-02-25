@@ -46,9 +46,12 @@
 
     .form_input {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       flex-direction: row;
+      background: $color-interlocutors-message;
+      padding: 5px 10px;
+      border-radius: 8px;
 
       .button_emoji {
         margin-right: 10px;
@@ -66,9 +69,11 @@
         min-width: 608px;
         max-width: 608px;
         height: 40px;
+        max-height: 300px;
         border: none;
         border-radius: 8px;
         resize: none;
+        white-space: pre-wrap
       }
 
       .button_send {
@@ -78,7 +83,7 @@
         background: $color-interlocutors-message;
         width: 40px;
         height: 40px;
-        border: none;
+        border: 1px solid $color-text;
         border-radius: 100px;
         cursor: pointer;
       }

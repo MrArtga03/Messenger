@@ -1,4 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
 
 import AccountPage from './pages/AccountPage/AccountPage'
 import HomePage from './pages/HomePage/HomePage'
@@ -11,6 +12,7 @@ import ChatPage from './pages/ChatPage/ChatPage'
 const App = () => {
   return (
     <>
+    <ChakraProvider>
       <BrowserRouter>
         <Navigation />
         <Routes>
@@ -22,6 +24,7 @@ const App = () => {
           <Route path='/setting' element={<SettingsPage />} />
         </Routes>
       </BrowserRouter>
+    </ChakraProvider>
     </>
   )
 }
