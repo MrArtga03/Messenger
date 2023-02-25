@@ -54,7 +54,7 @@
       border-radius: 8px;
 
       .button_emoji {
-        margin-right: 10px;
+        margin: 0px 10px 5px 0px;
         border: none;
         background: none;
         cursor: pointer;
@@ -65,7 +65,7 @@
         font-size: 18px;
         background: $color-interlocutors-message;
         color: $color-text;
-        padding: 8px 12px;
+        padding: 5px 12px;
         min-width: 608px;
         max-width: 608px;
         height: 40px;
