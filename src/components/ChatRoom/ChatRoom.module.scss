@@ -54,7 +54,8 @@
       border-radius: 8px;
 
       .button_emoji {
-        margin: 0px 10px 5px 0px;
+        min-width: 40px;
+        margin: 0px 5px 5px 0px;
         border: none;
         background: none;
         cursor: pointer;
@@ -81,9 +82,9 @@
         justify-content: center;
         align-items: center;
         background: $color-interlocutors-message;
-        width: 40px;
+        min-width: 40px;
         height: 40px;
-        border: 1px solid $color-text;
+        border: 2px solid $color-text;
         border-radius: 100px;
         cursor: pointer;
       }

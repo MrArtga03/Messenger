@@ -11,7 +11,6 @@ import styles from './ChatRoom.module.scss'
 const ChatRoom = () => {
   const inputRef = createRef()
   const date = new Date()
-  const diapozon = /[0-9A-Za-zА-Яа-я]/
   const time = `${date.getHours()}:${date.getMinutes()}`
   const lastMessage = document.getElementById("box")
 
@@ -24,6 +23,9 @@ const ChatRoom = () => {
   
   // Отправка сообщения по кнопке
   const onClickSendMessage = useCallback((e) => {
+    const diapozon = /[0-9A-Za-zА-Яа-я]/
+    const textarea = document.getElementById("textArea")
+
     e.preventDefault()
 
     if (message === '' && diapozon.test(message)) {
@@ -43,7 +45,7 @@ const ChatRoom = () => {
     ])
 
     lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
-    
+    textarea.style.height = '40px'
     setMessage('')
   }, [message, time, lastMessage, count])
 
@@ -87,8 +89,8 @@ const ChatRoom = () => {
         },
       ])
       
-      textarea.style.cssText = 'height:' - textarea.scrollHeight - 'px';
       lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
+      textarea.style.height = '40px'
       setMessage('')
     } 
     // Событие по нажатию на Ctrl + Enter
@@ -101,8 +103,8 @@ const ChatRoom = () => {
     // Событие по нажатию на Backspace
     else if (e.key === 'Backspace') {
       textarea.style.cssText = 'height: auto; padding: 0';
-      textarea.style.cssText = 'height:' - textarea.scrollHeight - 'px';
-      setMessage('')
+      textarea.style.cssText = 'height:' + textarea.scrollHeight + 'px';
+      textarea.style.removeProperty("white-space")
     }
     else if(e.key === 'Enter') {
       setMessage(message.replace('\n', ''))
@@ -159,6 +161,7 @@ const ChatRoom = () => {
             onKeyDown={clickCombinations}
             wrap="hard"
             autoFocus
+            rows="1"
             placeholder={"Enter message"}
           />
 
