@@ -28,14 +28,14 @@ const ChatRoom = () => {
 
     e.preventDefault()
 
-    if (message === '' && diapozon.test(message)) {
+    if (message === '' && !diapozon.test(message)) {
       return 
     }
 
     setCount(() => count + 1)
 
     setMessages((prev) => [
-      ...prev,
+      ...prev, 
       {
         id: `message - ${count}`,
         time: time,
