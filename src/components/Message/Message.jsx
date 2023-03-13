@@ -4,12 +4,12 @@ import styles from "./Message.module.scss"
 
 const Message = ({ message, isOwner, time }) => {
   return (
-    <section className={isOwner === 0 ? styles.my_message_box : styles.oponent_message_box}>
-      <div className={isOwner === 0 ? styles.my_box_context : styles.oponent_box_context}>
-        <span className={isOwner === 0 ? styles.my_context_message : styles.oponent_context_message}>
+    <section className={isOwner === 0 ? styles['my-message-box'] : styles['opponent-message-box']}>
+      <div className={isOwner === 0 ? styles['my-box-context'] : styles['opponent-box-context']}>
+        <span className={isOwner === 0 ? styles['my-context-message'] : styles['opponent-context-message']}>
           {message}
         </span>
-        <span className={isOwner === 0 ? styles.my_context_time : styles.oponent_context_time}>
+        <span className={isOwner === 0 ? styles['my-context-time'] : styles['opponent-context-time']}>
           {time}
         </span>
       </div>

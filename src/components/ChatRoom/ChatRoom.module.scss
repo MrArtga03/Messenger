@@ -14,13 +14,12 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     position: relative;
 
     .form {
       display: flex;
       justify-content: center;
-      overflow-y: auto;
       width: 100%;
       height: 100vh;
 
@@ -28,10 +27,18 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+
         height: 100vh;
         width: 100%;
+        overflow-y: scroll;
         overflow-x: hidden;
       }
+    }
+
+    .emoji-picker {
+      position: absolute;
+      bottom: 1px;
+      left: 1px;
     }
   }
 
@@ -43,7 +50,7 @@
     padding: 10px;
     border-top: 1px solid $color-line;
 
-    .form_input {
+    .form-input {
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -53,7 +60,7 @@
       padding: 5px 10px;
       border-radius: 8px;
 
-      .input_text {
+      .input-text {
         margin-right: 10px;
         font-size: 18px;
         background: $color-interlocutors-message;
@@ -61,15 +68,15 @@
         padding: 5px 12px;
         min-width: 608px;
         max-width: 608px;
-        height: 40px;
-        max-height: 300px;
         border: none;
         border-radius: 8px;
         resize: none;
-        white-space: pre-wrap
+        white-space: pre-wrap;
+        max-height: 250px;
+        overflow-y: auto;
       }
 
-      .button_send {
+      .button-send {
         display: flex;
         justify-content: center;
         align-items: center;
