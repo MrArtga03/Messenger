@@ -13,7 +13,7 @@ import styles from './ChatRoom.module.scss'
 const ChatRoom = () => {
   const date = new Date()
   const time = `${date.getHours()}:${date.getMinutes()}`
-  const emojis = require('emojis-list')
+  // const emojis = require('emojis-list')
 
   //Рефы на DOM-элементы
   const editorRef = useRef(null)
@@ -24,6 +24,7 @@ const ChatRoom = () => {
   const [messages, setMessages] = useState([])
   const [count, setCount] = useState(0)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [cursorPosition, setCursorPosition] = useState()
 
   //Установка текста редактора в состояние
   const handleChangeValue = (content, delta, source, editor) => {
@@ -59,20 +60,19 @@ const ChatRoom = () => {
     setValue('')
   }
 
-
   //Обработка событий клавиш
   const keysEvent = (event) => {
     if(event.keyCode === 16) {
       const diapason = /[0-9A-Za-zА-Яа-я]/
-    
+
       if (value === '' && !diapason.test(value)) {
-        return 
+        return
       }
-  
+
       setCount(() => count + 1)
-  
+
       setMessages((prev) => [
-        ...prev, 
+        ...prev,
         {
           id: `message - ${count}`,
           time: time,
@@ -85,6 +85,7 @@ const ChatRoom = () => {
         top: scrollRef.current.scrollHeight,
         behavior: "smooth"
       })
+
       setValue('')
     }
   }
@@ -94,13 +95,29 @@ const ChatRoom = () => {
   }
 
   // Добавление эмодзи в сообщение
-  const onClickEmojiPicker = (event) => {
-    for (let i = 0; i < emojis.length; i++) {
-      if(emojis[i] === event.native) {
-        setValue(value + emojis[i].replace('\n', ''))
-      }
-    }
+  // const onClickEmojiPicker = (event) => {
+  //   for (let i = 0; i < emojis.length; i++) {
+  //     if(emojis[i] === event.native) {
+  //       setValue(value + emojis[i].replace('\n', ''))
+  //     }
+  //   }
+  // }
+
+  // Добавление эмодзи в сообщение
+  const onClickEmojiPicker = (e) => {
+    const ref = editorRef.current
+    ref.focus()
+    const start = value.substring(0, ref.selectionStart)
+    const end = value.substring(ref.selectionStart)
+    const text = start + e.native + end
+    setValue(text)
+    editorRef.current.selectionEnd = start.length + e.native.length
+    setCursorPosition(start.length + e.native.length)
   }
+
+  useEffect(() => {
+    editorRef.current.selectionEnd = cursorPosition;
+  }, [cursorPosition])
 
   return (
     <div className={styles.chat}>
@@ -140,7 +157,7 @@ const ChatRoom = () => {
             <img src={Smile} alt="ERROR" />
           </button>
           <ReactQuill 
-            ref={editorRef} 
+            ref={editorRef}
             onKeyDown={keysEvent}
             value={value} 
             onChange={handleChangeValue}
