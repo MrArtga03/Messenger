@@ -1,146 +1,173 @@
-import { useState } from "react"
-import { ContentState, EditorState, getDefaultKeyBinding, RichUtils } from "draft-js"
-import { createEditorStateWithText } from '@draft-js-plugins/editor'
-import createEmojiPlugin from '@draft-js-plugins/emoji';
+import {useEffect, useRef, useState} from "react"
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import data from "@emoji-mart/data"
+import Picker from "@emoji-mart/react"
 
 import Message from "../Message/Message"
-import TextArea from "../TextArea/TextArea"
+import Smile from "../../assets/svg/SmileButton.svg"
 import SendMessageButton from "../../assets/svg/SendMessageButton.svg" 
 
 import styles from './ChatRoom.module.scss'
-import '@draft-js-plugins/emoji/lib/plugin.css';
 
 const ChatRoom = () => {
   const date = new Date()
   const time = `${date.getHours()}:${date.getMinutes()}`
-  const lastMessage = document.querySelector("#box")
+  // const emojis = require('emojis-list')
 
-  // Переменные состояния
+  //Рефы на DOM-элементы
+  const editorRef = useRef(null)
+  const scrollRef = useRef(null)
+
+  // Переменные состоянияее
+  const [value, setValue] = useState('');
   const [messages, setMessages] = useState([])
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
-  const emojiPlugin = createEmojiPlugin();
-  const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
-
   const [count, setCount] = useState(0)
-  const messageState = EditorState.push(editorState, ContentState.createFromText(""))
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [cursorPosition, setCursorPosition] = useState()
 
-  console.log(editorState)
+  //Установка текста редактора в состояние
+  const handleChangeValue = (content, delta, source, editor) => {
+    const text = editor.getText()
+    setValue(text)
+  }
 
   // Отправка сообщения по кнопке
-  const onClickSendMessage = (e) => {
-    const diapozon = /[0-9A-Za-zА-Яа-я]/
-    const message = editorState.getCurrentContent().getPlainText('\u0001')
+  const onClickSendMessage = (event) => {
+    const diapason = /[0-9A-Za-zА-Яа-я]/
+    event.preventDefault()
 
-    e.preventDefault()
-
-    if (message === '' && !diapozon.test(message)) {
-      return 
+    if (value === '' && !diapason.test(value)) {
+      return
     }
 
     setCount(() => count + 1)
 
     setMessages((prev) => [
-      ...prev, 
+      ...prev,
       {
         id: `message - ${count}`,
         time: time,
-        text: message,
+        text: value,
         owner: Math.round(Math.random(0, 1))
       },
     ])
 
-    lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
-    setEditorState(messageState)
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: "smooth"
+    })
+    setValue('')
   }
 
-  // const myKeyBindingFn = (e) => {
-  //   if(e.keyCode === 13) {
-  //     return 'Send-message'
-  //   }
+  //Обработка событий клавиш
+  const keysEvent = (event) => {
+    if(event.keyCode === 16) {
+      const diapason = /[0-9A-Za-zА-Яа-я]/
 
-  //   return getDefaultKeyBinding(e)
-  // }
+      if (value === '' && !diapason.test(value)) {
+        return
+      }
 
-  // const handleMessage = (command) => {
-  //   if(!editorState) {
-  //     return
-  //   }
-  //   if(command === 'Send-message') {
-  //     const diapozon = /[0-9A-Za-zА-Яа-я]/
-  //     const message = editorState.getCurrentContent().getPlainText('\u0001')
+      setCount(() => count + 1)
 
-  //     // e.preventDefault()
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `message - ${count}`,
+          time: time,
+          text: value,
+          owner: Math.round(Math.random(0, 1))
+        },
+      ])
 
-  //     if (message === '' && !diapozon.test(message)) {
-  //       return 
-  //     }
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth"
+      })
 
-  //     setCount(() => count + 1)
-
-  //     setMessages((prev) => [
-  //       ...prev, 
-  //       {
-  //         id: `message - ${count}`,
-  //         time: time,
-  //         text: message,
-  //         owner: Math.round(Math.random(0, 1))
-  //       },
-  //     ])
-
-  //     lastMessage.scrollIntoView({ block: "start", behavior: "smooth" })
-  //     setEditorState(EditorState.createEmpty())
-  //   }
-  // }
-
-  const isSoftNewlineEvent = (e) => {
-    return (
-      e.which === 13 && e.getModifierState('Shift')
-    )
-  }
-
-  const handleReturn = (event) => {
-    if(isSoftNewlineEvent(event)) {
-      setEditorState(RichUtils.insertSoftNewline(editorState))
-      console.log(1)
-      return 'handled'
+      setValue('')
     }
-    return 'not-handled'
   }
+
+  const clickEmoji = (event) => {
+    event.preventDefault()
+  }
+
+  // Добавление эмодзи в сообщение
+  // const onClickEmojiPicker = (event) => {
+  //   for (let i = 0; i < emojis.length; i++) {
+  //     if(emojis[i] === event.native) {
+  //       setValue(value + emojis[i].replace('\n', ''))
+  //     }
+  //   }
+  // }
+
+  // Добавление эмодзи в сообщение
+  const onClickEmojiPicker = (e) => {
+    const ref = editorRef.current
+    ref.focus()
+    const start = value.substring(0, ref.selectionStart)
+    const end = value.substring(ref.selectionStart)
+    const text = start + e.native + end
+    setValue(text)
+    editorRef.current.selectionEnd = start.length + e.native.length
+    setCursorPosition(start.length + e.native.length)
+  }
+
+  useEffect(() => {
+    editorRef.current.selectionEnd = cursorPosition;
+  }, [cursorPosition])
 
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
         <form className={styles.form}>
           <div
-            id="scroll"
             className={styles.messages}
+            ref={scrollRef}
           >
             {messages.map((message) => (
-              <Message
-                key={message.id}
-                isOwner={message.owner}
-                message={message.text}
-                time={message.time}
-              />
+                <Message
+                    key={message.id}
+                    isOwner={message.owner}
+                    message={message.text}
+                    time={message.time}
+                />
             ))}
-            <div id="box" style={{ height: 0, width: 0 }}/>
           </div>
         </form>
+
+        <div className={styles['emoji-picker']} onMouseOut={() => setShowEmojiPicker(false)}>
+          {showEmojiPicker && (
+            <Picker 
+              data={data} 
+              onEmojiSelect={onClickEmojiPicker}
+            />
+          )}
+        </div>
       </div>
 
       <div className={styles.input}>
-        <form className={styles.form_input}>
-          <EmojiSuggestions/>
-          <EmojiSelect/>
-          <TextArea 
-            editorState={editorState}
-            setEditorState={setEditorState}
-            keyBindingFn={myKeyBindingFn}
-            handleReturn={handleReturn}
-            handleKeyCommand={handleMessage}
-          />
+        <form className={styles['form-input']}>
+          <button 
+              onClick={clickEmoji}
+              onMouseOver={() => setShowEmojiPicker(true)}
+            >
+            <img src={Smile} alt="ERROR" />
+          </button>
+          <ReactQuill 
+            ref={editorRef}
+            onKeyDown={keysEvent}
+            value={value} 
+            onChange={handleChangeValue}
+            placeholder={'Enter message...'}
+            theme="snow" 
+            className={styles['input-text']} 
+          />  
+
           <button
-            className={styles.button_send}
+            className={styles['button-send']}
             onClick={onClickSendMessage}
           >
             <img src={SendMessageButton} alt="ERROR" />

@@ -1,19 +1,15 @@
-import {Editor} from 'draft-js';
+import { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import styles from './TextArea.module.scss'
 
-const TextArea = ({editorState, setEditorState, keyBindingFn, handleReturn, handleKeyCommand}) => {
+const TextArea = () => {
+  const [value, setValue] = useState('');
 
   return(
-    <div className={styles.input}>
-      <Editor
-        editorState={editorState} 
-        onChange={setEditorState} 
-        keyBindingFn={keyBindingFn}
-        placeholder='Enter message'
-        handleReturn={handleReturn}
-        handleKeyCommand={handleKeyCommand}
-      />
+    <div className={styles.input} >
+      <ReactQuill theme="snow" value={value} onChange={setValue}/>
     </div>
   ) 
 };
