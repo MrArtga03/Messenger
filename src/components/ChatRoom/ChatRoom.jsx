@@ -1,5 +1,4 @@
-import {useEffect, useRef, useState} from "react"
-import ReactQuill from 'react-quill';
+import { createRef, useCallback, useRef, useState} from "react"
 import 'react-quill/dist/quill.snow.css';
 import data from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
@@ -13,31 +12,22 @@ import styles from './ChatRoom.module.scss'
 const ChatRoom = () => {
   const date = new Date()
   const time = `${date.getHours()}:${date.getMinutes()}`
-  // const emojis = require('emojis-list')
 
-  //Рефы на DOM-элементы
-  const editorRef = useRef(null)
   const scrollRef = useRef(null)
+  const inputRef = createRef()
 
-  // Переменные состоянияее
-  const [value, setValue] = useState('');
+  // Переменные состояния
+  const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [count, setCount] = useState(0)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
-  const [cursorPosition, setCursorPosition] = useState()
-
-  //Установка текста редактора в состояние
-  const handleChangeValue = (content, delta, source, editor) => {
-    const text = editor.getText()
-    setValue(text)
-  }
 
   // Отправка сообщения по кнопке
-  const onClickSendMessage = (event) => {
+  const onClickSendMessage = useCallback((e) => {
     const diapason = /[0-9A-Za-zА-Яа-я]/
-    event.preventDefault()
+    e.preventDefault()
 
-    if (value === '' && !diapason.test(value)) {
+    if (message === '' && !diapason.test(message)) {
       return
     }
 
@@ -48,7 +38,7 @@ const ChatRoom = () => {
       {
         id: `message - ${count}`,
         time: time,
-        text: value,
+        text: message,
         owner: Math.round(Math.random(0, 1))
       },
     ])
@@ -57,67 +47,42 @@ const ChatRoom = () => {
       top: scrollRef.current.scrollHeight,
       behavior: "smooth"
     })
-    setValue('')
-  }
+    setMessage('')
+  }, [message, count, time])
 
-  //Обработка событий клавиш
-  const keysEvent = (event) => {
-    if(event.keyCode === 16) {
+  const onKeySendMessage = (e) => {
+    if(e.ctrlKey && e.keyCode === 13) {
       const diapason = /[0-9A-Za-zА-Яа-я]/
-
-      if (value === '' && !diapason.test(value)) {
+      e.preventDefault()
+  
+      if (message === '' && !diapason.test(message)) {
         return
       }
-
+  
       setCount(() => count + 1)
-
+  
       setMessages((prev) => [
         ...prev,
         {
           id: `message - ${count}`,
           time: time,
-          text: value,
+          text: message,
           owner: Math.round(Math.random(0, 1))
         },
       ])
-
+  
       scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,
         behavior: "smooth"
       })
-
-      setValue('')
+      setMessage('')
     }
   }
 
-  const clickEmoji = (event) => {
-    event.preventDefault()
-  }
-
   // Добавление эмодзи в сообщение
-  // const onClickEmojiPicker = (event) => {
-  //   for (let i = 0; i < emojis.length; i++) {
-  //     if(emojis[i] === event.native) {
-  //       setValue(value + emojis[i].replace('\n', ''))
-  //     }
-  //   }
-  // }
-
-  // Добавление эмодзи в сообщение
-  const onClickEmojiPicker = (e) => {
-    const ref = editorRef.current
-    ref.focus()
-    const start = value.substring(0, ref.selectionStart)
-    const end = value.substring(ref.selectionStart)
-    const text = start + e.native + end
-    setValue(text)
-    editorRef.current.selectionEnd = start.length + e.native.length
-    setCursorPosition(start.length + e.native.length)
-  }
-
-  useEffect(() => {
-    editorRef.current.selectionEnd = cursorPosition;
-  }, [cursorPosition])
+  const onClickEmojiPicker = useCallback((e) => {
+    setMessage(message + e.native)
+  }, [message])
 
   return (
     <div className={styles.chat}>
@@ -150,21 +115,23 @@ const ChatRoom = () => {
 
       <div className={styles.input}>
         <form className={styles['form-input']}>
-          <button 
-              onClick={clickEmoji}
+          <div
+              style={{cursor: 'pointer'}}
               onMouseOver={() => setShowEmojiPicker(true)}
             >
             <img src={Smile} alt="ERROR" />
-          </button>
-          <ReactQuill 
-            ref={editorRef}
-            onKeyDown={keysEvent}
-            value={value} 
-            onChange={handleChangeValue}
+          </div>
+
+          <div
+            value={message}
+            ref={inputRef}
+            onBlur={(e) => setMessage(e.currentTarget.textContent)}
+            onKeyUp={onKeySendMessage}
+            className={styles['input-text']}
             placeholder={'Enter message...'}
-            theme="snow" 
-            className={styles['input-text']} 
-          />  
+            contentEditable
+            dangerouslySetInnerHTML={{__html: message}}
+          />
 
           <button
             className={styles['button-send']}

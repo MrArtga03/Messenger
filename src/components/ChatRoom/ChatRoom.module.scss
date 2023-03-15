@@ -78,6 +78,12 @@
         white-space: pre-wrap;
         max-height: 250px;
         overflow-y: auto;
+
+        &[contenteditable][placeholder]:empty:before {
+          content: attr(placeholder);
+          color: gray;
+          background-color: transparent;
+        }
       }
 
       .button-send {

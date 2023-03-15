@@ -4,7 +4,7 @@ import ChatRoom from "../../components/ChatRoom/ChatRoom"
 
 const ChatPage = () => {
   return (
-    <section className={styles.list_users}>
+    <section className={styles['chat']}>
       <ListUsers/>
       <ChatRoom/>
     </section>
