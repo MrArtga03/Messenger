@@ -13,8 +13,10 @@ const ChatRoom = () => {
   const date = new Date()
   const time = `${date.getHours()}:${date.getMinutes()}`
 
+  //Рефы на DOM элементы
   const scrollRef = useRef(null)
   const inputRef = createRef()
+  const boldButtonRef = useRef(null)
 
   // Переменные состояния
   const [message, setMessage] = useState('')
@@ -117,19 +119,32 @@ const ChatRoom = () => {
   }
 
   const handleBlur = (e) => {
-    setMessage(e.currentTarget.textContent)
+    setMessage(`${e.currentTarget.innerHTML}`)
     setCaretPosition(getCaretPosition(e.currentTarget))
   }
 
-  const handleEnterPress = e => {
+  const handleEnterPress = (e) => {
     if (e.key === 'Enter') {
-      const content = e.currentTarget.textContent
-
-      console.log(caretPosition)
+      const content = e.currentTarget.innerHTML
 
       setMessage(content.slice(0, caretPosition) + '\n' + content.slice(caretPosition))
     }
   }
+
+  useEffect(() => {
+    const buttonBold = boldButtonRef.current
+
+    const setBoldButton = (e) => {
+      e.preventDefault()
+      setMessage(`<strong>${e.currentTarget.innerHTML}<strong/>`)
+    }
+
+    buttonBold.addEventListener('click', setBoldButton);
+
+    return () => {
+      buttonBold.removeEventListener('click', setBoldButton);
+    }
+  }, [])
 
   return (
     <div className={styles.chat}>
@@ -140,12 +155,12 @@ const ChatRoom = () => {
             ref={scrollRef}
           >
             {messages.map((message) => (
-                <Message
-                    key={message.id}
-                    isOwner={message.owner}
-                    message={message.text}
-                    time={message.time}
-                />
+              <Message
+                  key={message.id}
+                  isOwner={message.owner}
+                  message={message.text}
+                  time={message.time}
+              />
             ))}
           </div>
         </form>
@@ -162,6 +177,9 @@ const ChatRoom = () => {
 
       <div className={styles.input}>
         <form className={styles['form-input']}>
+          <div className={styles.toolbar}>
+            <button className={styles['editor-button']} ref={boldButtonRef}>Bold</button>
+          </div>
           <div
               style={{cursor: 'pointer'}}
               onMouseOver={() => setShowEmojiPicker(true)}
@@ -176,7 +194,7 @@ const ChatRoom = () => {
             onKeyUp={onKeySendMessage}
             className={styles['input-text']}
             placeholder={'Enter message...'}
-            contentEditable
+            contentEditable={true}
             onKeyDown={handleEnterPress}
             dangerouslySetInnerHTML={{__html: message}}
           />

@@ -37,6 +37,20 @@
           display: none;
         }
       }
+
+      .message {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #34343450;
+      }
+      
+      .message:nth-child(2n + 1) {
+        align-self: end;
+        background-color: #99309940;
+      }
     }
 
     .emoji-picker {
@@ -53,6 +67,14 @@
     min-height: 95px;
     padding: 10px;
     border-top: 1px solid $color-line;
+
+    .toolbar {
+
+      .editor-button {
+        color: $color-text;
+        margin: 3px 10px;
+      }
+    }
 
     .form-input {
       display: flex;
