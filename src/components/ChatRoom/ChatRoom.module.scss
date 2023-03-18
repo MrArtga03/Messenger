@@ -37,20 +37,6 @@
           display: none;
         }
       }
-
-      .message {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 100px;
-        padding: 5px 10px;
-        border-radius: 4px;
-        background-color: #34343450;
-      }
-      
-      .message:nth-child(2n + 1) {
-        align-self: end;
-        background-color: #99309940;
-      }
     }
 
     .emoji-picker {
@@ -64,17 +50,8 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    min-height: 95px;
     padding: 10px;
     border-top: 1px solid $color-line;
-
-    .toolbar {
-
-      .editor-button {
-        color: $color-text;
-        margin: 3px 10px;
-      }
-    }
 
     .form-input {
       display: flex;
@@ -82,6 +59,8 @@
       justify-content: center;
       flex-direction: row;
       position: relative;
+      max-height: 227px;
+      min-height: 37px;
       background: $color-interlocutors-message;
       padding: 5px 10px;
       border-radius: 8px;
@@ -94,6 +73,7 @@
         padding: 5px 12px;
         min-width: 608px;
         max-width: 608px;
+        max-height: 222px !important;
         border: none;
         border-radius: 8px;
         resize: none;
