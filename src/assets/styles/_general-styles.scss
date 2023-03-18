@@ -9,3 +9,25 @@
 body {
     font-family: 'Nunito Sans'; 
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $color-scrollbar-background;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $color-scrollbar-foreground;
+    border-radius: 10px;
+}
+
+ /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $color-scrollbar-hover;
+}
