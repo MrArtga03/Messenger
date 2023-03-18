@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Messenger/static/css/main.277f7ba8.css",
-    "main.js": "/Messenger/static/js/main.9530f458.js",
+    "main.css": "/Messenger/static/css/main.9615fc56.css",
+    "main.js": "/Messenger/static/js/main.dd6557fd.js",
     "static/media/NunitoSans-LightItalic.ttf": "/Messenger/static/media/NunitoSans-LightItalic.f5a382d492211f4353be.ttf",
     "static/media/NunitoSans-ExtraBoldItalic.ttf": "/Messenger/static/media/NunitoSans-ExtraBoldItalic.3856e5eb595fecbbd96d.ttf",
     "static/media/NunitoSans-BoldItalic.ttf": "/Messenger/static/media/NunitoSans-BoldItalic.9072070f14ed2db5b378.ttf",
@@ -19,11 +19,11 @@
     "index.html": "/Messenger/index.html",
     "static/media/SmileButton.svg": "/Messenger/static/media/SmileButton.84a5ffe9df485b847170ccae067007a0.svg",
     "static/media/SendMessageButton.svg": "/Messenger/static/media/SendMessageButton.8a7fcd9489e07fea6443cf1ad319e977.svg",
-    "main.277f7ba8.css.map": "/Messenger/static/css/main.277f7ba8.css.map",
-    "main.9530f458.js.map": "/Messenger/static/js/main.9530f458.js.map"
+    "main.9615fc56.css.map": "/Messenger/static/css/main.9615fc56.css.map",
+    "main.dd6557fd.js.map": "/Messenger/static/js/main.dd6557fd.js.map"
   },
   "entrypoints": [
-    "static/css/main.277f7ba8.css",
-    "static/js/main.9530f458.js"
+    "static/css/main.9615fc56.css",
+    "static/js/main.dd6557fd.js"
   ]
 }
