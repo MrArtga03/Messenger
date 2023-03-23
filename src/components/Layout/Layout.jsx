@@ -1,8 +1,5 @@
-import { useAuth } from "../../hook/useAuth"
-import { Outlet, useNavigate } from "react-router-dom"
-import { CheckCircleIcon, AddIcon } from "@chakra-ui/icons"
+import { Link, Outlet } from "react-router-dom"
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -15,17 +12,29 @@ import CustomLink from "../CustomLink/CustomLink"
 import styles from "./Layout.module.scss"
 
 const Layout = () => {
-  const { signout } = useAuth()
-  const navigate = useNavigate()
-
   return (
     <>
       <main className={styles["main-conteiner"]}>
         <Stack minW={"300px"} h={"100vh"} background={"#141416"}>
           <Card>
-            <CardHeader background={"#1c1d22"} color={"#fff"}>
-              <Heading textAlign={"center"} fontSize={"20px"}>
-                Messanger
+            <CardHeader 
+              background={"#1c1d22"} 
+              color={"#fff"}
+            >
+              <Heading 
+                display={'flex'} 
+                justifyContent={'center'}  
+                flexDirection={'column'}
+                textAlign={"center"} 
+                fontSize={"23px"}
+              >
+                <Link to="/" className={styles["nav-link"]}>
+                  Messanger
+                </Link>
+
+                <Link style={{fontSize: '14px', marginTop: '5px'}} to='/account' className={styles["nav-link"]}>
+                  Account
+                </Link>
               </Heading>
             </CardHeader>
 
@@ -35,35 +44,22 @@ const Layout = () => {
               background={"#141416"}
               color={"#fff"}
             >
-              <Stack display={"flex"} align={"center"} spacing={"8"} mt={"25%"}>
-                <CustomLink to="/" className={styles["nav-link"]}>
-                  Home
-                </CustomLink>
-
+              <Stack display={"flex"} align={"center"} spacing={"8"} mt={'50%'}>
                 <CustomLink to="/organizations" className={styles["nav-link"]}>
                   Organizations
+                </CustomLink>
+
+                <CustomLink to='/chat' className={styles['organization-link']}>
+                  Chat
+                </CustomLink>
+
+                <CustomLink to='/setting' className={styles['organization-link']}>
+                  Settings
                 </CustomLink>
 
                 <CustomLink to="/menu" className={styles["nav-link"]}>
                   Menu
                 </CustomLink>
-
-                <CustomLink to="/auth" className={styles["nav-link"]}>
-                  <CheckCircleIcon /> Sing In
-                </CustomLink>
-
-                <CustomLink to="/reg" className={styles["nav-link"]}>
-                  <AddIcon /> Sing Up
-                </CustomLink>
-
-                <Button
-                  color={"#000"}
-                  onClick={() =>
-                    signout(() => navigate("/auth", { replace: true }))
-                  }
-                >
-                  Log out
-                </Button>
               </Stack>
             </CardBody>
           </Card>
