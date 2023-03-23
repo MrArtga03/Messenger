@@ -3,9 +3,11 @@
 .organization {
     display: flex;
     align-items: center;
+    height: 50px;
+    width: 100%;
     background: $color-background;
 
-    .organization_link {
+    .organization-link {
         font-size: 20px;
         color: $color-text;
         text-decoration: none;

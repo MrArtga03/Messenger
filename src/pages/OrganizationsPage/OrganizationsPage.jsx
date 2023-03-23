@@ -1,16 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import CustomLink from "../../components/CustomLink/CustomLink";
 
 import styles from "./OrganizationsPage.module.scss";
 
 const OrganizationsPage = () => {
   return (
     <section className={styles.organization}>
-      <nav className={styles.nav_organization}>
-        <ul className={styles.ul_organization}>
-          <Link to='/chat' className={styles.organization_link}>
+      <nav className={styles['nav-organization']}>
+        <ul className={styles['ul-organization']}>
+          <CustomLink to='/chat' className={styles['organization-link']}>
             Chat
-          </Link>
+          </CustomLink>
         </ul>
       </nav>
     </section>
