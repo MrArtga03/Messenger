@@ -29,7 +29,7 @@ const Layout = () => {
                 fontSize={"23px"}
               >
                 <Link to="/" className={styles["nav-link"]}>
-                  Messanger
+                  Messenger
                 </Link>
 
                 <Link style={{fontSize: '14px', marginTop: '5px'}} to='/account' className={styles["nav-link"]}>

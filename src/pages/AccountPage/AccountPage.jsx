@@ -17,7 +17,7 @@ import { useAuth } from "../../hook/useAuth"
 const AccountPage = () => {
   const { signout } = useAuth()
   const navigate = useNavigate()
-  
+
   return (
     <Card w={'100%'}>
       <CardHeader background={'#1c1d22'} color={'#fff'}>
@@ -56,7 +56,7 @@ const AccountPage = () => {
         </Heading>
       </CardHeader>
 
-      <CardBody background={'#f1e0ac'} >
+      <CardBody background={'#474A51'} >
         <Text>Тут скоро что-то будет!!!</Text>
       </CardBody>
     </Card>

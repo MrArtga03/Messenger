@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useForm } from 'react-hook-form'
 import { QuestionIcon } from "@chakra-ui/icons"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
@@ -31,7 +32,6 @@ import styles from "./AuthPage.module.scss"
 
 const AuthPage = () => {
   const [show, setShow] = useState(false)
-
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -39,7 +39,7 @@ const AuthPage = () => {
 
   const fromPage = location.state?.from?.pathname || "/"
 
-  const handleSubmit = (e) => {
+  const handleSubmitValues = (e) => {
     e.preventDefault()
     const form = e.target
     const user = form.username.value
@@ -48,6 +48,20 @@ const AuthPage = () => {
     signin(user, password, () => navigate(fromPage, { replace: true }))
   }
 
+  const {
+    register,
+    formState: {
+      errors,
+    },
+    handleSubmit,
+  } = useForm({
+    mode: 'onBlur'
+  })
+  
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data))
+  }
+  
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
 
@@ -109,21 +123,29 @@ const AuthPage = () => {
           <Divider />
 
           <CardBody>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Stack mt="3" spacing="3">
                 <Input
+                  {...register('username', {
+                    required: 'Поле опязательно к заполнению!',
+                  })}
                   value={name}
-                  name={"username"}
                   onChange={(e) => setName(e.target.value)}
                   variant={"flushed"}
                   placeholder={"Your name"}
                   color={"#fff"}
                 />
 
+                <Text h={'20px'}>
+                  {errors?.username && <p style={{color: 'red'}}>{errors?.username?.message || 'Вы должны написать ваше имя!'}</p>}
+                </Text>
+
                 <InputGroup size="md">
                   <Input
+                    {...register('password', {
+                      required: 'Поле опязательно к заполнению!',
+                    })}
                     value={password}
-                    name={"password"}
                     onChange={(e) => setPassword(e.target.value)}
                     pr="4.5rem"
                     color={"#fff"}
@@ -131,12 +153,18 @@ const AuthPage = () => {
                     type={show ? "text" : "password"}
                     placeholder={"Enter password"}
                   />
+
+
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleClick}>
                       {show ? "Hide" : "Show"}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+
+                <Text h={'20px'}>
+                  {errors?.password && <p style={{color: 'red'}}>{errors?.password?.message || 'Вы должны написать ваше имя!'}</p>}
+                </Text>
               </Stack>
 
               <Divider mt={"20px"} />
