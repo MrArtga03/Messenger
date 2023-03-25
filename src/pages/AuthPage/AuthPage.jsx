@@ -38,16 +38,7 @@ const AuthPage = () => {
   const { signin } = useAuth()
 
   const fromPage = location.state?.from?.pathname || "/"
-
-  const handleSubmitValues = (e) => {
-    e.preventDefault()
-    const form = e.target
-    const user = form.username.value
-    const password = form.password.value
-
-    signin(user, password, () => navigate(fromPage, { replace: true }))
-  }
-
+  
   const {
     register,
     formState: {
@@ -60,6 +51,10 @@ const AuthPage = () => {
   
   const onSubmit = (data) => {
     alert(JSON.stringify(data))
+
+    const user = data.username
+    const password = data.password
+    signin(user, password, () => navigate(fromPage, { replace: true }))
   }
   
   const [name, setName] = useState("")
