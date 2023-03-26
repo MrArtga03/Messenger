@@ -80,10 +80,9 @@ const ChatRoom = () => {
     }
   }
 
-  const getCaretPosition = (editableDiv) => {
-    let caretPos = 0
-    let sel
-    let range
+  function getCaretPosition(editableDiv) {
+    let caretPos = 0;
+    let sel, range;
     if (window.getSelection) {
       sel = window.getSelection();
       if (sel.rangeCount) {
@@ -92,22 +91,19 @@ const ChatRoom = () => {
           caretPos = range.endOffset;
         }
       }
-    } 
-    else if (document.selection && document.selection.createRange) {
+    } else if (document.selection && document.selection.createRange) {
       range = document.selection.createRange();
-      
       if (range.parentElement() === editableDiv) {
-        var tempEl = document.createElement("span");
+        const tempEl = document.createElement("span");
         editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-        var tempRange = range.duplicate();
+        const tempRange = range.duplicate();
         tempRange.moveToElementText(tempEl);
         tempRange.setEndPoint("EndToEnd", range);
         caretPos = tempRange.text.length;
       }
     }
-  
     return caretPos;
-  }
+  }  
 
   // Добавление эмодзи в сообщение
   const onClickEmojiPicker = (e) => {
