@@ -10,7 +10,7 @@ const HomePage = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsLoading(false)
-    }, 2000)
+    }, 500)
 
     return () => {
       clearTimeout(timeoutId)

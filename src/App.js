@@ -4,7 +4,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import HomePage from './pages/HomePage/HomePage'
 import OrganizationsPage from './pages/OrganizationsPage/OrganizationsPage'
 import SettingsPage from './pages/SettingsPage/SettingsPage'
-import MenuPage from './pages/MenuPage/MenuPage'
 import Layout from './components/Layout/Layout'
 import ChatPage from './pages/ChatPage/ChatPage'
 import AuthPage from './pages/AuthPage/AuthPage'
@@ -32,7 +31,6 @@ const App = () => {
               <Route path='organizations' element={<OrganizationsPage />} />
               <Route path='account' element={<AccountPage />}/>
               <Route path='chat' element={<ChatPage />} />
-              <Route path='menu' element={<MenuPage />} />
               <Route path='setting' element={<SettingsPage />} />
               <Route path='*' element={<NoMatch/>}/>
             </Route>

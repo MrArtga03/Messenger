@@ -42,7 +42,7 @@ const RegContent = () => {
     })
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data))
+    console.log(JSON.stringify(data))
   }
 
   const handleClickPassword = () => setPasShow(!showPas)

@@ -48,7 +48,7 @@ const AuthContent = () => {
   })
   
   const onSubmit = (data) => {
-    alert(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 
     const user = data.username
     const password = data.password
