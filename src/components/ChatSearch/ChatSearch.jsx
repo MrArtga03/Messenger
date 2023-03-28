@@ -6,11 +6,11 @@ import CustomLink from "../CustomLink/CustomLink";
 
 const ChatSearch = () => {
   return (
+    <>
     <Stack
       display={'flex'} 
       flexDirection={'row'}
       align={'center'}
-      h={'100%'}
       w={'100%'} 
       background={'#202123'}
       p={'10px'}
@@ -31,9 +31,11 @@ const ChatSearch = () => {
             <CustomLink to="/organizations">
               Organizations
             </CustomLink>
+
             <CustomLink to='/chat'>
               Chat
             </CustomLink>
+
             <CustomLink to='/setting'>
               Settings
             </CustomLink>
@@ -67,6 +69,7 @@ const ChatSearch = () => {
         />
       </Box>
     </Stack>
+    </>
   )
 }
 

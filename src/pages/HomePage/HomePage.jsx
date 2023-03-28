@@ -18,7 +18,7 @@ const HomePage = () => {
   }, [])
 
   return isLoading ? <PageLoader /> : (
-    <section>
+    <section style={{background: '#000', color: '#fff', width: '100%'}}>
       <h1>Home Page</h1>
     </section>
   );

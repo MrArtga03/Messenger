@@ -9,17 +9,18 @@ import {
 
 import styles from "./Layout.module.scss"
 import ChatSearch from "../ChatSearch/ChatSearch"
+import ChatList from "../ChatList/ChatList"
 
 const Layout = () => {
   return (
     <>
       <main className={styles["main-conteiner"]}>
-        <Stack minW={"300px"} h={"100vh"} background={"#141416"}>
+        <Stack minW={"400px"} h={"100vh"} background={"#141416"}>
           <Card>
             <CardHeader 
               background={"#202123"} 
               color={"#fff"}
-              p={'18px'}
+              p={'10px'}
             >
               <Heading 
                 display={'flex'} 
@@ -36,6 +37,7 @@ const Layout = () => {
                   Account
                 </Link>
               </Heading>
+              <ChatSearch/>
             </CardHeader>
 
             <CardBody
@@ -44,9 +46,11 @@ const Layout = () => {
               justifyContent={"center"}
               background={"#141416"}
               color={"#fff"}
+              overflow={'auto'}
+              style={{ maxHeight: "calc(100vh - 150px)", overflow: "auto" }}
               padding={'0'}
-            >
-              <ChatSearch/>
+              >
+              <ChatList />
             </CardBody>
           </Card>
         </Stack>
