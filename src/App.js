@@ -13,28 +13,28 @@ import NoMatch from './pages/NoMatch/NoMatch'
 import RequireAuth from './hoc/RequireAuth'
 import AuthProvider from './hoc/AuthProvider'
 
+const getProtectedPage = (page) => {
+  return <RequireAuth>{page}</RequireAuth>
+}
+
 const App = () => {
   return (
     <>
     <AuthProvider>
       <ChakraProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path='auth' element={<AuthPage/>}/> 
-            <Route path='reg' element={<RegistrationPage />}/>
-            <Route path='/' element={
-              <RequireAuth>
-                <Layout />
-              </RequireAuth>
-            }>
-              <Route index element={<HomePage />} />
-              <Route path='organizations' element={<OrganizationsPage />} />
-              <Route path='account' element={<AccountPage />}/>
-              <Route path='chat' element={<ChatPage />} />
-              <Route path='setting' element={<SettingsPage />} />
-              <Route path='*' element={<NoMatch/>}/>
-            </Route>
-          </Routes>
+            <Layout>
+              <Routes>
+                <Route path='/' element={getProtectedPage(<HomePage />)} />
+                <Route path='/auth' element={<AuthPage/>}/> 
+                <Route path='/reg' element={<RegistrationPage />}/>
+                <Route path='/organizations' element={getProtectedPage(<OrganizationsPage />)} />
+                <Route path='/account' element={getProtectedPage(<AccountPage />)}/>
+                <Route path='/chat/:id' element={getProtectedPage(<ChatPage />)} />
+                <Route path='/setting' element={getProtectedPage(<SettingsPage />)} />
+                <Route path='*' element={<NoMatch/>}/>
+              </Routes>
+            </Layout>
         </BrowserRouter>
       </ChakraProvider>
     </AuthProvider>

@@ -11,7 +11,7 @@ import styles from "./Layout.module.scss"
 import ChatSearch from "../ChatSearch/ChatSearch"
 import ChatList from "../ChatList/ChatList"
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <>
       <main className={styles["main-conteiner"]}>
@@ -54,7 +54,7 @@ const Layout = () => {
             </CardBody>
           </Card>
         </Stack>
-        <Outlet />
+        {children}
       </main>
     </>
   )

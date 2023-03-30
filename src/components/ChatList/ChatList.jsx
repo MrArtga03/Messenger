@@ -1,38 +1,42 @@
+import { useSelector, useDispatch } from "react-redux"
 import { Stack } from "@chakra-ui/react"
-import { useState } from "react"
+import { Link } from "react-router-dom"
 
+import { clickDelete } from "../../store/chatSlice"
 import ChatItem from "../ChatItem/ChatItem"
 import AddItemChat from "../AddItemChat/AddItemChat"
 
 const ChatList = () => {
-  const [chats, setChats] = useState([])
-
-  const handleAddChat = (title, description) => {
-    setChats([
-      ...chats, 
-      { 
-        id: `${title} - ${chats.length + 1}`, 
-        title: title,
-        description: description
-      }]);
-  };
-
-  const clickDelete = (index) => {
-    const newItems = [...chats];
-    newItems.splice(index, 1);
-    setChats(newItems);
-  }
+  const chats = useSelector(state => state.chats.chats)
+  const dispatch = useDispatch()
+  console.log(chats)
 
   return (
     <>
     <Stack position={'relative'} flex={'1'} overflow={'auto'}>
       <Stack h={'100vh'} spacing={2}>
         {chats.map((chat, index) => (
-          <ChatItem key={chat.id} title={chat.title} description={chat.description} onClick={() => clickDelete(index)}/>
+          <Link 
+            key={chat.id}
+            to={{
+              pathname: `/chat/${chat.id}`,
+              state: { 
+                title: chat.title,
+                description: chat.description,
+              }
+            }}
+          >
+            <ChatItem 
+              key={chat.id} 
+              title={chat.title} 
+              description={chat.description} 
+              onClick={() => dispatch(clickDelete({id: chat.id}))} 
+            />
+          </Link>
         ))}
       </Stack>
     </Stack>
-    <AddItemChat onAddChat={handleAddChat} />
+    <AddItemChat />
     </>
   )
 }

@@ -12,29 +12,30 @@ import {
   Text, 
   useDisclosure 
 } from "@chakra-ui/react"
+import { useDispatch } from "react-redux";
+import { onAddChat } from "../../store/chatSlice";
 
 import FormButton from "../UI/FormButton/FormButton";
 import { useState } from "react";
 
-const CreateChatUser = ( { onAddChat } ) => {
+const AddItemChat = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure()
   
+  const dispatch = useDispatch()
+  const addChat = () => {
+    dispatch(onAddChat({title, description}))
+    setTitle('')
+    setDescription('')
+  }
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value)
   }
 
   const handleTitleDescription = (event) => {
     setDescription(event.target.value)
-  }
-
-  const handleButtonClick = (event) => {
-    event.preventDefault();
-    if (!title || !description) return;
-    onAddChat(title, description);
-    setTitle('');
-    setDescription('');
   }
 
   const {
@@ -99,7 +100,7 @@ const CreateChatUser = ( { onAddChat } ) => {
                 />
             </ModalBody>
             <ModalFooter background={'#1c1d22'} color={'#fff'}>
-              <FormButton type={"submit"} onClick={handleButtonClick} colorScheme='blue' mr={3}>
+              <FormButton type={"submit"} onClick={addChat} colorScheme='blue' mr={3}>
                 Создать
               </FormButton>
               <FormButton colorScheme='blue' mr={3} onClick={onClose}>
@@ -113,4 +114,4 @@ const CreateChatUser = ( { onAddChat } ) => {
   )
 }
 
-export default CreateChatUser
+export default AddItemChat

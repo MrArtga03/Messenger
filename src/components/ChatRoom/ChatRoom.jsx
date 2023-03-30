@@ -8,7 +8,7 @@ import SendMessageButton from "../../assets/svg/SendMessageButton.svg"
 
 import styles from './ChatRoom.module.scss'
 
-const ChatRoom = () => {
+const ChatRoom = ({ title, description }) => {
   const date = new Date()
   const time = `${date.getHours()}:${date.getMinutes()}`
 
@@ -117,9 +117,14 @@ const ChatRoom = () => {
     setCaretPosition(getCaretPosition(e.currentTarget))
   }
 
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
+        <div className={styles['container-info']}>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.description}>{description}</div>
+        </div>
         <form className={styles.form}>
           <div
             className={styles.messages}
