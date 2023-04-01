@@ -25,7 +25,7 @@ const App = () => {
         <BrowserRouter>
             <Layout>
               <Routes>
-                <Route index element={<HomePage />} />
+                <Route index element={getProtectedPage(<HomePage />)} />
                 <Route path='/auth' element={<AuthPage/>}/> 
                 <Route path='/reg' element={<RegistrationPage />}/>
                 <Route path='/organizations' element={getProtectedPage(<OrganizationsPage />)} />
