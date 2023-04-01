@@ -25,14 +25,14 @@ const App = () => {
         <BrowserRouter>
             <Layout>
               <Routes>
-                <Route path='/' element={getProtectedPage(<HomePage />)} />
+                <Route index element={<HomePage />} />
                 <Route path='/auth' element={<AuthPage/>}/> 
                 <Route path='/reg' element={<RegistrationPage />}/>
                 <Route path='/organizations' element={getProtectedPage(<OrganizationsPage />)} />
                 <Route path='/account' element={getProtectedPage(<AccountPage />)}/>
                 <Route path='/chat/:id' element={getProtectedPage(<ChatPage />)} />
                 <Route path='/setting' element={getProtectedPage(<SettingsPage />)} />
-                <Route path='*' element={<NoMatch/>}/>
+                <Route path='*' element={getProtectedPage(<NoMatch/>)}/>
               </Routes>
             </Layout>
         </BrowserRouter>

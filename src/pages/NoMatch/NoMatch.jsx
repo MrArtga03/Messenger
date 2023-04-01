@@ -1,5 +1,8 @@
+import PageNavigation from "../../components/PageNavigation/PageNavigation"
+
 const NoMatch = () => {
   return (
+    <>
     <div style={{
       position: 'absolute',
       top: 0,
@@ -9,10 +12,13 @@ const NoMatch = () => {
       justifyContent: 'center',
       width: '100%',
       height: '100vh',
-      background: 'white',
+      background: '#000',
+      color: '#fff'
     }}>
-      Page not foundlohhh
+      Page not found
+      <PageNavigation />
     </div>
+    </>
   )
 }
 

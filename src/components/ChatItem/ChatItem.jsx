@@ -1,18 +1,10 @@
 import {  Box, Text, CloseButton } from "@chakra-ui/react"
+import styles from './ChatItem.module.scss'
 
 const ChatItem = ({ title, description, onClick  }) => {
   return (
     <Box 
-      display={'flex'} 
-      position={'relative'}
-      flexDirection={'column'}
-      w={'100%'} 
-      h={'50px'}
-      borderTop={'1px solid #2B2B2B'}
-      borderBottom={'1px solid #2B2B2B'}
-      _hover={{
-        background: '#2B2B2B'
-      }}
+      className={styles.container}
     >
       <Box>
         <Text color={'#fff'} fontSize={'16px'}>
