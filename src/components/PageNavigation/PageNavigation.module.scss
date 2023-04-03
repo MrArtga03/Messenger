@@ -1,0 +1,31 @@
+@import "/src/assets/styles/colors";
+
+.buttons-navigate {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .button-goback {
+    background: none;
+    color: $color-text;
+    font-size: 15px;
+    margin: 0;
+    width: 10px;
+
+    &:hover {
+      background: none;
+    }
+  }
+
+  .button-goforward {
+    background: none;
+    color: $color-text;
+    font-size: 15px;
+    margin: 0;
+    width: 10px;
+
+    &:hover {
+      background: none;
+    }
+  }
+}

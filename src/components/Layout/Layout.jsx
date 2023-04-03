@@ -17,17 +17,9 @@ const Layout = ({ children }) => {
       <main className={styles["main-conteiner"]}>
         <Stack minW={"400px"} h={"100vh"} background={"#141416"}>
           <Card>
-            <CardHeader 
-              background={"#202123"} 
-              color={"#fff"}
-              p={'10px'}
-            >
+            <CardHeader className={styles['header-container']}>
               <Heading 
-                display={'flex'} 
-                justifyContent={'center'}  
-                flexDirection={'column'}
-                textAlign={"center"} 
-                fontSize={"23px"}
+                className={styles['header']}
               >
                 <Link to="/" className={styles["nav-link"]}>
                   Messenger
@@ -40,16 +32,7 @@ const Layout = ({ children }) => {
               <ChatSearch/>
             </CardHeader>
 
-            <CardBody
-              display={"flex"}
-              flexDirection={'column'}
-              justifyContent={"center"}
-              background={"#141416"}
-              color={"#fff"}
-              overflow={'auto'}
-              style={{ maxHeight: "calc(100vh - 150px)", overflow: "auto" }}
-              padding={'0'}
-              >
+            <CardBody className={styles['body-container']}>
               <ChatList />
             </CardBody>
           </Card>

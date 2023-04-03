@@ -1,0 +1,17 @@
+@import "/src/assets/styles/colors";
+
+.container-header {
+  background: $color-background;
+  color: $color-text;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-menu {
+      color: $color-text;
+      font-size: 30px;
+    }
+  }
+}

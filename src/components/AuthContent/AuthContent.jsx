@@ -28,6 +28,8 @@ import { useAuth } from "../../hook/useAuth"
 import CustomLink from "../../components/CustomLink/CustomLink"
 import FormButton from "../UI/FormButton/FormButton"
 
+import styles from './AuthContent.module.scss'
+
 const AuthContent = () => {
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
@@ -67,25 +69,21 @@ const AuthContent = () => {
 
   return (
     <Card
-      mt={"10%"}
-      w={"400px"}
+      className={styles['card-container']}
       background={"#141416"}
       borderRadius={"20px"}
     >
       <CardHeader>
         <Heading>
-          <HStack justify={"center"} align={"center"}>
-            <Text align={"center"} color={"#ffffff"} fontSize="2xl">
-              Authorization
-            </Text>
-    
+          <HStack className={styles['stack-header']} >
+            <Text className={styles['stack-title']}>Authorization</Text>
             <Popover>
               <PopoverTrigger>
                 <Button
                   background={"none"}
                   p={"0px 0px 0px 0px"}
                   m={"0px 0px 0px 0px"}
-                  _hover=""
+                  _hover
                 >
                   <QuestionIcon />
                 </Button>

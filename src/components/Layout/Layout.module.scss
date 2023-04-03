@@ -2,5 +2,30 @@
 
 .main-conteiner {
     display: flex;
+
+    .header-container {
+        background: $color-menu-title;
+        color: $color-text;
+        padding: 10px;
+        
+        .header {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            font-size: 23px;
+        }
+    }
+
+    .body-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: $color-chat;
+        color: $color-text;
+        overflow: auto;
+        padding: 0;
+        max-height: calc(100vh - 150px);
+    }
 }
 

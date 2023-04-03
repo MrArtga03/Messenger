@@ -15,29 +15,30 @@ import {
 import FormButton from "../UI/FormButton/FormButton";
 import { useAuth } from "../../hook/useAuth"
 
+import styles from './AccountContent.module.scss'
+
 const AccountContent = () => {
   const { signout } = useAuth()
   const navigate = useNavigate()
   return (
     <Card w={'100%'}>
-      <CardHeader background={'#1c1d22'} color={'#fff'}>
-        <Heading display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+      <CardHeader className={styles['container-header']}>
+        <Heading className={styles['header']}>
           <Text>Ваш профиль</Text>
 
           <Menu
-            color={"#fff"}
-            fontSize={'30px'}
+            className={styles['header-menu']}
             aria-label='Hamburger opener'
-            _hover
             icon={<HamburgerIcon />}
           >
             <MenuButton _hover background={'none'} as={Button}>
               <DragHandleIcon />
             </MenuButton>
 
-            <MenuList border={'none'} background={'#141416'}>
-              <MenuItem background={'#141416'}>
+            <MenuList className={styles['menu-list']} border={'none'} background={'#141416'}>
+              <MenuItem className={styles['menu-item']} background={'#141416'}>
                 <FormButton
+                  className={styles['menu-button']}
                   background={'#141416'}
                   h={'30px'}
                   w={'100%'}
