@@ -1,8 +1,8 @@
-import {  Box, Text, CloseButton } from "@chakra-ui/react"
+import {  Box, Text } from "@chakra-ui/react"
 
 import styles from './ChatItem.module.scss'
 
-const ChatItem = ({ title, description, onClick  }) => {
+const ChatItem = ({ title, description  }) => {
   return (
     <Box 
       className={styles.container}
@@ -16,7 +16,6 @@ const ChatItem = ({ title, description, onClick  }) => {
           {description}
         </Text>
       </Box>
-      <CloseButton className={styles['close-button']} size='sm' onClick={onClick}/>
     </Box>
   )
 }

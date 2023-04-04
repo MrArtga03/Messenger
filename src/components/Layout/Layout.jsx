@@ -29,7 +29,6 @@ const Layout = ({ children }) => {
                   Account
                 </Link>
               </Heading>
-              <ChatSearch/>
             </CardHeader>
 
             <CardBody className={styles['body-container']}>

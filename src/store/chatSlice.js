@@ -11,7 +11,7 @@ const chatSlice = createSlice({
       console.log(action)
 
       state.chats.push({ 
-        id: `${{title: action.payload}} - ${state.chats.length + 1}`, 
+        id: `${action.payload.title} - ${state.chats.length + 1}`, 
         title: action.payload.title,
         description: action.payload.description
       })

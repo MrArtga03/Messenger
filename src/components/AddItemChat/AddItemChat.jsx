@@ -1,14 +1,15 @@
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AddIcon } from "@chakra-ui/icons";
 import { 
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Input,
-  Modal, 
-  ModalBody, 
-  ModalCloseButton,
-  ModalContent, 
-  ModalFooter, 
-  ModalHeader, 
-  ModalOverlay, 
   Text, 
   useDisclosure 
 } from "@chakra-ui/react"
@@ -16,18 +17,24 @@ import { useDispatch } from "react-redux";
 import { onAddChat } from "../../store/chatSlice";
 
 import FormButton from "../UI/FormButton/FormButton";
-import { useState } from "react";
 
 const AddItemChat = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef()
   
   const dispatch = useDispatch()
   const addChat = () => {
+    if(!title) {
+      return
+    }
+    
     dispatch(onAddChat({title, description}))
     setTitle('')
     setDescription('')
+    reset()
+    onClose()
   }
 
   const handleTitleChange = (event) => {
@@ -68,13 +75,24 @@ const AddItemChat = () => {
         <AddIcon w={'30px'}/>
       </FormButton>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader background={'#1c1d22'} color={'#fff'}>Создать чат</ModalHeader>
-          <ModalCloseButton color={'#fff'}/>
+      <Drawer
+        isOpen={isOpen}
+        placement='left'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton color={'#fff'}/>
+          <DrawerHeader 
+            background={'#1c1d22'} 
+            color={'#fff'}
+          >
+              Создать чат
+          </DrawerHeader>
+
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalBody background={'#1c1d22'} color={'#fff'}>
+            <DrawerBody h={'calc(100vh - 134px)'} background={'#1c1d22'} color={'#fff'}>
                 <Input
                   {...register('chatname', {
                     required: 'Поле опязательно к заполнению!',
@@ -98,18 +116,16 @@ const AddItemChat = () => {
                   placeholder={"Описание"}
                   color={"#fff"}
                 />
-            </ModalBody>
-            <ModalFooter background={'#1c1d22'} color={'#fff'}>
+            </DrawerBody>
+          </form>
+
+          <DrawerFooter background={'#1c1d22'} color={'#fff'}>
               <FormButton type={"submit"} onClick={addChat} colorScheme='blue' mr={3}>
                 Создать
               </FormButton>
-              <FormButton colorScheme='blue' mr={3} onClick={onClose}>
-                Закрыть
-              </FormButton>
-            </ModalFooter>
-          </form>
-        </ModalContent>
-      </Modal>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   )
 }
