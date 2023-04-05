@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link } from "react-router-dom"
 import {
   Card,
   CardBody,
@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react"
 
 import styles from "./Layout.module.scss"
-import ChatSearch from "../ChatSearch/ChatSearch"
 import ChatList from "../ChatList/ChatList"
 
 const Layout = ({ children }) => {
@@ -21,12 +20,8 @@ const Layout = ({ children }) => {
               <Heading 
                 className={styles['header']}
               >
-                <Link to="/" className={styles["nav-link"]}>
-                  Messenger
-                </Link>
-
-                <Link style={{fontSize: '14px', marginTop: '5px'}} to='/account' className={styles["nav-link"]}>
-                  Account
+                <Link to="/" className={styles['nav-link']}>
+                  Мессенджер
                 </Link>
               </Heading>
             </CardHeader>

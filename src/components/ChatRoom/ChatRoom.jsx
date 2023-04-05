@@ -5,6 +5,7 @@ import Picker from "@emoji-mart/react"
 import Message from "../Message/Message"
 import Smile from "../../assets/svg/SmileButton.svg"
 import SendMessageButton from "../../assets/svg/SendMessageButton.svg" 
+import { getCaretPosition } from '../../helper/getCaretPosition'
 
 import styles from './ChatRoom.module.scss'
 
@@ -52,11 +53,11 @@ const ChatRoom = ({ title, description }) => {
   }, [message, count, time])
 
   const onKeySendMessage = (e) => {
-    if(e.ctrlKey && e.keyCode === 13) {
+    if(e.ctrlKey && e.key === 'Enter') {
       const diapason = /[0-9A-Za-zА-Яа-я]/
       e.preventDefault()
   
-      if (message === '' && !diapason.test(message)) {
+      if (!message || !diapason.test(message)) {
         return
       }
   
@@ -80,31 +81,6 @@ const ChatRoom = ({ title, description }) => {
     }
   }
 
-  function getCaretPosition(editableDiv) {
-    let caretPos = 0;
-    let sel, range;
-    if (window.getSelection) {
-      sel = window.getSelection();
-      if (sel.rangeCount) {
-        range = sel.getRangeAt(0);
-        if (range.commonAncestorContainer.parentNode === editableDiv) {
-          caretPos = range.endOffset;
-        }
-      }
-    } else if (document.selection && document.selection.createRange) {
-      range = document.selection.createRange();
-      if (range.parentElement() === editableDiv) {
-        const tempEl = document.createElement("span");
-        editableDiv.insertBefore(tempEl, editableDiv.firstChild);
-        const tempRange = range.duplicate();
-        tempRange.moveToElementText(tempEl);
-        tempRange.setEndPoint("EndToEnd", range);
-        caretPos = tempRange.text.length;
-      }
-    }
-    return caretPos;
-  }  
-
   // Добавление эмодзи в сообщение
   const onClickEmojiPicker = (e) => {
     setMessage(prev => {
@@ -116,7 +92,6 @@ const ChatRoom = ({ title, description }) => {
     setMessage(`${e.currentTarget.innerHTML}`)
     setCaretPosition(getCaretPosition(e.currentTarget))
   }
-
 
   return (
     <div className={styles.chat}>

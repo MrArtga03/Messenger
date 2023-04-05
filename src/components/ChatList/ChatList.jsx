@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useSearchParams } from "react-router-dom"
-import { CloseButton, Stack } from "@chakra-ui/react"
+import { Button, CloseButton, IconButton, Menu, MenuButton, MenuItem, MenuList, Stack } from "@chakra-ui/react"
+import { DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { clickDelete } from "../../store/chatSlice"
 import ChatItem from "../ChatItem/ChatItem"
@@ -51,13 +52,47 @@ const ChatList = () => {
                   description={chat.description} 
                 />
               </Link>
-              <CloseButton
-                className={styles['close-button']} 
-                size='sm' 
-                onClick={() => {
-                  dispatch(clickDelete({id: chat.id}))
-                }}
-              />
+
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label='Options'
+                  icon={<HamburgerIcon />}
+                  border={'none'}
+                  borderRadius={'0'}
+                  h={'100%'}
+                  variant='outline'
+                  _hover={{
+                    background: 'none'
+                  }}
+                />
+                <MenuList
+                  border={'none'}
+                  background={'#2B2B2B'}
+                >
+                  <MenuItem
+                    background={'#2B2B2B'}
+                    h={'32px'}
+                    >
+                    <Button
+                      className={styles['close-button']} 
+                      w={'100%'}
+                      fontWeight={'400'}
+                      size='sm' 
+                      background={'#2B2B2B'}
+                      color={'#FF0000'}
+                      _hover={{
+                        background: '#555'
+                      }}
+                      onClick={() => {
+                        dispatch(clickDelete({id: chat.id}))
+                      }}
+                    >
+                      <DeleteIcon mr={'2px'}/> Удалить чат
+                    </Button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </div>
           </>
         ))}

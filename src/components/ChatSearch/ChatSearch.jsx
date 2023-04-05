@@ -30,16 +30,16 @@ const ChatSearch = ({ handleSubmit }) => {
           />
           <MenuList background={'#202123'} border={'none'}>
             <Stack p={'10px'} display={"flex"} spacing={"4"}>
+              <CustomLink to='/account'>
+                Профиль
+              </CustomLink> 
+
               <CustomLink to="/organizations">
-                Organizations
-              </CustomLink>
-          
-              <CustomLink to='/chat'>
-                Chat
+                Организации
               </CustomLink>
           
               <CustomLink to='/setting'>
-                Settings
+                Настройки
               </CustomLink>
             </Stack>
           </MenuList>

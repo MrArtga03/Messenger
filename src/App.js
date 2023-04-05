@@ -10,12 +10,8 @@ import AuthPage from './pages/AuthPage/AuthPage'
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage'
 import AccountPage from './pages/AccountPage/AccountPage'
 import NoMatch from './pages/NoMatch/NoMatch'
-import RequireAuth from './hoc/RequireAuth'
 import AuthProvider from './hoc/AuthProvider'
-
-const getProtectedPage = (page) => {
-  return <RequireAuth>{page}</RequireAuth>
-}
+import { getProtectedPage } from '../src/helper/getProtectedPage'
 
 const App = () => {
   return (
@@ -25,7 +21,7 @@ const App = () => {
         <BrowserRouter>
             <Layout>
               <Routes>
-                <Route index element={getProtectedPage(<HomePage />)} />
+                <Route path='/*' element={getProtectedPage(<HomePage />)} />
                 <Route path='/auth' element={<AuthPage/>}/> 
                 <Route path='/reg' element={<RegistrationPage />}/>
                 <Route path='/organizations' element={getProtectedPage(<OrganizationsPage />)} />
