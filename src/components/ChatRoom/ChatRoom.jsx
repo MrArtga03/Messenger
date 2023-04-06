@@ -1,4 +1,6 @@
 import { createRef, useCallback, useRef, useState} from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { useParams } from 'react-router-dom'
 import data from "@emoji-mart/data"
 import Picker from "@emoji-mart/react"
 
@@ -6,51 +8,50 @@ import Message from "../Message/Message"
 import Smile from "../../assets/svg/SmileButton.svg"
 import SendMessageButton from "../../assets/svg/SendMessageButton.svg" 
 import { getCaretPosition } from '../../helper/getCaretPosition'
+import { getTime } from '../../helper/getTime'
+import { addMessage } from '../../store/messageSlice'
+import { addLastMessageToChat } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
 
 const ChatRoom = ({ title, description }) => {
-  const date = new Date()
-  const time = `${date.getHours()}:${date.getMinutes()}`
-
+  const time = getTime()
   //Рефы на DOM элементы
   const scrollRef = useRef(null)
   const inputRef = createRef()
 
   // Переменные состояния
   const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([])
-  const [count, setCount] = useState(0)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [caretPosition, setCaretPosition] = useState(0)
 
+  const dispatch = useDispatch();
+  const messages = useSelector(state => state.messages.messages)
+
+  const { id } = useParams()
+  
   // Отправка сообщения по кнопке
   const onClickSendMessage = useCallback((e) => {
     const diapason = /[0-9A-Za-zА-Яа-я]/
     e.preventDefault()
 
-    if (message === '' && !diapason.test(message)) {
+    if (!message || !diapason.test(message)) {
       return
     }
 
-    setCount(() => count + 1)
-
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: `message - ${count}`,
-        time: time,
-        text: message,
-        owner: Math.round(Math.random(0, 1))
-      },
-    ])
+    dispatch(addMessage({ message, time }));
+    dispatch(addLastMessageToChat({ 
+      lastMessage: message, 
+      lastTime: time,
+      id 
+    }))
 
     scrollRef.current.scrollTo({
       top: scrollRef.current.scrollHeight,
       behavior: "smooth"
     })
     setMessage('')
-  }, [message, count, time])
+  }, [message, time])
 
   const onKeySendMessage = (e) => {
     if(e.ctrlKey && e.key === 'Enter') {
@@ -61,17 +62,14 @@ const ChatRoom = ({ title, description }) => {
         return
       }
   
-      setCount(() => count + 1)
-  
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `message - ${count}`,
-          time: time,
-          text: message,
-          owner: Math.round(Math.random(0, 1))
-        },
-      ])
+      dispatch(addMessage({ message, time }));
+      dispatch(addMessage({ message, time }));
+      dispatch(addLastMessageToChat({ 
+        lastMessage: message, 
+        lastTime: time,
+        id 
+      }))
+
   
       scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,

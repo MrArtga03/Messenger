@@ -26,6 +26,7 @@ const ChatList = () => {
     setSearchParams({chats: query})
   }
 
+
   return (
     <>
     <ChatSearch handleSubmit={handleSubmit} />
@@ -38,6 +39,7 @@ const ChatList = () => {
           <>
             <div key={chat.id} className={styles['chats']}>
               <Link 
+                key={chat.id}
                 to={{
                   pathname: `/chat/${chat.id}`,
                   state: { 
@@ -50,6 +52,8 @@ const ChatList = () => {
                   key={chat.id} 
                   title={chat.title} 
                   description={chat.description} 
+                  lastMessage={chat.lastMessage}
+                  lastTime={chat.lastTime}
                 />
               </Link>
 

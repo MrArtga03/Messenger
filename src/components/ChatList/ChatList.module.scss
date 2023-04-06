@@ -5,4 +5,8 @@
   position: relative;
   border-top: 1px solid $color-close-button;
   border-bottom: 1px solid $color-close-button;
+
+  &:hover {
+    background: $color-close-button;
+  }
 }

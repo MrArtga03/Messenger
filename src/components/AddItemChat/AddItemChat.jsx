@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
 import { AddIcon } from "@chakra-ui/icons";
 import { 
   Drawer,
@@ -13,14 +14,14 @@ import {
   Text, 
   useDisclosure 
 } from "@chakra-ui/react"
-import { useDispatch } from "react-redux";
-import { onAddChat } from "../../store/chatSlice";
 
 import FormButton from "../UI/FormButton/FormButton";
+import { onAddChat } from "../../store/chatSlice";
+import { setTitle, setDescription } from "../../store/chatItemVariables";
 
 const AddItemChat = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const title = useSelector(state => state.variables.title)
+  const description = useSelector(state => state.variables.description)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   
@@ -31,18 +32,18 @@ const AddItemChat = () => {
     }
     
     dispatch(onAddChat({title, description}))
-    setTitle('')
-    setDescription('')
+    dispatch(setTitle(''))
+    dispatch(setDescription(''))
     reset()
     onClose()
   }
 
   const handleTitleChange = (event) => {
-    setTitle(event.target.value)
+    dispatch(setTitle(event.target.value))
   }
 
   const handleTitleDescription = (event) => {
-    setDescription(event.target.value)
+    dispatch(setDescription(event.target.value))
   }
 
   const {
