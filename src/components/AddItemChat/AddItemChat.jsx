@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
-import { AddIcon } from "@chakra-ui/icons";
+import { memo, useCallback, useRef } from "react"
+import { useForm } from "react-hook-form"
+import { useSelector, useDispatch } from "react-redux"
+import { AddIcon } from "@chakra-ui/icons"
 import { 
   Drawer,
   DrawerBody,
@@ -17,7 +17,7 @@ import {
 
 import FormButton from "../UI/FormButton/FormButton";
 import { onAddChat } from "../../store/chatSlice";
-import { setTitle, setDescription } from "../../store/chatItemVariables";
+import { setTitle, setDescription } from "../../store/chatItemVariables"
 
 const AddItemChat = () => {
   const title = useSelector(state => state.variables.title)
@@ -42,9 +42,9 @@ const AddItemChat = () => {
     dispatch(setTitle(event.target.value))
   }
 
-  const handleTitleDescription = (event) => {
+  const handleTitleDescription = useCallback((event) => {
     dispatch(setDescription(event.target.value))
-  }
+  }, [dispatch, setDescription])
 
   const {
     register,
@@ -131,4 +131,4 @@ const AddItemChat = () => {
   )
 }
 
-export default AddItemChat
+export default memo(AddItemChat)
