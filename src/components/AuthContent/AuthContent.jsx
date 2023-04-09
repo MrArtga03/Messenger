@@ -89,7 +89,7 @@ const AuthContent = () => {
               variant={"flushed"}
               placeholder={"Your name"}
               color={"#fff"}
-              autocomplete="off"
+              autoComplete="off"
             />
   
             <Text h={'20px'}>
@@ -108,7 +108,7 @@ const AuthContent = () => {
                 variant={"flushed"}
                 type={show ? "text" : "password"}
                 placeholder={"Enter password"}
-                autocomplete="off"
+                autoComplete="off"
               />
   
               <InputRightElement width="4.5rem">

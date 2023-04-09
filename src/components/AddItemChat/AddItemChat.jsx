@@ -1,6 +1,6 @@
-import { memo, useCallback, useMemo, useRef } from "react"
+import { memo, useCallback, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 import { AddIcon } from "@chakra-ui/icons"
 import { 
   Drawer,
@@ -17,13 +17,12 @@ import {
 
 import FormButton from "../UI/FormButton/FormButton";
 import { onAddChat } from "../../store/chatSlice";
-import { setTitle, setDescription } from "../../store/chatItemVariables"
 
 import styles from './AddItemChat.module.scss'
 
 const AddItemChat = () => {
-  const title = useSelector(state => state.variables.title)
-  const description = useSelector(state => state.variables.description)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
@@ -35,19 +34,19 @@ const AddItemChat = () => {
     }
     
     dispatch(onAddChat({title, description}))
-    dispatch(setTitle(''))
-    dispatch(setDescription(''))
+    setTitle('')
+    setDescription('')
     reset()
     onClose()
   }
 
   const handleTitleChange = useCallback((event) => {
-    dispatch(setTitle(event.target.value))
-  }, [dispatch, setTitle])
+    setTitle(event.target.value)
+  }, [])
 
   const handleDescriptionChange = useCallback((event) => {
-    dispatch(setDescription(event.target.value))
-  }, [dispatch, setDescription])
+    setDescription(event.target.value)
+  }, [])
 
   const {
     register,
@@ -98,7 +97,7 @@ const AddItemChat = () => {
                   variant={"flushed"}
                   placeholder={"Название чата"}
                   color={"#fff"}
-                  autocomplete="off"
+                  autoComplete="off"
                 />
 
                 <Text h={'20px'}>
@@ -112,7 +111,7 @@ const AddItemChat = () => {
                   onChange={handleDescriptionChange}
                   placeholder={"Описание"}
                   color={"#fff"}
-                  autocomplete="off"
+                  autoComplete="off"
                 />
             </DrawerBody>
           </form>

@@ -40,7 +40,7 @@ const ChatSearch = ({ handleSubmit }) => {
               type='search'
               name='search'
               placeholder='Поиск...'
-              autocomplete="off"
+              autoComplete="off"
             />
             <IconButton 
               className={styles.icon}

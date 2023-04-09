@@ -70,6 +70,7 @@ const RegContent = () => {
               variant={'flushed'} 
               placeholder={'Full organization name'}
               color={'#fff'}
+              autoComplete='off'
             />
 
             <Text h={'15px'}>
@@ -83,6 +84,7 @@ const RegContent = () => {
               variant={'flushed'} 
               placeholder={'Short name'}
               color={'#fff'}
+              autoComplete='off'
             />
 
             <Text h={'15px'}>
@@ -96,6 +98,7 @@ const RegContent = () => {
               variant={'flushed'} 
               placeholder={'Email'}
               color={'#fff'}
+              autoComplete='off'
             />
 
             <Text h={'15px'}>
@@ -116,6 +119,7 @@ const RegContent = () => {
                 variant={'flushed'} 
                 type={showPas ? 'text' : 'password'}
                 placeholder={'Enter new password'}
+                autoComplete='off'
               />
               <InputRightElement width='4.5rem'>
                 <FormButton h='1.75rem' size='sm' onClick={handleClickPassword}>
@@ -138,6 +142,7 @@ const RegContent = () => {
                 variant={'flushed'} 
                 type={showRepPas ? 'text' : 'password'}
                 placeholder={'Repeat password'}
+                autoComplete='off'
               />
               <InputRightElement width='4.5rem'>
                 <FormButton h='1.75rem' size='sm' onClick={handleClickRepPassword}>
