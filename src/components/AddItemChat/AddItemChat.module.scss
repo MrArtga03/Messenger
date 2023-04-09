@@ -1,0 +1,34 @@
+@import "/src/assets/styles/colors";
+
+.button-add {
+  background: $color-add-chat-button !important;
+  margin-top: 5px;
+
+  &:hover {
+    background: $color-hover-add-chat-button !important;
+  }
+
+  .icon {
+    width: 30px;
+  }
+}
+
+.close-button {
+  color: $color-text;
+}
+
+.header {
+  background: $color-background;
+  color: $color-text;
+}
+
+.body {
+  height: calc(100vh - 134px);
+  background: $color-background;
+  color: $color-text;
+}
+
+.footer {
+  background: $color-background;
+  color: $color-text;
+}

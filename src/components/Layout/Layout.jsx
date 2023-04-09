@@ -13,13 +13,11 @@ import ChatList from "../ChatList/ChatList"
 const Layout = ({ children }) => {
   return (
     <>
-      <main className={styles["main-conteiner"]}>
-        <Stack minW={"400px"} h={"100vh"} background={"#141416"}>
+      <main className={styles['main-conteiner']}>
+        <Stack className={styles['wrapper']}>
           <Card>
             <CardHeader className={styles['header-container']}>
-              <Heading 
-                className={styles['header']}
-              >
+              <Heading className={styles['header']}>
                 <Link to="/" className={styles['nav-link']}>
                   Мессенджер
                 </Link>

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { QuestionIcon } from '@chakra-ui/icons'
 import { useForm } from 'react-hook-form'
 import { 
   CardBody, 
@@ -11,21 +10,15 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Button,
   Divider,
-  HStack,
-  Popover,
-  PopoverTrigger,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  PopoverContent
+  HStack
 } from '@chakra-ui/react'
 
 import CustomLink from '../../components/CustomLink/CustomLink'
 import FormButton from '../UI/FormButton/FormButton'
 
+import styles from './RegContent.module.scss'
+import MyPopover from '../UI/Popover/MyPopover'
 
 const RegContent = () => {
   const [showPas, setPasShow] = useState(false)
@@ -49,49 +42,18 @@ const RegContent = () => {
   const handleClickRepPassword = () => setRepPasShow(!showRepPas)
   
   return (
-    <Card
-      mt={'10%'} 
-      w={'400px'} 
-      background={'#141416'}
-      borderRadius={'20px'}
-    >
+    <Card className={styles['card-container']}>
       <CardHeader>
         <Heading>
-          <HStack justify={'center'} align={'center'}>
-            <Text
-              align={'center'} 
-              color={'#ffffff'} 
-              fontSize='2xl'
-            >
+          <HStack className={styles['title-wrapper']}>
+            <Text className={styles['title']}>
               Registration
             </Text>
 
-            <Popover>
-              <PopoverTrigger>
-                <Button 
-                  background={'none'}
-                  p={'0px 0px 0px 0px'}
-                  m={'0px 0px 0px 0px'}
-                  _hover=''
-                >
-                  <QuestionIcon />
-                </Button>
-              </PopoverTrigger>
-
-              <PopoverContent
-                fontSize={'16px'}
-                fontWeight={'400'}
-                background={"#1c1d22"}
-                color={'#fff'}
-              >
-                <PopoverArrow />
-                <PopoverCloseButton />
-                <PopoverHeader>Info</PopoverHeader>
-                <PopoverBody>
-                  If you are a user and you are a member of an organization, then you must log in
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
+            <MyPopover 
+              children1={'info'} 
+              children2={'If you are a user and you are a member of an organization, then you must log in'} 
+            />
           </HStack>
         </Heading>
       </CardHeader>

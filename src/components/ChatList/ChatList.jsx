@@ -26,12 +26,11 @@ const ChatList = () => {
     setSearchParams({chats: query})
   }
 
-
   return (
     <>
     <ChatSearch handleSubmit={handleSubmit} />
 
-    <Stack position={'relative'} flex={'1'} overflow={'auto'}>
+    <Stack className={styles['container-chats']}>
       <Stack h={'100vh'} spacing={2}>
         {chats.filter(
           chat => chat.title.includes(chatQuery)
@@ -59,35 +58,17 @@ const ChatList = () => {
 
               <Menu>
                 <MenuButton
+                  className={styles['menu-button']}
                   as={IconButton}
                   aria-label='Options'
                   icon={<HamburgerIcon />}
-                  border={'none'}
-                  borderRadius={'0'}
-                  h={'100%'}
                   variant='outline'
-                  _hover={{
-                    background: 'none'
-                  }}
                 />
-                <MenuList
-                  border={'none'}
-                  background={'#2B2B2B'}
-                >
-                  <MenuItem
-                    background={'#2B2B2B'}
-                    h={'32px'}
-                    >
+                <MenuList className={styles['menu-list']}>
+                  <MenuItem className={styles['menu-item']}>
                     <Button
-                      className={styles['close-button']} 
-                      w={'100%'}
-                      fontWeight={'400'}
+                      className={styles['delete-item-button']} 
                       size='sm' 
-                      background={'#2B2B2B'}
-                      color={'#FF0000'}
-                      _hover={{
-                        background: '#555'
-                      }}
                       onClick={() => {
                         dispatch(clickDelete({id: chat.id}))
                       }}

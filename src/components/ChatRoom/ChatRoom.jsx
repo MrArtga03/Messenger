@@ -31,7 +31,7 @@ const ChatRoom = ({ title, description }) => {
   const { id } = useParams()
   
   // Отправка сообщения по кнопке
-  const onClickSendMessage = useCallback((e) => {
+  const handleClickSendMessage = useCallback((e) => {
     const diapason = /[0-9A-Za-zА-Яа-я]/
     e.preventDefault()
 
@@ -53,7 +53,7 @@ const ChatRoom = ({ title, description }) => {
     setMessage('')
   }, [message, time])
 
-  const onKeySendMessage = (e) => {
+  const handleKeySendMessage = (e) => {
     if(e.ctrlKey && e.key === 'Enter') {
       const diapason = /[0-9A-Za-zА-Яа-я]/
       e.preventDefault()
@@ -137,7 +137,7 @@ const ChatRoom = ({ title, description }) => {
             value={message}
             ref={inputRef}
             onBlur={handleBlur}
-            onKeyUp={onKeySendMessage}
+            onKeyUp={handleKeySendMessage}
             className={styles['input-text']}
             placeholder={'Enter message...'}
             contentEditable={true}
@@ -146,7 +146,7 @@ const ChatRoom = ({ title, description }) => {
 
           <button
             className={styles['button-send']}
-            onClick={onClickSendMessage}
+            onClick={handleClickSendMessage}
           >
             <img src={SendMessageButton} alt="ERROR" />
           </button>

@@ -10,7 +10,7 @@ const messageSlice = createSlice({
   reducers: {
     addMessage(state, action) {
       state.messages.push({
-        id: `${action.payload.message} - ${state.messages.length + 1}`,
+        id: `${action.payload.message}-${state.messages.length + 1}`,
         time: action.payload.time,
         text: action.payload.message,
         owner: Math.round(Math.random())

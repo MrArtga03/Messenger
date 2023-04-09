@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef } from "react"
+import { memo, useCallback, useMemo, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux"
 import { AddIcon } from "@chakra-ui/icons"
@@ -19,9 +19,12 @@ import FormButton from "../UI/FormButton/FormButton";
 import { onAddChat } from "../../store/chatSlice";
 import { setTitle, setDescription } from "../../store/chatItemVariables"
 
+import styles from './AddItemChat.module.scss'
+
 const AddItemChat = () => {
   const title = useSelector(state => state.variables.title)
   const description = useSelector(state => state.variables.description)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef()
   
@@ -38,11 +41,11 @@ const AddItemChat = () => {
     onClose()
   }
 
-  const handleTitleChange = (event) => {
+  const handleTitleChange = useCallback((event) => {
     dispatch(setTitle(event.target.value))
-  }
+  }, [dispatch, setTitle])
 
-  const handleTitleDescription = useCallback((event) => {
+  const handleDescriptionChange = useCallback((event) => {
     dispatch(setDescription(event.target.value))
   }, [dispatch, setDescription])
 
@@ -65,15 +68,10 @@ const AddItemChat = () => {
   return (
     <>
       <FormButton 
+        className={styles['button-add']}
         onClick={onOpen}
-        background={'#8774E1'}
-        mt={'5px'}
-        h={'50px'}
-        _hover={{
-          background: '#9887e6'
-        }}
       >
-        <AddIcon w={'30px'}/>
+        <AddIcon className={styles.icon}/>
       </FormButton>
 
       <Drawer
@@ -84,16 +82,13 @@ const AddItemChat = () => {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton color={'#fff'}/>
-          <DrawerHeader 
-            background={'#1c1d22'} 
-            color={'#fff'}
-          >
+          <DrawerCloseButton className={styles['close-button']}/>
+          <DrawerHeader className={styles.header}>
               Создать чат
           </DrawerHeader>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <DrawerBody h={'calc(100vh - 134px)'} background={'#1c1d22'} color={'#fff'}>
+            <DrawerBody className={styles.body}>
                 <Input
                   {...register('chatname', {
                     required: 'Поле опязательно к заполнению!',
@@ -103,6 +98,7 @@ const AddItemChat = () => {
                   variant={"flushed"}
                   placeholder={"Название чата"}
                   color={"#fff"}
+                  autocomplete="off"
                 />
 
                 <Text h={'20px'}>
@@ -113,14 +109,15 @@ const AddItemChat = () => {
                   {...register('description')}
                   variant={"flushed"}
                   value={description}
-                  onChange={handleTitleDescription}
+                  onChange={handleDescriptionChange}
                   placeholder={"Описание"}
                   color={"#fff"}
+                  autocomplete="off"
                 />
             </DrawerBody>
           </form>
 
-          <DrawerFooter background={'#1c1d22'} color={'#fff'}>
+          <DrawerFooter className={styles.footer}>
               <FormButton type={"submit"} onClick={addChat} colorScheme='blue' mr={3}>
                 Создать
               </FormButton>

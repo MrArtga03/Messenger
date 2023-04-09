@@ -1,6 +1,5 @@
-import { useState } from "react"
+import { memo, useCallback, useMemo, useState } from "react"
 import { useForm } from 'react-hook-form'
-import { QuestionIcon } from "@chakra-ui/icons"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
   CardBody,
@@ -12,25 +11,19 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Button,
   Divider,
   HStack,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
 } from "@chakra-ui/react"
 
 import { useAuth } from "../../hook/useAuth"
 import CustomLink from "../../components/CustomLink/CustomLink"
 import FormButton from "../UI/FormButton/FormButton"
+import MyPopover from "../UI/Popover/MyPopover"
 
 import styles from './AuthContent.module.scss'
 
 const AuthContent = () => {
+  const [formData, setFormData] = useState({name: '', password: ''})
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
@@ -49,61 +42,35 @@ const AuthContent = () => {
     mode: 'onBlur'
   })
   
-  const onSubmit = (data) => {
+  const errorsMemo = useMemo(() => errors, [errors])
+
+  const onSubmit = useCallback((data) => {
     console.log(JSON.stringify(data))
 
     const user = data.username
     const password = data.password
     signin(user, password, () => navigate(fromPage, { replace: true }))
-  }
+  }, [signin, navigate, fromPage])
   
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
+  const handleChangeShow = useCallback(() => {
+    setShow(show => !show)
+  }, [])  
 
-  const handleClick = () => setShow(!show)
-
-  const sendData = () => {
-    console.log(name)
-    console.log(password)
-  }
+  const handleSendData = useCallback(() => {
+    console.log(formData.name)
+    console.log(formData.password)
+  }, [formData])
 
   return (
-    <Card
-      className={styles['card-container']}
-      background={"#141416"}
-      borderRadius={"20px"}
-    >
+    <Card className={styles['card-container']}>
       <CardHeader>
         <Heading>
           <HStack className={styles['stack-header']} >
             <Text className={styles['stack-title']}>Authorization</Text>
-            <Popover>
-              <PopoverTrigger>
-                <Button
-                  background={"none"}
-                  p={"0px 0px 0px 0px"}
-                  m={"0px 0px 0px 0px"}
-                  _hover
-                >
-                  <QuestionIcon />
-                </Button>
-              </PopoverTrigger>
-    
-              <PopoverContent
-                fontSize={"16px"}
-                fontWeight={"400"}
-                background={"#1c1d22"}
-                color={"#fff"}
-              >
-                <PopoverArrow />
-                <PopoverCloseButton />
-                <PopoverHeader>Info</PopoverHeader>
-                <PopoverBody>
-                  You must log in with an accont provided to you by your
-                  organization
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
+            <MyPopover 
+              children1={'info'} 
+              children2={'You must log in with an accont provided to you by your organization'} 
+            />
           </HStack>
         </Heading>
       </CardHeader>
@@ -117,15 +84,16 @@ const AuthContent = () => {
               {...register('username', {
                 required: 'Поле опязательно к заполнению!',
               })}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              defaultValue={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               variant={"flushed"}
               placeholder={"Your name"}
               color={"#fff"}
+              autocomplete="off"
             />
   
             <Text h={'20px'}>
-              {errors?.username && <p style={{color: 'red'}}>{errors?.username?.message || 'Вы должны написать ваше имя!'}</p>}
+              {errorsMemo?.username && <p style={{color: 'red'}}>{errorsMemo?.username?.message || 'Вы должны написать ваше имя!'}</p>}
             </Text>
             
             <InputGroup size="md">
@@ -133,31 +101,32 @@ const AuthContent = () => {
                 {...register('password', {
                   required: 'Поле опязательно к заполнению!',
                 })}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={(e) => setFormData(e.target.value)}
                 pr="4.5rem"
                 color={"#fff"}
                 variant={"flushed"}
                 type={show ? "text" : "password"}
                 placeholder={"Enter password"}
+                autocomplete="off"
               />
   
               <InputRightElement width="4.5rem">
-                <FormButton h="1.75rem" size="sm" onClick={handleClick}>
+                <FormButton h="1.75rem" size="sm" onClick={handleChangeShow}>
                   {show ? "Hide" : "Show"}
                 </FormButton>
               </InputRightElement>
             </InputGroup>
               
             <Text h={'20px'}>
-              {errors?.password && <p style={{color: 'red'}}>{errors?.password?.message || 'Вы должны написать ваше имя!'}</p>}
+              {errorsMemo?.password && <p style={{color: 'red'}}>{errorsMemo?.password?.message || 'Вы должны написать ваше имя!'}</p>}
             </Text>
           </Stack>
               
           <Divider mt={"20px"} />
               
           <HStack mt={"5px"}>
-            <FormButton type={"submit"} onClick={sendData}>
+            <FormButton type={"submit"} onClick={handleSendData}>
               Log In
             </FormButton>
             <Divider orientation={"vertical"} />
@@ -177,4 +146,4 @@ const AuthContent = () => {
   )
 }
 
-export default AuthContent
+export default memo(AuthContent)

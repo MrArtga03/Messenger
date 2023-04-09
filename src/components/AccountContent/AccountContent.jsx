@@ -21,30 +21,24 @@ const AccountContent = () => {
   const { signout } = useAuth()
   const navigate = useNavigate()
   return (
-    <Card w={'100%'}>
+    <Card className={styles.card}>
       <CardHeader className={styles['container-header']}>
-        <Heading className={styles['header']}>
-          <Text>Ваш профиль</Text>
+        <Heading className={styles.header}>
+          <Text className={styles['header-title']}>Ваш профиль</Text>
 
           <Menu
             className={styles['header-menu']}
             aria-label='Hamburger opener'
             icon={<HamburgerIcon />}
           >
-            <MenuButton _hover background={'none'} as={Button}>
+            <MenuButton className={styles['menu-button']} as={Button}>
               <DragHandleIcon />
             </MenuButton>
 
-            <MenuList className={styles['menu-list']} border={'none'} background={'#141416'}>
-              <MenuItem className={styles['menu-item']} background={'#141416'}>
+            <MenuList className={styles['menu-list']}>
+              <MenuItem className={styles['menu-item']}>
                 <FormButton
-                  className={styles['menu-button']}
-                  background={'#141416'}
-                  h={'30px'}
-                  w={'100%'}
-                  _hover={{
-                    background: '#26272d'
-                  }}
+                  className={styles['menu-logout-button']}
                   onClick={() =>
                     signout(() => navigate("/auth", { replace: true }))
                   }
@@ -57,7 +51,7 @@ const AccountContent = () => {
         </Heading>
       </CardHeader>
 
-      <CardBody background={'#474A51'} >
+      <CardBody className={styles.body}>
         <Text>Тут скоро что-то будет!!!</Text>
       </CardBody>
     </Card>

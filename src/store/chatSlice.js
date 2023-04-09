@@ -8,7 +8,7 @@ const chatSlice = createSlice({
   reducers: {
     onAddChat(state, action) {
       state.chats.push({ 
-        id: `${action.payload.title} - ${state.chats.length + 1}`, 
+        id: `${action.payload.title}-${state.chats.length + 1}`, 
         title: action.payload.title,
         description: action.payload.description,
         lastMessage: action.payload.lastMessage,

@@ -4,80 +4,47 @@ import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 import FormInput from "../UI/FormInput/FormInput";
 import CustomLink from "../CustomLink/CustomLink";
 
-const ChatSearch = ({ handleSubmit }) => {
+import styles from './ChatSearch.module.scss'
 
+const ChatSearch = ({ handleSubmit }) => {
   return (
     <>
-      <Stack
-        display={'flex'} 
-        justify={'space-between'}
-        flexDirection={'row'}
-        align={'center'}
-        w={'100%'} 
-        background={'#202123'}
-        p={'10px'}
-      >
+      <Stack className={styles['container-search']}>
         <Menu>
           <MenuButton 
+            className={styles['menu-button']}
             as={IconButton}
-            background={'#202123'} 
-            fontSize={'25px'}
-            _hover={{
-              borderRadius: '50%',
-              background: '#2B2B2B'
-            }}
             icon={<HamburgerIcon />}
           />
-          <MenuList background={'#202123'} border={'none'}>
-            <Stack p={'10px'} display={"flex"} spacing={"4"}>
-              <CustomLink to='/account'>
+          <MenuList className={styles['menu-list']}>
+            <Stack className={styles['menu-items']} spacing={"2"}>
+              <CustomLink to='/account' className={styles['menu-item']}>
                 Профиль
               </CustomLink> 
 
-              <CustomLink to="/organizations">
+              <CustomLink to="/organizations" className={styles['menu-item']}>
                 Организации
               </CustomLink>
           
-              <CustomLink to='/setting'>
+              <CustomLink to='/setting' className={styles['menu-item']}>
                 Настройки
               </CustomLink>
             </Stack>
           </MenuList>
         </Menu>
-        <Box       
-          display={'flex'} 
-          flexDirection={'row'}
-          align={'center'}
-          mt={'0px !important'}
-          ml={'8px !important'}
-          p={'4px 10px'}
-          borderRadius={'8px'}
-          background={'#26272D'}
-        >
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
+        <Box className={styles.search}>
+          <form className={styles['search-form']} onSubmit={handleSubmit}>
             <FormInput 
-              ml={'5px'}
-              width={'250px'}
-              border={'none'}
+              className={styles['input-search']}
               variant='outline'
-              fontSize={'15px'}
               type='search'
               name='search'
               placeholder='Поиск...'
+              autocomplete="off"
             />
             <IconButton 
-              background={'#26272D'} 
+              className={styles.icon}
               type='submit'
-              _hover={{
-                background: 'none'
-              }}
               aria-label='Search database' 
               icon={<SearchIcon />}
             />

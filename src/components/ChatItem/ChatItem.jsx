@@ -7,21 +7,16 @@ const ChatItem = ({ title, lastMessage, lastTime }) => {
     <Box 
       className={styles.container}
     >
-      <Box>
-        <Text color={'#fff'} fontSize={'18px'}>
+      <Box className={styles['container-chat-data']}>
+        <Text className={styles['title']}>
           {title}
         </Text>
 
-        <Stack 
-          display={'flex'}
-          flexDirection={'row'} 
-          alignItems={'center'}
-          justify={'space-between'} 
-        >
-          <Text color={'#fff'} fontSize={'14px'}>
-            {lastMessage}                 
+        <Stack className={styles['chat-data']}>
+          <Text className={styles['text']}>
+            {lastMessage}
           </Text>
-          <Text m={'0 !important'} color={'#fff'} fontSize={'10px'}>
+          <Text className={styles['time']}>
             {lastTime}                 
           </Text>
         </Stack>
