@@ -5,7 +5,7 @@
   
   .container-header {
     position: relative;
-    height: 9%;
+    height: calc(90px - 33px);
     background: $color-background;
     color: $color-text;
   

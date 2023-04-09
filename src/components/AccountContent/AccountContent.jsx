@@ -20,6 +20,7 @@ import styles from './AccountContent.module.scss'
 const AccountContent = () => {
   const { signout } = useAuth()
   const navigate = useNavigate()
+  
   return (
     <Card className={styles.card}>
       <CardHeader className={styles['container-header']}>
