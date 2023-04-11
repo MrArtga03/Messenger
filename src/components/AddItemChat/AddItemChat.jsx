@@ -1,16 +1,13 @@
-import { memo, useCallback, useRef, useState } from "react"
+import { memo, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux";
 import { AddIcon } from "@chakra-ui/icons"
 import { 
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
+  Box,
+  Heading,
   Input,
+  ScaleFade,
+  Stack,
   Text, 
   useDisclosure 
 } from "@chakra-ui/react"
@@ -23,9 +20,8 @@ import styles from './AddItemChat.module.scss'
 const AddItemChat = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef()
+  
+  const { isOpen, onToggle, onClose } = useDisclosure()
   
   const dispatch = useDispatch()
   const addChat = () => {
@@ -66,28 +62,19 @@ const AddItemChat = () => {
 
   return (
     <>
-      <FormButton 
-        className={styles['button-add']}
-        onClick={onOpen}
-      >
-        <AddIcon className={styles.icon}/>
-      </FormButton>
-
-      <Drawer
-        isOpen={isOpen}
-        placement='left'
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton className={styles['close-button']}/>
-          <DrawerHeader className={styles.header}>
+      <ScaleFade initialScale={0.9} in={isOpen}>
+        <Stack position={'relative'}>
+          <Box
+            className={styles['container-form']}
+            rounded='md'
+            shadow='md'
+          >
+            <Heading className={styles.header}>
               Создать чат
-          </DrawerHeader>
+            </Heading>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <DrawerBody className={styles.body}>
+            <Box className={styles.body}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   {...register('chatname', {
                     required: 'Поле опязательно к заполнению!',
@@ -109,20 +96,28 @@ const AddItemChat = () => {
                   variant={"flushed"}
                   value={description}
                   onChange={handleDescriptionChange}
-                  placeholder={"Описание"}
+                  placeholder={"Описание (необязательно)"}
                   color={"#fff"}
                   autoComplete="off"
                 />
-            </DrawerBody>
-          </form>
+              </form>
+            </Box>
 
-          <DrawerFooter className={styles.footer}>
+            <Box className={styles.footer}>
               <FormButton type={"submit"} onClick={addChat} colorScheme='blue' mr={3}>
                 Создать
               </FormButton>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+            </Box>
+          </Box>
+        </Stack>
+      </ScaleFade>
+
+      <FormButton 
+        className={styles['button-add']}
+        onClick={onToggle}
+      >
+        <AddIcon className={styles.icon}/>
+      </FormButton>
     </>
   )
 }
