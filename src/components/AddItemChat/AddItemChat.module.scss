@@ -1,4 +1,4 @@
-@import "/src/assets/styles/colors";
+@import '/src/assets/styles/colors';
 
 .button-add {
   background: $color-add-chat-button !important;
@@ -18,8 +18,6 @@
 }
 
 .container-form {
-  position: absolute;
-  bottom: 0;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -28,14 +26,14 @@
   background: $color-background;
   width: 100%;
   border-radius: 0;
-  height: calc(100vh - 155px);
+  height: calc(100vh - 150px);
 
   .header {
     background: $color-background;
     color: $color-text;
     margin-bottom: 10px;
   }
-  
+
   .body {
     display: flex;
     flex-direction: column;
@@ -43,7 +41,7 @@
     background: $color-background;
     color: $color-text;
   }
-  
+
   .footer {
     background: $color-background;
     color: $color-text;

@@ -1,4 +1,4 @@
-@import "/src/assets/styles/colors";
+@import '/src/assets/styles/colors';
 
 .container-search {
   display: flex;
@@ -27,9 +27,11 @@
     .menu-items {
       display: flex;
       padding: 5px;
-      
+
       .menu-item {
+        margin-top: 0 !important;
         padding: 5px;
+
         &:hover {
           background: $color-button-hover;
           border-radius: 10px;
@@ -41,19 +43,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 0px;
-    margin-left: 8px;
     padding: 4px 10px;
     border-radius: 8px;
     background: $color-search;
-    
+
     .search-form {
       display: flex;
       flex-direction: row;
       align-items: center;
 
       .input-search {
-        margin-left: 5px;
         width: 250px;
         border: none;
         font-size: 15px;

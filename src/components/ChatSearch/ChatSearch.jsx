@@ -1,8 +1,15 @@
-import { Box, IconButton, Menu, MenuButton, MenuList, Stack } from "@chakra-ui/react"
-import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  Stack,
+} from '@chakra-ui/react'
+import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons'
 
-import FormInput from "../UI/FormInput/FormInput";
-import CustomLink from "../CustomLink/CustomLink";
+import FormInput from '../UI/FormInput/FormInput'
+import CustomLink from '../CustomLink/CustomLink'
 
 import styles from './ChatSearch.module.scss'
 
@@ -11,21 +18,21 @@ const ChatSearch = ({ handleSubmit }) => {
     <>
       <Stack className={styles['container-search']}>
         <Menu>
-          <MenuButton 
+          <MenuButton
             className={styles['menu-button']}
             as={IconButton}
             icon={<HamburgerIcon />}
           />
           <MenuList className={styles['menu-list']}>
-            <Stack className={styles['menu-items']} spacing={"2"}>
+            <Stack className={styles['menu-items']}>
               <CustomLink to='/account' className={styles['menu-item']}>
                 Профиль
-              </CustomLink> 
+              </CustomLink>
 
-              <CustomLink to="/organizations" className={styles['menu-item']}>
+              <CustomLink to='/organizations' className={styles['menu-item']}>
                 Организации
               </CustomLink>
-          
+
               <CustomLink to='/setting' className={styles['menu-item']}>
                 Настройки
               </CustomLink>
@@ -34,18 +41,18 @@ const ChatSearch = ({ handleSubmit }) => {
         </Menu>
         <Box className={styles.search}>
           <form className={styles['search-form']} onSubmit={handleSubmit}>
-            <FormInput 
+            <FormInput
               className={styles['input-search']}
               variant='outline'
               type='search'
               name='search'
               placeholder='Поиск...'
-              autoComplete="off"
+              autoComplete='off'
             />
-            <IconButton 
+            <IconButton
               className={styles.icon}
               type='submit'
-              aria-label='Search database' 
+              aria-label='Search database'
               icon={<SearchIcon />}
             />
           </form>

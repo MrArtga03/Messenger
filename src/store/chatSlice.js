@@ -3,38 +3,45 @@ import { createSlice } from '@reduxjs/toolkit'
 const chatSlice = createSlice({
   name: 'chats',
   initialState: {
-    chats: []
+    chatsList: [],
+    messagesList: [],
+    text: '',
+    time: '',
   },
   reducers: {
     onAddChat(state, action) {
-      state.chats.push({ 
-        id: `${action.payload.title}-${state.chats.length + 1}`, 
+      state.chatsList.push({
+        id: `${action.payload.title}-${state.chatsList.length + 1}`,
         title: action.payload.title,
         description: action.payload.description,
-        lastMessage: action.payload.lastMessage,
-        lastTime: action.payload.lastTime
+        messages: [],
       })
     },
 
-    addLastMessageToChat(state, action) {
-      state.chats = state.chats.map((chat) => {
-        if(chat.id === action.payload.id) {
+    addMessage(state, action) {
+      state.chatsList = state.chatsList.map(chat => {
+        if (chat.id === action.payload.chatId) {
           return {
             ...chat,
-            lastMessage: action.payload.lastMessage,
-            lastTime: action.payload.lastTime
+            messages: [
+              ...chat.messages,
+              { text: action.payload.text, time: action.payload.time },
+            ],
           }
         }
+
         return chat
       })
     },
 
     clickDelete(state, action) {
-      state.chats = state.chats.filter(chat => chat.id !== action.payload.id)
-    }
-  }
+      state.chatsList = state.chatsList.filter(
+        chat => chat.id !== action.payload.id,
+      )
+    },
+  },
 })
 
-export const {onAddChat, addLastMessageToChat, clickDelete} = chatSlice.actions
+export const { onAddChat, addMessage, clickDelete } = chatSlice.actions
 
 export default chatSlice.reducer
