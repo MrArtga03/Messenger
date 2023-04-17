@@ -11,29 +11,43 @@ import RegistrationPage from './pages/RegistrationPage/RegistrationPage'
 import AccountPage from './pages/AccountPage/AccountPage'
 import NoMatch from './pages/NoMatch/NoMatch'
 import AuthProvider from './hoc/AuthProvider'
+import NoChats from './pages/NoChats/NoChats'
 import { getProtectedPage } from '../src/helper/getProtectedPage'
 
 const App = () => {
   return (
     <>
-    <AuthProvider>
-      <ChakraProvider>
-        <BrowserRouter>
+      <AuthProvider>
+        <ChakraProvider>
+          <BrowserRouter>
             <Layout>
               <Routes>
                 <Route path='/*' element={getProtectedPage(<HomePage />)} />
-                <Route path='/auth' element={<AuthPage/>}/> 
-                <Route path='/reg' element={<RegistrationPage />}/>
-                <Route path='/organizations' element={getProtectedPage(<OrganizationsPage />)} />
-                <Route path='/account' element={getProtectedPage(<AccountPage />)}/>
-                <Route path='/chat/:id' element={getProtectedPage(<ChatPage />)} />
-                <Route path='/setting' element={getProtectedPage(<SettingsPage />)} />
-                <Route path='*' element={getProtectedPage(<NoMatch/>)}/>
+                <Route path='/auth' element={<AuthPage />} />
+                <Route path='/reg' element={<RegistrationPage />} />
+                <Route
+                  path='/organizations'
+                  element={getProtectedPage(<OrganizationsPage />)}
+                />
+                <Route
+                  path='/account'
+                  element={getProtectedPage(<AccountPage />)}
+                />
+                <Route
+                  path='/chat/:id'
+                  element={getProtectedPage(<ChatPage />)}
+                />
+                <Route
+                  path='/setting'
+                  element={getProtectedPage(<SettingsPage />)}
+                />
+                <Route path='/nochats' element={<NoChats />} />
+                <Route path='*' element={getProtectedPage(<NoMatch />)} />
               </Routes>
             </Layout>
-        </BrowserRouter>
-      </ChakraProvider>
-    </AuthProvider>
+          </BrowserRouter>
+        </ChakraProvider>
+      </AuthProvider>
     </>
   )
 }

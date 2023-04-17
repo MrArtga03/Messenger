@@ -19,19 +19,25 @@ const chatSlice = createSlice({
     },
 
     addMessage(state, action) {
+      const newMessage = {
+        id: `message-${state.messagesList.length + 1}`,
+        text: action.payload.text,
+        time: action.payload.time,
+        owner: Math.round(Math.random()),
+      }
+
       state.chatsList = state.chatsList.map(chat => {
         if (chat.id === action.payload.chatId) {
           return {
             ...chat,
-            messages: [
-              ...chat.messages,
-              { text: action.payload.text, time: action.payload.time },
-            ],
+            messages: [...chat.messages, newMessage],
           }
         }
 
         return chat
       })
+
+      state.messagesList.push(newMessage)
     },
 
     clickDelete(state, action) {

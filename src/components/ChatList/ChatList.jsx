@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import {
   Button,
   IconButton,
@@ -15,13 +15,14 @@ import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
 import AddItemChat from '../AddItemChat/AddItemChat'
 import ChatSearch from '../ChatSearch/ChatSearch'
-
+import CustomLink from '../CustomLink/CustomLink'
 import styles from './ChatList.module.scss'
 
 const ChatList = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const chats = useSelector(state => state.chats.chatsList)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   console.log(chats)
 
   const chatQuery = searchParams.get('chats') || ''
@@ -34,9 +35,19 @@ const ChatList = () => {
     setSearchParams({ chats: query })
   }
 
+  const handleEnterSubmit = e => {
+    e.preventDefault()
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
     <>
-      <ChatSearch handleSubmit={handleSubmit} />
+      <ChatSearch
+        handleSubmit={handleSubmit}
+        handleEnterSubmit={handleEnterSubmit}
+      />
 
       <Stack className={styles['container-chats']}>
         <Stack h={'100vh'} spacing={2}>
@@ -79,6 +90,7 @@ const ChatList = () => {
                           size='sm'
                           onClick={() => {
                             dispatch(clickDelete({ id: chat.id }))
+                            navigate('/nochats')
                           }}
                         >
                           <DeleteIcon mr={'2px'} /> Удалить чат

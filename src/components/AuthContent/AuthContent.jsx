@@ -44,13 +44,24 @@ const AuthContent = () => {
 
   const onSubmit = useCallback(
     data => {
-      console.log(JSON.stringify(data))
-
       const user = data.username
       const password = data.password
       signin(user, password, () => navigate(fromPage, { replace: true }))
     },
     [signin, navigate, fromPage],
+  )
+
+  const onEnterSubmit = useCallback(
+    e => {
+      e.preventDefault()
+      if (e.key === 'Enter') {
+        const data = { username: formData.name, password: formData.password }
+        signin(data.username, data.password, () =>
+          navigate('/home', { replace: true }),
+        )
+      }
+    },
+    [signin, navigate, formData],
   )
 
   const handleChangeShow = useCallback(() => {
@@ -89,6 +100,7 @@ const AuthContent = () => {
               })}
               defaultValue={formData.name}
               onChange={e => setFormData({ ...formData, name: e.target.value })}
+              onKeyUp={onEnterSubmit}
               variant={'flushed'}
               placeholder={'Your name'}
               color={'#fff'}
@@ -113,6 +125,7 @@ const AuthContent = () => {
                 onChange={e =>
                   setFormData({ ...formData, password: e.target.value })
                 }
+                onKeyUp={onEnterSubmit}
                 pr='4.5rem'
                 color={'#fff'}
                 variant={'flushed'}

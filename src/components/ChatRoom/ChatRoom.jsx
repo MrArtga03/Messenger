@@ -23,6 +23,7 @@ const ChatRoom = ({ title, description }) => {
   const [message, setMessage] = useState('')
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [caretPosition, setCaretPosition] = useState(0)
+  const owner = Math.round(Math.random())
 
   const { id } = useParams()
 
@@ -33,14 +34,14 @@ const ChatRoom = ({ title, description }) => {
   // Отправка сообщения по кнопке
   const handleClickSendMessage = useCallback(
     e => {
-      const diapason = /[0-9A-Za-zА-Яа-я]/
+      const diapason = /[0-9A-Za-zА-Яа-я]|[\uD83C-\uDBFF\uDC00-\uDFFF]+/
       e.preventDefault()
 
       if (!message || !diapason.test(message)) {
         return
       }
 
-      dispatch(addMessage({ chatId: id, text: message, time }))
+      dispatch(addMessage({ chatId: id, owner, text: message, time }))
 
       scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,

@@ -13,7 +13,7 @@ import CustomLink from '../CustomLink/CustomLink'
 
 import styles from './ChatSearch.module.scss'
 
-const ChatSearch = ({ handleSubmit }) => {
+const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
   return (
     <>
       <Stack className={styles['container-search']}>

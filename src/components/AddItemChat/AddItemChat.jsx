@@ -36,6 +36,20 @@ const AddItemChat = () => {
     onClose()
   }
 
+  const addChatEnter = e => {
+    if (!title) {
+      return
+    }
+
+    if (e.key === 'Enter') {
+      dispatch(onAddChat({ title, description }))
+      setTitle('')
+      setDescription('')
+      reset()
+      onClose()
+    }
+  }
+
   const handleTitleChange = useCallback(event => {
     setTitle(event.target.value)
   }, [])
@@ -73,6 +87,7 @@ const AddItemChat = () => {
                   })}
                   value={title}
                   onChange={handleTitleChange}
+                  onKeyUp={addChatEnter}
                   variant={'flushed'}
                   placeholder={'Название чата'}
                   color={'#fff'}
@@ -92,6 +107,7 @@ const AddItemChat = () => {
                   {...register('description')}
                   variant={'flushed'}
                   value={description}
+                  onKeyUp={addChatEnter}
                   onChange={handleDescriptionChange}
                   placeholder={'Описание (необязательно)'}
                   color={'#fff'}
