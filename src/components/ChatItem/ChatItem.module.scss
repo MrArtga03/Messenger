@@ -1,0 +1,44 @@
+@import "/src/assets/styles/colors";
+
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 360px;
+  height: 50px;
+
+  .container-chat-data {
+    margin-left: 8px;
+
+    .title {
+      font-size: 18px;
+      color: $color-text;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chat-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+  
+      .text {
+        font-size: 14px;
+        color: $color-last-message;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+  
+      .time {
+        color: $color-last-message;
+        margin: 0 !important;
+        font-size: 10px;
+      }
+    }
+  }
+}

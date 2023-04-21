@@ -5,35 +5,23 @@ import {
   ButtonGroup
 } from '@chakra-ui/react'
 
+import styles from './PageNavigation.module.scss'
+
 const PageNavigation = () => {
   const navigate = useNavigate()
 
   const goBack = () => navigate(-1)
   const goForward = () => navigate(1)
   return (
-    <ButtonGroup
-      position={'absolute'}
-      top={'0'}
-      left={'0'}
-    >
+    <ButtonGroup className={styles['buttons-navigate']}>
       <Button 
-        background={'none'}
-        color={'#fff'}
-        _hover
-        fontSize={'15px'}
-        m={'0'}
-        w={'10px'}
+        className={styles['button-goback']}
         onClick={goBack}
       >
         <ArrowLeftIcon />
       </Button>
       <Button
-        background={'none'}
-        color={'#fff'}
-        _hover
-        fontSize={'15px'}
-        m={'0'}
-        w={'10px'}
+        className={styles['button-goforward']}
         onClick={goForward}
       >
         <ArrowRightIcon />

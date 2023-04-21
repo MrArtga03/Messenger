@@ -1,6 +1,36 @@
 @import '/src/assets/styles/colors';
 
 .main-conteiner {
-    display: flex;
-}
+  display: flex;
 
+  .wrapper {
+    min-width: 400px;
+    height: 100vh;
+    background: $color-chat;
+
+    .header-container {
+      background: $color-menu-title;
+      color: $color-text;
+      padding: 5px;
+
+      .header {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        font-size: 30px;
+      }
+    }
+
+    .body-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      background: $color-chat;
+      color: $color-text;
+      overflow: auto;
+      padding: 0;
+      max-height: calc(100vh - 50px);
+    }
+  }
+}
