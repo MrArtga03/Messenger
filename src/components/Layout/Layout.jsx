@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 import {
   Card,
   CardBody,
   CardHeader,
   Heading,
   Stack,
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
-import styles from "./Layout.module.scss"
-import ChatList from "../ChatList/ChatList"
+import styles from './Layout.module.scss'
+import ChatList from '../ChatList/ChatList'
 
 const Layout = ({ children }) => {
   return (

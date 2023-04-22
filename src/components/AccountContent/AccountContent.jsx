@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom"
-import { DragHandleIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { useNavigate } from 'react-router-dom'
+import { DragHandleIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { 
   Button,
   Card, 
@@ -10,15 +10,15 @@ import {
   MenuButton, 
   MenuItem, 
   MenuList, 
-  Text } from "@chakra-ui/react";
+  Text } from '@chakra-ui/react'
 
-import FormButton from "../UI/FormButton/FormButton";
-import { useAuth } from "../../hook/useAuth"
+import FormButton from '../UI/FormButton/FormButton'
+import { useAuth } from '../../hook/useAuth'
 
 import styles from './AccountContent.module.scss'
 
 const AccountContent = () => {
-  const { signout } = useAuth()
+  const { signout: signOut } = useAuth()
   const navigate = useNavigate()
   
   return (
@@ -41,7 +41,9 @@ const AccountContent = () => {
                 <FormButton
                   className={styles['menu-logout-button']}
                   onClick={() =>
-                    signout(() => navigate("/auth", { replace: true }))
+                    signOut(() => {
+                      navigate('/auth', { replace: true })
+                    })
                   }
                 >
                   Выйти

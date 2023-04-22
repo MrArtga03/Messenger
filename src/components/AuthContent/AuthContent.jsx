@@ -82,7 +82,7 @@ const AuthContent = () => {
             <MyPopover
               children1={'info'}
               children2={
-                'You must log in with an accont provided to you by your organization'
+                'You must log in with an account provided to you by your organization'
               }
             />
           </HStack>

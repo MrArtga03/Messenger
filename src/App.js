@@ -12,7 +12,7 @@ import AccountPage from './pages/AccountPage/AccountPage'
 import NoMatch from './pages/NoMatch/NoMatch'
 import AuthProvider from './hoc/AuthProvider'
 import NoChats from './pages/NoChats/NoChats'
-import { getProtectedPage } from '../src/helper/getProtectedPage'
+import { getProtectedPage } from './helper/getProtectedPage'
 
 const App = () => {
   return (

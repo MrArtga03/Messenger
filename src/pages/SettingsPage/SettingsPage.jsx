@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import styles from "./SettingsPage.module.scss";
+import styles from './SettingsPage.module.scss';
 
 const SettingsPage = () => {
   return (
@@ -10,4 +10,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default SettingsPage

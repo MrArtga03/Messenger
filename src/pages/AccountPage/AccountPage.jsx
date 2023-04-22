@@ -1,4 +1,4 @@
-import AccountContent from "../../components/AccountContent/AccountContent";
+import AccountContent from '../../components/AccountContent/AccountContent'
 
 const AccountPage = () => {
   return (
@@ -6,4 +6,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default AccountPage

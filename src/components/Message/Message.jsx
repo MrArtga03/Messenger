@@ -1,6 +1,6 @@
-import React, { memo } from "react"
+import React, { memo } from 'react'
 
-import styles from "./Message.module.scss"
+import styles from './Message.module.scss'
 
 const Message = ({ message, isOwner, time }) => {
   return (

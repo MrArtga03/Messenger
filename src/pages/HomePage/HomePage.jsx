@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import PageLoader from "../../components/PageLoader/PageLoader";
+import PageLoader from '../../components/PageLoader/PageLoader'
 
 import styles from "./HomePage.module.scss";
 
@@ -24,4 +24,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage

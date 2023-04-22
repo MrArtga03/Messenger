@@ -82,7 +82,7 @@ const AddItemChat = () => {
             <Box className={styles.body}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
-                  {...register('chatname', {
+                  {...register('chat-name', {
                     required: 'Поле опязательно к заполнению!',
                   })}
                   value={title}

@@ -1,7 +1,7 @@
-import AuthContent from "../../components/AuthContent/AuthContent"
-import PageNavigation from "../../components/PageNavigation/PageNavigation"
+import AuthContent from '../../components/AuthContent/AuthContent'
+import PageNavigation from '../../components/PageNavigation/PageNavigation'
 
-import styles from "./AuthPage.module.scss"
+import styles from './AuthPage.module.scss'
 
 const AuthPage = () => {
   return (

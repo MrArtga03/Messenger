@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { 
   Button,

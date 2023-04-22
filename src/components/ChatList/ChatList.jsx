@@ -15,7 +15,7 @@ import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
 import AddItemChat from '../AddItemChat/AddItemChat'
 import ChatSearch from '../ChatSearch/ChatSearch'
-import CustomLink from '../CustomLink/CustomLink'
+
 import styles from './ChatList.module.scss'
 
 const ChatList = () => {

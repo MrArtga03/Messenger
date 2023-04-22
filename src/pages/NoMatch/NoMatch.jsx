@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import PageNavigation from "../../components/PageNavigation/PageNavigation"
+import { Link } from 'react-router-dom'
+import PageNavigation from '../../components/PageNavigation/PageNavigation'
 
 const NoMatch = () => {
   return (
