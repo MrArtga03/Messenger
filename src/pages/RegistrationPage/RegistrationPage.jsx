@@ -7,7 +7,7 @@ const RegistrationPage = () => {
   return (
     <section className={styles.container}>
       <PageNavigation />
-      <div className={styles.wrapper}>
+      <div>
         <RegContent />
       </div>
     </section>

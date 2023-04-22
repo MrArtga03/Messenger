@@ -49,7 +49,7 @@ const ChatRoom = ({ title, description }) => {
       })
       setMessage('')
     },
-    [message, time],
+    [message, time, dispatch, id, owner],
   )
 
   const handleKeySendMessage = e => {
@@ -93,7 +93,9 @@ const ChatRoom = ({ title, description }) => {
 
         <div
           className={styles['emoji-picker']}
-          onMouseOut={() => setShowEmojiPicker(false)}
+          onMouseOut={() =>
+            setShowEmojiPicker(false)
+          }
         >
           {showEmojiPicker && (
             <Picker data={data} onEmojiSelect={onClickEmojiPicker} />
@@ -105,7 +107,9 @@ const ChatRoom = ({ title, description }) => {
         <form className={styles['form-input']}>
           <div
             style={{ cursor: 'pointer' }}
-            onMouseOver={() => setShowEmojiPicker(true)}
+            onMouseOver={() =>
+              setShowEmojiPicker(true)
+            }
           >
             <img src={Smile} alt='ERROR' />
           </div>

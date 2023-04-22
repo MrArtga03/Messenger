@@ -15,13 +15,13 @@ const PageNavigation = () => {
   return (
     <ButtonGroup className={styles['buttons-navigate']}>
       <Button 
-        className={styles['button-goback']}
+        className={styles['button-go-back']}
         onClick={goBack}
       >
         <ArrowLeftIcon />
       </Button>
       <Button
-        className={styles['button-goforward']}
+        className={styles['button-go-forward']}
         onClick={goForward}
       >
         <ArrowRightIcon />

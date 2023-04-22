@@ -38,8 +38,12 @@ const RegContent = () => {
     console.log(JSON.stringify(data))
   }
 
-  const handleClickPassword = () => setPasShow(!showPas)
-  const handleClickRepPassword = () => setRepPasShow(!showRepPas)
+  const handleClickPassword = () => {
+    setPasShow(!showPas)
+  }
+  const handleClickRepPassword = () => {
+    setRepPasShow(!showRepPas)
+  }
   
   return (
     <Card className={styles['card-container']}>
@@ -134,7 +138,7 @@ const RegContent = () => {
 
             <InputGroup size='md'>
               <Input
-                {...register('reppass', {
+                {...register('repass', {
                   required: 'Поле является обязательным!'
                 })}
                 pr='4.5rem'

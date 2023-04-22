@@ -28,7 +28,7 @@ const AuthContent = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const { signin } = useAuth()
+  const { signin: signIn } = useAuth()
 
   const fromPage = location.state?.from?.pathname || '/'
 
@@ -46,9 +46,11 @@ const AuthContent = () => {
     data => {
       const user = data.username
       const password = data.password
-      signin(user, password, () => navigate(fromPage, { replace: true }))
+      signIn(user, password, () => {
+        navigate(fromPage, { replace: true })
+      })
     },
-    [signin, navigate, fromPage],
+    [signIn, navigate, fromPage],
   )
 
   const onEnterSubmit = useCallback(
@@ -56,12 +58,12 @@ const AuthContent = () => {
       e.preventDefault()
       if (e.key === 'Enter') {
         const data = { username: formData.name, password: formData.password }
-        signin(data.username, data.password, () =>
+        signIn(data.username, data.password, () =>
           navigate('/home', { replace: true }),
         )
       }
     },
-    [signin, navigate, formData],
+    [signIn, navigate, formData],
   )
 
   const handleChangeShow = useCallback(() => {
@@ -99,7 +101,9 @@ const AuthContent = () => {
                 required: 'Поле опязательно к заполнению!',
               })}
               defaultValue={formData.name}
-              onChange={e => setFormData({ ...formData, name: e.target.value })}
+              onChange={e =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               onKeyUp={onEnterSubmit}
               variant={'flushed'}
               placeholder={'Your name'}

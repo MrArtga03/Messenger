@@ -7,7 +7,7 @@ const AuthPage = () => {
   return (
     <section className={styles.container}>
       <PageNavigation />
-      <div className={styles.wrapper}>
+      <div>
         <AuthContent />
       </div>
     </section>

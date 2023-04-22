@@ -17,7 +17,7 @@ const NoMatch = () => {
       background: '#000',
       color: '#fff'
     }}>
-      Page not found
+      Страница не найдена
       <Link to='/'>
         Home
       </Link>
