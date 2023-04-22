@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import PageLoader from '../../components/PageLoader/PageLoader'
 
-import styles from "./HomePage.module.scss";
-
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true)
 
