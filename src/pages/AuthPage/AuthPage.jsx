@@ -1,4 +1,4 @@
-import AuthContent from '../../components/AuthContent/AuthContent'
+import AuthContent from '../AuthContent/AuthContent'
 import PageNavigation from '../../components/PageNavigation/PageNavigation'
 
 import styles from './AuthPage.module.scss'

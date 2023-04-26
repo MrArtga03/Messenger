@@ -1,10 +1,10 @@
-import { createRef, useCallback, useRef, useState } from 'react'
+import { createRef, useCallback, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
-import Message from '../Message/Message'
+import Message from '../../components/Message/Message'
 import Smile from '../../assets/svg/SmileButton.svg'
 import SendMessageButton from '../../assets/svg/SendMessageButton.svg'
 import { getCaretPosition } from '../../helper/getCaretPosition'
@@ -32,29 +32,28 @@ const ChatRoom = ({ title, description }) => {
   const currentChat = chatsList.find(chat => chat.id === id)
 
   // Отправка сообщения по кнопке
-  const handleClickSendMessage = useCallback(
-    e => {
-      const diapason = /[0-9A-Za-zА-Яа-я]|[\uD83C-\uDBFF\uDC00-\uDFFF]+/
+  const handleSubmit = e => {
+    const diapason = /[0-9A-Za-zА-Яа-я]|[\uD83C-\uDBFF\uDC00-\uDFFF]+/
+    e.preventDefault()
+
+    if (!message || !diapason.test(message)) {
+      return
+    }
+
+    dispatch(addMessage({ chatId: id, owner, text: message, time }))
+
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: 'smooth',
+    })
+    setMessage('')
+    inputRef.current.focus()
+  }
+
+  const handleKeyDown = e => {
+    if (!e.shiftKey && e.key === 'Enter') {
       e.preventDefault()
-
-      if (!message || !diapason.test(message)) {
-        return
-      }
-
-      dispatch(addMessage({ chatId: id, owner, text: message, time }))
-
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: 'smooth',
-      })
-      setMessage('')
-    },
-    [message, time, dispatch, id, owner],
-  )
-
-  const handleKeySendMessage = e => {
-    if (e.ctrlKey && e.key === 'Enter') {
-      handleClickSendMessage(e)
+      handleSubmit(e)
     }
   }
 
@@ -70,11 +69,22 @@ const ChatRoom = ({ title, description }) => {
     setCaretPosition(getCaretPosition(e.currentTarget))
   }
 
+  const handleInput = e => {
+    setMessage(e.currentTarget.textContent)
+    setCaretPosition(window.getSelection().focusOffset)
+  }
+
+  useEffect(() => {
+    const selection = window.getSelection()
+    selection.collapse(inputRef.current.firstChild, caretPosition)
+    selection.setPosition(inputRef.current.firstChild, caretPosition)
+  }, [message, caretPosition])
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
         <div className={styles['container-info']}>
-          <div className={styles.title}>{title}</div>
+          <div className={styles.title}>{id}</div>
           <div className={styles.description}>{description}</div>
         </div>
         <form className={styles.form}>
@@ -84,7 +94,7 @@ const ChatRoom = ({ title, description }) => {
                 <Message
                   key={message.id}
                   isOwner={message.owner}
-                  message={message.text}
+                  message={message.text.replace(/\n/g, '<br>')}
                   time={message.time}
                 />
               ))}
@@ -93,9 +103,9 @@ const ChatRoom = ({ title, description }) => {
 
         <div
           className={styles['emoji-picker']}
-          onMouseOut={() =>
+          onMouseOut={() => {
             setShowEmojiPicker(false)
-          }
+          }}
         >
           {showEmojiPicker && (
             <Picker data={data} onEmojiSelect={onClickEmojiPicker} />
@@ -104,31 +114,28 @@ const ChatRoom = ({ title, description }) => {
       </div>
 
       <div className={styles.input}>
-        <form className={styles['form-input']}>
+        <form className={styles['form-input']} onSubmit={handleSubmit}>
           <div
-            style={{ cursor: 'pointer' }}
-            onMouseOver={() =>
+            className={styles['button-emoji']}
+            onMouseOver={() => {
               setShowEmojiPicker(true)
-            }
+            }}
           >
             <img src={Smile} alt='ERROR' />
           </div>
 
           <div
-            value={message}
             ref={inputRef}
             onBlur={handleBlur}
-            onKeyUp={handleKeySendMessage}
-            className={styles['input-text']}
-            placeholder={'Enter message...'}
+            onInput={handleInput}
+            onKeyDown={handleKeyDown}
             contentEditable={true}
             dangerouslySetInnerHTML={{ __html: message }}
+            placeholder={'Enter message...'}
+            className={styles['input-text']}
           />
 
-          <button
-            className={styles['button-send']}
-            onClick={handleClickSendMessage}
-          >
+          <button type='submit' className={styles['button-send']}>
             <img src={SendMessageButton} alt='ERROR' />
           </button>
         </form>

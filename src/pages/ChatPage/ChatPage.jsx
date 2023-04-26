@@ -1,5 +1,5 @@
 import styles from './ChatPage.module.scss'
-import ChatRoom from '../../components/ChatRoom/ChatRoom'
+import ChatRoom from '../ChatRoom/ChatRoom'
 
 const ChatPage = () => {
   return (

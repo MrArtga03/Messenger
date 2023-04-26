@@ -6,7 +6,10 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  background: $color-chat;
+  background-image: url('../../assets/imgs/chat-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 
   .container {
     display: flex;
@@ -20,10 +23,9 @@
     .container-info {
       display: flex;
       flex-direction: column;
-      background: $color-scrollbar-foreground;
+      background: $color-background;
       width: 100%;
       height: 45px;
-      z-index: 9999;
 
       .title {
         font-size: 14px;
@@ -71,7 +73,6 @@
     justify-content: center;
     width: 100%;
     padding: 10px;
-    border-top: 1px solid $color-line;
 
     .form-input {
       display: flex;
@@ -85,20 +86,28 @@
       padding: 5px 10px;
       border-radius: 8px;
 
+      .button-emoji {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 40px;
+        height: 40px;
+        cursor: pointer;
+      }
+
       .input-text {
-        margin-right: 10px;
+        margin: 0 10px 0 10px;
         font-size: 18px;
         background: $color-interlocutors-message;
         color: $color-text;
         padding: 5px 12px;
         min-width: 608px;
         max-width: 608px;
-        max-height: 222px !important;
         border: none;
         border-radius: 8px;
         resize: none;
         white-space: pre-wrap;
-        max-height: 250px;
+        max-height: 222px;
         overflow-y: auto;
 
         &[contenteditable][placeholder]:empty:before {

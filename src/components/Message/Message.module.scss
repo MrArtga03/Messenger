@@ -14,14 +14,13 @@
     flex-direction: row-reverse;
     align-items: flex-start;
 
-    .poligon {
+    .polygon {
       width: 17px;
       height: 15px;
       background: $color-my-message;
-      border-radius: 0px 0px 4000px 0px;
       clip-path: polygon(100% 0, 0% 100%, 0 0);
-      border-radius: 0px 5px 0px 0px;
-      margin: 7px 0 7px 0;
+      border-radius: 0 5px 0 0;
+      margin: 3px 0 3px 0;
     }
   
     .my-box-context {
@@ -30,7 +29,7 @@
       flex-direction: column;
       position: relative;
       max-width: 400px;
-      margin: 7px 0 7px 0;
+      margin: 3px 0 3px 0;
       padding: 5px 10px;
       border-radius: 6px 0 6px 6px;
       background: $color-my-message;
@@ -64,14 +63,13 @@
     display: flex;
     align-items: flex-start;
     
-    .poligon {
+    .polygon {
       width: 17px;
       height: 15px;
       background: $color-interlocutors-message;
-      border-radius: 0px 0px 4000px 0px;
       clip-path: polygon(100% 0, 0 0, 100% 100%);
-      border-radius: 5px 0px 0px 0px;
-      margin: 7px 0 7px 0;
+      border-radius: 5px 0 0 0;
+      margin: 3px 0 3px 0;
     }
     
     .opponent-box-context {
@@ -80,7 +78,7 @@
       flex-direction: column;
       position: relative;
       max-width: 400px;
-      margin: 7px 0 7px 0;
+      margin: 3px 0 3px 0;
       padding: 5px 10px;
       border-radius: 0 6px 6px 6px;
       background: $color-interlocutors-message;
