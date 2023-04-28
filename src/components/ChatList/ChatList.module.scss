@@ -1,0 +1,48 @@
+@import '/src/styles/colors';
+
+.container-chats {
+  position: relative;
+  flex: 1;
+  overflow: auto;
+  .chats {
+    display: flex;
+    position: relative;
+    border-top: 1px solid $color-close-button;
+    border-bottom: 1px solid $color-close-button;
+
+    &:hover {
+      background: $color-close-button;
+    }
+
+    .menu-button {
+      border: none;
+      border-radius: 0;
+      height: 100%;
+
+      &:hover {
+        background: none;
+      }
+    }
+
+    .menu-list {
+      border: none;
+      background: $color-list;
+
+      .menu-item {
+        background: $color-list-item;
+        height: 32px;
+
+        .delete-item-button {
+          width: 100%;
+          font-weight: 400;
+          background: $color-close-button;
+          color: $color-danger-zone;
+
+          &:hover {
+            background: $color-button-hover;
+          }
+        }
+      }
+    }
+  }
+}

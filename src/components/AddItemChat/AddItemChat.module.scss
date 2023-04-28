@@ -1,0 +1,53 @@
+@import '/src/styles/colors';
+
+.container {
+
+  .button-add {
+    width: 100%;
+    background: $color-add-chat-button;
+    margin-top: 5px;
+
+    &:hover {
+      background: $color-hover-add-chat-button;
+    }
+
+    .icon {
+      width: 30px;
+    }
+  }
+}
+
+.close-button {
+  color: $color-text;
+}
+
+.container-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+  color: $color-text;
+  background: $color-background;
+  width: 100%;
+  border-radius: 0;
+  height: calc(100vh - 150px);
+
+  .header {
+    background: $color-background;
+    color: $color-text;
+    margin-bottom: 10px;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 134px);
+    background: $color-background;
+    color: $color-text;
+  }
+
+  .footer {
+    background: $color-background;
+    color: $color-text;
+  }
+}
