@@ -45,9 +45,24 @@ const chatSlice = createSlice({
         chat => chat.id !== action.payload.id,
       )
     },
+
+    clickDeleteMessage(state, action) {
+      state.chatsList = state.chatsList.map(chat => {
+        if (chat.messages.some(message => message.id === action.payload.id)) {
+          return {
+            ...chat,
+            messages: chat.messages.filter(
+              message => message.id !== action.payload.id,
+            ),
+          }
+        }
+        return chat
+      })
+    },
   },
 })
 
-export const { onAddChat, addMessage, clickDelete } = chatSlice.actions
+export const { onAddChat, addMessage, clickDelete, clickDeleteMessage } =
+  chatSlice.actions
 
 export default chatSlice.reducer

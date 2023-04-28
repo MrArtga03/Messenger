@@ -2,9 +2,11 @@ import React, { memo } from 'react'
 
 import styles from './Message.module.scss'
 
-const Message = ({ message, isOwner, time }) => {
+const Message = ({ message, isOwner, time, onMouseDown, onContextMenu }) => {
   return (
     <section
+      onMouseDown={onMouseDown}
+      onContextMenu={onContextMenu}
       className={
         isOwner === 0
           ? styles['my-message-box']

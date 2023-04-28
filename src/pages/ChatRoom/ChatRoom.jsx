@@ -9,9 +9,13 @@ import Smile from '../../assets/svg/SmileButton.svg'
 import SendMessageButton from '../../assets/svg/SendMessageButton.svg'
 import { getCaretPosition } from '../../helper/getCaretPosition'
 import { getTime } from '../../helper/getTime'
-import { addMessage } from '../../store/chatSlice'
+import { addMessage, clickDelete } from '../../store/chatSlice'
+import { clickDeleteMessage } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
+import FormButton from '../../components/UI/FormButton/FormButton'
+import { DeleteIcon } from '@chakra-ui/icons'
+import { noChatsUrl } from '../../constants/urls'
 
 const ChatRoom = ({ title, description }) => {
   const time = getTime()
@@ -21,6 +25,7 @@ const ChatRoom = ({ title, description }) => {
 
   // Переменные состояния
   const [message, setMessage] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [caretPosition, setCaretPosition] = useState(0)
   const owner = Math.round(Math.random())
@@ -80,6 +85,13 @@ const ChatRoom = ({ title, description }) => {
     selection.setPosition(inputRef.current.firstChild, caretPosition)
   }, [message, caretPosition])
 
+  const handleClickMessage = (e, messageId) => {
+    e.preventDefault()
+    if (e.button === 2) {
+      setIsOpen(messageId)
+    }
+  }
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
@@ -91,12 +103,48 @@ const ChatRoom = ({ title, description }) => {
           <div className={styles.messages} ref={scrollRef}>
             {currentChat &&
               currentChat.messages.map(message => (
-                <Message
-                  key={message.id}
-                  isOwner={message.owner}
-                  message={message.text.replace(/\n/g, '<br>')}
-                  time={message.time}
-                />
+                <>
+                  <div
+                    className={styles['container-context-menu']}
+                    key={message.id}
+                  >
+                    <Message
+                      isOwner={message.owner}
+                      message={message.text.replace(/\n/g, '<br>')}
+                      time={message.time}
+                      onMouseDown={e => {
+                        handleClickMessage(e, message.id)
+                      }}
+                      onContextMenu={e => {
+                        e.preventDefault()
+                      }}
+                    />
+                    {isOpen === message.id && (
+                      <div
+                        onMouseLeave={() => {
+                          setIsOpen(false)
+                        }}
+                        onContextMenu={e => {
+                          e.preventDefault()
+                        }}
+                        className={
+                          message.owner === 0
+                            ? styles['my-context-menu']
+                            : styles['opponent-context-menu']
+                        }
+                      >
+                        <FormButton
+                          onClick={() => {
+                            dispatch(clickDeleteMessage({ id: message.id }))
+                          }}
+                          className={styles['delete-message']}
+                        >
+                          <DeleteIcon mr={'2px'} /> Удалить сообщение
+                        </FormButton>
+                      </div>
+                    )}
+                  </div>
+                </>
               ))}
           </div>
         </form>
