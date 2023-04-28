@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { AddIcon } from '@chakra-ui/icons'
@@ -18,12 +18,19 @@ import { onAddChat } from '../../store/chatSlice'
 import styles from './AddItemChat.module.scss'
 
 const AddItemChat = () => {
+  const inputTitleRef = useRef(null)
+
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const { isOpen, onToggle, onClose } = useDisclosure()
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    inputTitleRef.current.focus()
+  }, [isOpen])
+
   const addChat = () => {
     if (!title) {
       return
@@ -82,7 +89,7 @@ const AddItemChat = () => {
             <Box className={styles.body}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
-                  {...register('chatname', {
+                  {...register('chat-name', {
                     required: 'Поле опязательно к заполнению!',
                   })}
                   value={title}
@@ -90,8 +97,8 @@ const AddItemChat = () => {
                   onKeyUp={addChatEnter}
                   variant={'flushed'}
                   placeholder={'Название чата'}
-                  color={'#fff'}
                   autoComplete='off'
+                  ref={inputTitleRef}
                 />
 
                 <Text h={'20px'}>
@@ -110,7 +117,6 @@ const AddItemChat = () => {
                   onKeyUp={addChatEnter}
                   onChange={handleDescriptionChange}
                   placeholder={'Описание (необязательно)'}
-                  color={'#fff'}
                   autoComplete='off'
                 />
               </form>
@@ -130,9 +136,11 @@ const AddItemChat = () => {
         </Stack>
       </Collapse>
 
-      <FormButton className={styles['button-add']} onClick={onToggle}>
-        <AddIcon className={styles.icon} />
-      </FormButton>
+      <div className={styles.container}>
+        <FormButton className={styles['button-add']} onClick={onToggle}>
+          <AddIcon className={styles.icon} />
+        </FormButton>
+      </div>
     </>
   )
 }

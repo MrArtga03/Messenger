@@ -1,4 +1,4 @@
-import RequireAuth from "../hoc/RequireAuth"
+import RequireAuth from '../hoc/RequireAuth'
 
 export const getProtectedPage = (page) => {
   return <RequireAuth>{page}</RequireAuth>

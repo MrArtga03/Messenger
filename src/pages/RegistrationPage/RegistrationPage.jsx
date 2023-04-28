@@ -1,5 +1,5 @@
 import PageNavigation from '../../components/PageNavigation/PageNavigation'
-import RegContent from '../../components/RegContent/RegContent'
+import RegContent from '../RegContent/RegContent'
 
 import styles from './RegistrationPage.module.scss'
 
@@ -7,7 +7,7 @@ const RegistrationPage = () => {
   return (
     <section className={styles.container}>
       <PageNavigation />
-      <div className={styles.wrapper}>
+      <div>
         <RegContent />
       </div>
     </section>

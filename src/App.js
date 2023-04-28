@@ -1,6 +1,17 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 
+import {
+  homeUrl,
+  authUrl,
+  chatIdUrl,
+  regUrl,
+  noMatchUrl,
+  settingsUrl,
+  organizationsUrl,
+  accountUrl,
+  noChatsUrl,
+} from './constants/urls'
 import HomePage from './pages/HomePage/HomePage'
 import OrganizationsPage from './pages/OrganizationsPage/OrganizationsPage'
 import SettingsPage from './pages/SettingsPage/SettingsPage'
@@ -12,7 +23,7 @@ import AccountPage from './pages/AccountPage/AccountPage'
 import NoMatch from './pages/NoMatch/NoMatch'
 import AuthProvider from './hoc/AuthProvider'
 import NoChats from './pages/NoChats/NoChats'
-import { getProtectedPage } from '../src/helper/getProtectedPage'
+import { getProtectedPage } from './helper/getProtectedPage'
 
 const App = () => {
   return (
@@ -22,27 +33,33 @@ const App = () => {
           <BrowserRouter>
             <Layout>
               <Routes>
-                <Route path='/*' element={getProtectedPage(<HomePage />)} />
-                <Route path='/auth' element={<AuthPage />} />
-                <Route path='/reg' element={<RegistrationPage />} />
                 <Route
-                  path='/organizations'
+                  path={homeUrl}
+                  element={getProtectedPage(<HomePage />)}
+                />
+                <Route path={authUrl} element={<AuthPage />} />
+                <Route path={regUrl} element={<RegistrationPage />} />
+                <Route
+                  path={organizationsUrl}
                   element={getProtectedPage(<OrganizationsPage />)}
                 />
                 <Route
-                  path='/account'
+                  path={accountUrl}
                   element={getProtectedPage(<AccountPage />)}
                 />
                 <Route
-                  path='/chat/:id'
+                  path={chatIdUrl}
                   element={getProtectedPage(<ChatPage />)}
                 />
                 <Route
-                  path='/setting'
+                  path={settingsUrl}
                   element={getProtectedPage(<SettingsPage />)}
                 />
-                <Route path='/nochats' element={<NoChats />} />
-                <Route path='*' element={getProtectedPage(<NoMatch />)} />
+                <Route path={noChatsUrl} element={<NoChats />} />
+                <Route
+                  path={noMatchUrl}
+                  element={getProtectedPage(<NoMatch />)}
+                />
               </Routes>
             </Layout>
           </BrowserRouter>

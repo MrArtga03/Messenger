@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react'
 import { DeleteIcon, HamburgerIcon } from '@chakra-ui/icons'
 
+import { chatUrl, noChatsUrl } from '../../constants/urls'
 import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
 import AddItemChat from '../AddItemChat/AddItemChat'
 import ChatSearch from '../ChatSearch/ChatSearch'
-import CustomLink from '../CustomLink/CustomLink'
+
 import styles from './ChatList.module.scss'
 
 const ChatList = () => {
@@ -42,6 +43,9 @@ const ChatList = () => {
     }
   }
 
+  let lastMessage = ''
+  let lastTime = ''
+
   return (
     <>
       <ChatSearch
@@ -54,13 +58,13 @@ const ChatList = () => {
           {chats
             .filter(chat => chat.title.includes(chatQuery))
             .map(chat => {
-              const lastMessage = chat.messages[chat.messages.length - 1]?.text
-              const lastTime = chat.messages[chat.messages.length - 1]?.time
+              lastMessage = chat.messages[chat.messages.length - 1]?.text
+              lastTime = chat.messages[chat.messages.length - 1]?.time
               return (
                 <div key={chat.id} className={styles['chats']}>
                   <Link
                     to={{
-                      pathname: `/chat/${chat.id}`,
+                      pathname: `${chatUrl}/${chat.id}`,
                       state: {
                         title: chat.title,
                         description: chat.description,
@@ -90,7 +94,7 @@ const ChatList = () => {
                           size='sm'
                           onClick={() => {
                             dispatch(clickDelete({ id: chat.id }))
-                            navigate('/nochats')
+                            navigate(noChatsUrl)
                           }}
                         >
                           <DeleteIcon mr={'2px'} /> Удалить чат

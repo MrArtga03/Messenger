@@ -1,15 +1,19 @@
-@import '/src/assets/styles/colors';
+@import '/src/styles/colors';
 
-.button-add {
-  background: $color-add-chat-button !important;
-  margin-top: 5px;
+.container {
 
-  &:hover {
-    background: $color-hover-add-chat-button !important;
-  }
+  .button-add {
+    width: 100%;
+    background: $color-add-chat-button;
+    margin-top: 5px;
 
-  .icon {
-    width: 30px;
+    &:hover {
+      background: $color-hover-add-chat-button;
+    }
+
+    .icon {
+      width: 30px;
+    }
   }
 }
 

@@ -1,9 +1,7 @@
-import AccountContent from "../../components/AccountContent/AccountContent";
+import AccountContent from '../AccountContent/AccountContent'
 
 const AccountPage = () => {
-  return (
-    <AccountContent/>
-  );
-};
+  return <AccountContent />
+}
 
-export default AccountPage;
+export default AccountPage

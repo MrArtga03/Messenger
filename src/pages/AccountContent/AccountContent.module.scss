@@ -1,4 +1,4 @@
-@import '/src/assets/styles/colors';
+@import '/src/styles/colors';
 
 .card {
   width: 100%;
@@ -55,6 +55,6 @@
   }
 
   .body {
-    background: #474a51;
+    background: $color-working;
   }
 }

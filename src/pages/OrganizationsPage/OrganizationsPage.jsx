@@ -1,13 +1,5 @@
-import React from "react";
-
-import styles from "./OrganizationsPage.module.scss";
-
 const OrganizationsPage = () => {
-  return (
-    <section className={styles.organization}>
+  return <section>В разработке</section>
+}
 
-    </section>
-  );
-};
-
-export default OrganizationsPage;
+export default OrganizationsPage
