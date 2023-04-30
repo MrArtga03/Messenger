@@ -16,12 +16,16 @@ import FormButton from '../UI/FormButton/FormButton'
 import { onAddChat } from '../../store/chatSlice'
 
 import styles from './AddItemChat.module.scss'
+import AddImageChat from '../AddImageChat/AddImageChat'
 
 const AddItemChat = () => {
   const inputTitleRef = useRef(null)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [image, setImage] = useState()
+  const fileReader = new FileReader()
+  const [imageURL, setImageURL] = useState()
 
   const { isOpen, onToggle, onClose } = useDisclosure()
 
@@ -36,7 +40,7 @@ const AddItemChat = () => {
       return
     }
 
-    dispatch(onAddChat({ title, description }))
+    dispatch(onAddChat({ title, description, imageURL }))
     setTitle('')
     setDescription('')
     reset()
@@ -79,6 +83,18 @@ const AddItemChat = () => {
     reset()
   }
 
+  fileReader.onloadend = () => {
+    setImageURL(fileReader.result)
+  }
+  const handleImageChange = e => {
+    e.preventDefault()
+    const files = e.target.files
+    if (files && files.length > 0) {
+      setImage(files)
+      fileReader.readAsDataURL(files[0])
+    }
+  }
+
   return (
     <>
       <Collapse in={isOpen} animateOpacity>
@@ -87,6 +103,11 @@ const AddItemChat = () => {
             <Heading className={styles.header}>Создать чат</Heading>
 
             <Box className={styles.body}>
+              <AddImageChat
+                imageURL={imageURL}
+                file={image}
+                onChange={handleImageChange}
+              />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   {...register('chat-name', {

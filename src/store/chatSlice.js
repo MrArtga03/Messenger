@@ -14,6 +14,7 @@ const chatSlice = createSlice({
         id: `${action.payload.title}-${state.chatsList.length + 1}`,
         title: action.payload.title,
         description: action.payload.description,
+        imageURL: action.payload.imageURL,
         messages: [],
       })
     },

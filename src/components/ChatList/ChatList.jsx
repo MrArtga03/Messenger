@@ -76,6 +76,7 @@ const ChatList = () => {
                       description={chat.description}
                       lastMessage={lastMessage}
                       lastTime={lastTime}
+                      file={chat.imageURL}
                     />
                   </Link>
 

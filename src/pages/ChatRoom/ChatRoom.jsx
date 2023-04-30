@@ -9,13 +9,13 @@ import Smile from '../../assets/svg/SmileButton.svg'
 import SendMessageButton from '../../assets/svg/SendMessageButton.svg'
 import { getCaretPosition } from '../../helper/getCaretPosition'
 import { getTime } from '../../helper/getTime'
-import { addMessage, clickDelete } from '../../store/chatSlice'
+import { addMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
 import FormButton from '../../components/UI/FormButton/FormButton'
 import { DeleteIcon } from '@chakra-ui/icons'
-import { noChatsUrl } from '../../constants/urls'
+import NoMessages from '../NoMessages/NoMessages'
 
 const ChatRoom = ({ title, description }) => {
   const time = getTime()
@@ -101,7 +101,7 @@ const ChatRoom = ({ title, description }) => {
         </div>
         <form className={styles.form}>
           <div className={styles.messages} ref={scrollRef}>
-            {currentChat &&
+            {currentChat.messages.length !== 0 ? (
               currentChat.messages.map(message => (
                 <>
                   <div
@@ -145,7 +145,10 @@ const ChatRoom = ({ title, description }) => {
                     )}
                   </div>
                 </>
-              ))}
+              ))
+            ) : (
+              <NoMessages />
+            )}
           </div>
         </form>
 
