@@ -24,8 +24,8 @@ const AddItemChat = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [image, setImage] = useState()
-  const fileReader = new FileReader()
   const [imageURL, setImageURL] = useState()
+  const fileReader = new FileReader()
 
   const { isOpen, onToggle, onClose } = useDisclosure()
 
@@ -53,7 +53,7 @@ const AddItemChat = () => {
     }
 
     if (e.key === 'Enter') {
-      dispatch(onAddChat({ title, description }))
+      dispatch(onAddChat({ title, description, imageURL }))
       setTitle('')
       setDescription('')
       reset()
@@ -68,6 +68,22 @@ const AddItemChat = () => {
   const handleDescriptionChange = useCallback(event => {
     setDescription(event.target.value)
   }, [])
+
+  const handleKeyDown = e => {
+    if (e.keyCode === 27) {
+      onClose()
+    }
+  }
+
+  useEffect(() => {
+    inputTitleRef.current.focus()
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose, inputTitleRef])
 
   const {
     register,
@@ -97,7 +113,7 @@ const AddItemChat = () => {
 
   return (
     <>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isOpen} onChange={handleKeyDown} animateOpacity>
         <Stack position={'relative'}>
           <Box className={styles['container-form']} rounded='md' shadow='md'>
             <Heading className={styles.header}>Создать чат</Heading>
