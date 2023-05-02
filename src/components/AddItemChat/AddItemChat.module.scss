@@ -10,10 +10,6 @@
     &:hover {
       background: $color-hover-add-chat-button;
     }
-
-    .icon {
-      width: 30px;
-    }
   }
 }
 
@@ -47,6 +43,7 @@
   }
 
   .footer {
+    margin-top: 10px;
     background: $color-background;
     color: $color-text;
   }
