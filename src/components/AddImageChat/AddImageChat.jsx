@@ -2,7 +2,7 @@ import { Image } from '@chakra-ui/react'
 
 import styles from './AddImageChat.module.scss'
 
-const AddImageChat = ({ onChange, file, imageURL }) => {
+const AddImageChat = ({ onChange, imageURL }) => {
   return (
     <form className={styles['form-add-image']}>
       <div className={styles['input-wrapper']}>
@@ -11,6 +11,8 @@ const AddImageChat = ({ onChange, file, imageURL }) => {
           className={styles['upload-image']}
           id={'file-loader-button'}
           type={'file'}
+          accept={'image/*'}
+          capture={'camera'}
         />
       </div>
       <Image

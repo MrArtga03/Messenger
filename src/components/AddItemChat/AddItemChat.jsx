@@ -10,9 +10,10 @@ import {
   Text,
   useDisclosure,
   Collapse,
+  Button,
+  IconButton,
 } from '@chakra-ui/react'
 
-import FormButton from '../UI/FormButton/FormButton'
 import { onAddChat } from '../../store/chatSlice'
 
 import styles from './AddItemChat.module.scss'
@@ -23,7 +24,6 @@ const AddItemChat = () => {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [image, setImage] = useState()
   const [imageURL, setImageURL] = useState()
   const fileReader = new FileReader()
 
@@ -43,6 +43,7 @@ const AddItemChat = () => {
     dispatch(onAddChat({ title, description, imageURL }))
     setTitle('')
     setDescription('')
+    setImageURL(null)
     reset()
     onClose()
   }
@@ -56,6 +57,7 @@ const AddItemChat = () => {
       dispatch(onAddChat({ title, description, imageURL }))
       setTitle('')
       setDescription('')
+      setImageURL(null)
       reset()
       onClose()
     }
@@ -71,6 +73,7 @@ const AddItemChat = () => {
 
   const handleKeyDown = e => {
     if (e.keyCode === 27) {
+      setImageURL(null)
       onClose()
     }
   }
@@ -102,11 +105,11 @@ const AddItemChat = () => {
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
+
   const handleImageChange = e => {
     e.preventDefault()
     const files = e.target.files
     if (files && files.length > 0) {
-      setImage(files)
       fileReader.readAsDataURL(files[0])
     }
   }
@@ -119,11 +122,7 @@ const AddItemChat = () => {
             <Heading className={styles.header}>Создать чат</Heading>
 
             <Box className={styles.body}>
-              <AddImageChat
-                imageURL={imageURL}
-                file={image}
-                onChange={handleImageChange}
-              />
+              <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   {...register('chat-name', {
@@ -160,23 +159,26 @@ const AddItemChat = () => {
             </Box>
 
             <Box className={styles.footer}>
-              <FormButton
+              <Button
                 type={'submit'}
                 onClick={addChat}
                 colorScheme='blue'
                 mr={3}
               >
                 Создать
-              </FormButton>
+              </Button>
             </Box>
           </Box>
         </Stack>
       </Collapse>
 
       <div className={styles.container}>
-        <FormButton className={styles['button-add']} onClick={onToggle}>
-          <AddIcon className={styles.icon} />
-        </FormButton>
+        <IconButton
+          className={styles['button-add']}
+          onClick={onToggle}
+          icon={<AddIcon />}
+          aria-label={'Add Item'}
+        />
       </div>
     </>
   )
