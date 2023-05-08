@@ -1,5 +1,6 @@
-import FormButton from '../UI/FormButton/FormButton'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+
+import FormButton from '../UI/FormButton/FormButton'
 
 import styles from './MessageContextMenu.module.scss'
 

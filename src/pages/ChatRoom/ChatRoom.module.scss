@@ -72,42 +72,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 50%;
     padding: 10px;
-
-    .edit-message-container {
-      display: flex;
-      background: $color-interlocutors-message;
-      height: 70px;
-      border-radius: 8px 8px 0 0;
-
-      .edit-message {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        width: 100%;
-        padding: 20px;
-        color: $color-text;
-
-        .edit-icon {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #8774E1;
-          font-size: 25px;
-          margin-right: 20px;
-        }
-
-        .edit-info {
-          display: flex;
-          flex-direction: column;
-          max-width: 100%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
 
     .form-input {
       display: flex;

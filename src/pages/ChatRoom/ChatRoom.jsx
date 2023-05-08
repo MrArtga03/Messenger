@@ -13,10 +13,11 @@ import { addMessage, clickEditMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
-import { CheckIcon, EditIcon } from '@chakra-ui/icons'
+import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
-import { Box } from '@chakra-ui/react'
+import { Box, IconButton } from '@chakra-ui/react'
+import EditMessage from '../../components/EditMessage/EditMessage'
 
 const ChatRoom = ({ description }) => {
   const time = getTime()
@@ -181,17 +182,12 @@ const ChatRoom = ({ description }) => {
 
       <div className={styles.input}>
         {editingMessage && (
-          <div className={styles['edit-message-container']}>
-            <Box className={styles['edit-message']}>
-              <Box className={styles['edit-icon']}>
-                <EditIcon />
-              </Box>
-              <Box className={styles['edit-info']}>
-                <span>Редактирование</span>
-                <span>{editedMessage}</span>
-              </Box>
-            </Box>
-          </div>
+          <EditMessage
+            onClick={() => {
+              setEditingMessage(false)
+            }}
+            editedMessage={editedMessage}
+          />
         )}
         <form
           className={
