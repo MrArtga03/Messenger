@@ -2,7 +2,14 @@ import React, { memo } from 'react'
 
 import styles from './Message.module.scss'
 
-const Message = ({ message, isOwner, time, onMouseDown, onContextMenu }) => {
+const Message = ({
+  message,
+  isOwner,
+  time,
+  onMouseDown,
+  onContextMenu,
+  editedText,
+}) => {
   return (
     <section
       onMouseDown={onMouseDown}
@@ -38,6 +45,7 @@ const Message = ({ message, isOwner, time, onMouseDown, onContextMenu }) => {
             }
           >
             {time}
+            {editedText}
           </span>
         </div>
       </div>

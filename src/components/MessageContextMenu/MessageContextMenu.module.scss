@@ -1,0 +1,16 @@
+@import '/src/styles/colors';
+
+.container {
+
+  .action-message {
+    font-size: 14px;
+    width: 100%;
+    font-weight: 400;
+    background: $color-chat;
+    color: $color-text;
+
+    &:hover {
+      background: $color-button-hover;
+    }
+  }
+}

@@ -100,7 +100,7 @@ const AuthContent = () => {
             <Stack mt='3' spacing='3'>
               <Input
                 {...register('username', {
-                  required: 'Поле опязательно к заполнению!',
+                  required: 'Поле обязательно к заполнению!',
                 })}
                 defaultValue={formData.name}
                 onChange={e =>
@@ -124,7 +124,7 @@ const AuthContent = () => {
               <InputGroup size='md'>
                 <Input
                   {...register('password', {
-                    required: 'Поле опязательно к заполнению!',
+                    required: 'Поле обязательно к заполнению!',
                   })}
                   value={formData.password}
                   onChange={e =>
