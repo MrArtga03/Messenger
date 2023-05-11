@@ -155,7 +155,6 @@
   flex-direction: column;
   position: absolute;
   top: 100%;
-  z-index: 1;
   width: 230px;
   height: auto;
   font-size: 16px;
@@ -170,11 +169,13 @@
 
   .my-context-menu {
     @extend .context-menu;
+    z-index: 9999;
     right: 30px;
   }
 
   .opponent-context-menu {
     @extend .context-menu;
+    z-index: 9999;
     left: 30px;
   }
 }

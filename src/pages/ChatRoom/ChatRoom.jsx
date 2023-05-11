@@ -13,10 +13,9 @@ import { addMessage, clickEditMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
-import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons'
+import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
-import { Box, IconButton } from '@chakra-ui/react'
 import EditMessage from '../../components/EditMessage/EditMessage'
 
 const ChatRoom = ({ description }) => {
@@ -119,9 +118,12 @@ const ChatRoom = ({ description }) => {
             {currentChat && currentChat.messages.length !== 0 ? (
               currentChat.messages.map(message => (
                 <>
-                  <div className={styles['container-context-menu']}>
+                  <div
+                    key={message.id}
+                    className={styles['container-context-menu']}
+                  >
                     <Message
-                      key={message.id}
+                      key={`${message.id}`}
                       isOwner={message.owner}
                       message={message.text.replace(/\n/g, '<br>')}
                       time={message.time}
@@ -132,7 +134,11 @@ const ChatRoom = ({ description }) => {
                         e.preventDefault()
                       }}
                       editedText={
-                        editingMessageId === message.id ? ' Ред.' : ''
+                        editedMessage === message.text
+                          ? ''
+                          : editingMessageId === message.id
+                          ? ' Ред.'
+                          : ''
                       }
                     />
                     {isOpen === message.id && (
@@ -163,7 +169,7 @@ const ChatRoom = ({ description }) => {
                 </>
               ))
             ) : (
-              <NoMessages />
+              <NoMessages key='no-messages' />
             )}
           </div>
         </form>
@@ -185,6 +191,7 @@ const ChatRoom = ({ description }) => {
           <EditMessage
             onClick={() => {
               setEditingMessage(false)
+              setMessage('')
             }}
             editedMessage={editedMessage}
           />
