@@ -24,7 +24,6 @@ const ChatList = () => {
   const chats = useSelector(state => state.chats.chatsList)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log(chats)
 
   const chatQuery = searchParams.get('chats') || ''
 

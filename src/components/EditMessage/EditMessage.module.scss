@@ -1,0 +1,60 @@
+@import "/src/styles/colors";
+
+.edit-message-container {
+  display: flex;
+  align-items: center;
+  background: $color-interlocutors-message;
+  height: 70px;
+  border-radius: 8px 8px 0 0;
+
+  .edit-message {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    padding: 17px;
+    color: $color-text;
+
+    .edit-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color-add-chat-button;
+      font-size: 25px;
+      margin-right: 20px;
+    }
+
+    .edit-info {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .title-edit-message {
+        color: $color-add-chat-button;
+        padding: 0;
+      }
+
+      .edit-message {
+        color: $color-last-message;
+        padding: 0;
+      }
+    }
+  }
+
+  .close-button-container {
+    padding: 10px;
+
+    .close-button {
+      background: none;
+      color: $color-text;
+      border-radius: 100%;
+
+      &:hover {
+        background: $color-working;
+      }
+    }
+  }
+}

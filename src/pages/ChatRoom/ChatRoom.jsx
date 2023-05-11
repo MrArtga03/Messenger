@@ -1,4 +1,4 @@
-import { createRef, useCallback, useEffect, useRef, useState } from 'react'
+import { createRef, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import data from '@emoji-mart/data'
@@ -9,15 +9,16 @@ import Smile from '../../assets/svg/SmileButton.svg'
 import SendMessageButton from '../../assets/svg/SendMessageButton.svg'
 import { getCaretPosition } from '../../helper/getCaretPosition'
 import { getTime } from '../../helper/getTime'
-import { addMessage } from '../../store/chatSlice'
+import { addMessage, clickEditMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
 
 import styles from './ChatRoom.module.scss'
-import FormButton from '../../components/UI/FormButton/FormButton'
-import { DeleteIcon } from '@chakra-ui/icons'
+import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
+import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
+import EditMessage from '../../components/EditMessage/EditMessage'
 
-const ChatRoom = ({ title, description }) => {
+const ChatRoom = ({ description }) => {
   const time = getTime()
   //Рефы на DOM элементы
   const scrollRef = useRef(null)
@@ -28,6 +29,9 @@ const ChatRoom = ({ title, description }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [caretPosition, setCaretPosition] = useState(0)
+  const [editedMessage, setEditedMessage] = useState()
+  const [editingMessage, setEditingMessage] = useState(null)
+  const [editingMessageId, setEditingMessageId] = useState()
   const owner = Math.round(Math.random())
 
   const { id } = useParams()
@@ -59,6 +63,7 @@ const ChatRoom = ({ title, description }) => {
     if (!e.shiftKey && e.key === 'Enter') {
       e.preventDefault()
       handleSubmit(e)
+      setEditingMessage(false)
     }
   }
 
@@ -83,13 +88,22 @@ const ChatRoom = ({ title, description }) => {
     const selection = window.getSelection()
     selection.collapse(inputRef.current.firstChild, caretPosition)
     selection.setPosition(inputRef.current.firstChild, caretPosition)
-  }, [message, caretPosition])
+  }, [message, caretPosition, inputRef])
 
   const handleClickMessage = (e, messageId) => {
     e.preventDefault()
     if (e.button === 2) {
       setIsOpen(messageId)
     }
+  }
+
+  const handleEditMessage = (e, messageText, messageId) => {
+    e.preventDefault()
+    setMessage(messageText)
+    setEditedMessage(messageText)
+    setCaretPosition(getCaretPosition(inputRef.current))
+    setEditingMessageId(messageId)
+    setEditingMessage(true)
   }
 
   return (
@@ -101,14 +115,15 @@ const ChatRoom = ({ title, description }) => {
         </div>
         <form className={styles.form}>
           <div className={styles.messages} ref={scrollRef}>
-            {currentChat.messages.length !== 0 ? (
+            {currentChat && currentChat.messages.length !== 0 ? (
               currentChat.messages.map(message => (
                 <>
                   <div
-                    className={styles['container-context-menu']}
                     key={message.id}
+                    className={styles['container-context-menu']}
                   >
                     <Message
+                      key={`${message.id}`}
                       isOwner={message.owner}
                       message={message.text.replace(/\n/g, '<br>')}
                       time={message.time}
@@ -118,6 +133,13 @@ const ChatRoom = ({ title, description }) => {
                       onContextMenu={e => {
                         e.preventDefault()
                       }}
+                      editedText={
+                        editedMessage === message.text
+                          ? ''
+                          : editingMessageId === message.id
+                          ? ' Ред.'
+                          : ''
+                      }
                     />
                     {isOpen === message.id && (
                       <div
@@ -133,21 +155,21 @@ const ChatRoom = ({ title, description }) => {
                             : styles['opponent-context-menu']
                         }
                       >
-                        <FormButton
-                          onClick={() => {
+                        <MessageContextMenu
+                          onClickDeleteMessage={() => {
                             dispatch(clickDeleteMessage({ id: message.id }))
                           }}
-                          className={styles['delete-message']}
-                        >
-                          <DeleteIcon mr={'2px'} /> Удалить сообщение
-                        </FormButton>
+                          onClickEditMessage={e => {
+                            handleEditMessage(e, message.text, message.id)
+                          }}
+                        />
                       </div>
                     )}
                   </div>
                 </>
               ))
             ) : (
-              <NoMessages />
+              <NoMessages key='no-messages' />
             )}
           </div>
         </form>
@@ -165,7 +187,20 @@ const ChatRoom = ({ title, description }) => {
       </div>
 
       <div className={styles.input}>
-        <form className={styles['form-input']} onSubmit={handleSubmit}>
+        {editingMessage && (
+          <EditMessage
+            onClick={() => {
+              setEditingMessage(false)
+              setMessage('')
+            }}
+            editedMessage={editedMessage}
+          />
+        )}
+        <form
+          className={
+            !editingMessage ? styles['form-input'] : styles['form-input-edit']
+          }
+        >
           <div
             className={styles['button-emoji']}
             onMouseOver={() => {
@@ -186,9 +221,29 @@ const ChatRoom = ({ title, description }) => {
             className={styles['input-text']}
           />
 
-          <button type='submit' className={styles['button-send']}>
-            <img src={SendMessageButton} alt='ERROR' />
-          </button>
+          {!editingMessage ? (
+            <button onClick={handleSubmit} className={styles['button-send']}>
+              <img src={SendMessageButton} alt='ERROR' />
+            </button>
+          ) : (
+            <button
+              onClick={e => {
+                e.preventDefault()
+                dispatch(
+                  clickEditMessage({
+                    chatId: id,
+                    messageId: editingMessageId,
+                    newText: message,
+                  }),
+                )
+                setEditingMessage(false)
+                setMessage('')
+              }}
+              className={styles['button-edit']}
+            >
+              <CheckIcon />
+            </button>
+          )}
         </form>
       </div>
     </div>
