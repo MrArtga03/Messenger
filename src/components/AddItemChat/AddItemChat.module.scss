@@ -46,5 +46,10 @@
     margin-top: 10px;
     background: $color-background;
     color: $color-text;
+
+    .button-add {
+      background: blue;
+      margin-right: 3px;
+    }
   }
 }

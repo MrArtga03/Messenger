@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import {
+  Box,
   Button,
   IconButton,
   Menu,
@@ -89,7 +90,7 @@ const ChatList = () => {
                     />
                     <MenuList className={styles['menu-list']}>
                       <MenuItem className={styles['menu-item']}>
-                        <Button
+                        <Box
                           className={styles['delete-item-button']}
                           size='sm'
                           onClick={() => {
@@ -97,8 +98,11 @@ const ChatList = () => {
                             navigate(noChatsUrl)
                           }}
                         >
-                          <DeleteIcon mr={'2px'} /> Удалить чат
-                        </Button>
+                          <DeleteIcon
+                            className={styles['delete-icon-button']}
+                          />
+                          Удалить чат
+                        </Box>
                       </MenuItem>
                     </MenuList>
                   </Menu>

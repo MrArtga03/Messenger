@@ -162,8 +162,7 @@ const AddItemChat = () => {
               <Button
                 type={'submit'}
                 onClick={addChat}
-                colorScheme='blue'
-                mr={3}
+                className={styles['button-add']}
               >
                 Создать
               </Button>
