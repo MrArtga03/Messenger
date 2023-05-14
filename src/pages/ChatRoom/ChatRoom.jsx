@@ -171,8 +171,7 @@ const ChatRoom = ({ description }) => {
                         onClickToast={() =>
                           toast({
                             position: 'bottom-left',
-                            title: 'Скопирован текст:',
-                            description: message.text,
+                            title: 'Скопирован текст',
                             status: 'success',
                             duration: 2200,
                             isClosable: true,

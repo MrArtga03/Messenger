@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import {
   Box,
-  Button,
   IconButton,
   Menu,
   MenuButton,
@@ -15,7 +14,7 @@ import { DeleteIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { chatUrl, noChatsUrl } from '../../constants/urls'
 import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
-import AddItemChat from '../AddItemChat/AddItemChat'
+import AddChatItem from '../AddItemChat/AddChatItem'
 import ChatSearch from '../ChatSearch/ChatSearch'
 
 import styles from './ChatList.module.scss'
@@ -111,7 +110,7 @@ const ChatList = () => {
             })}
         </Stack>
       </Stack>
-      <AddItemChat />
+      <AddChatItem />
     </>
   )
 }

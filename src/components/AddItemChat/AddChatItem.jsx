@@ -15,11 +15,11 @@ import {
 } from '@chakra-ui/react'
 
 import { onAddChat } from '../../store/chatSlice'
-
-import styles from './AddItemChat.module.scss'
 import AddImageChat from '../AddImageChat/AddImageChat'
 
-const AddItemChat = () => {
+import styles from './AddChatItem.module.scss'
+
+const AddChatItem = () => {
   const inputTitleRef = useRef(null)
 
   const [title, setTitle] = useState('')
@@ -183,4 +183,4 @@ const AddItemChat = () => {
   )
 }
 
-export default memo(AddItemChat)
+export default memo(AddChatItem)
