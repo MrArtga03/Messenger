@@ -57,7 +57,7 @@ const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
               <IconButton
                 className={styles.icon}
                 type='submit'
-                aria-label='Search database'
+                aria-label={'Search database'}
                 icon={<SearchIcon />}
               />
             </form>

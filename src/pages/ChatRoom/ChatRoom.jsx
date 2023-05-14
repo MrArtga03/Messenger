@@ -17,6 +17,7 @@ import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
+import { useToast } from '@chakra-ui/react'
 
 const ChatRoom = ({ description }) => {
   const time = getTime()
@@ -32,6 +33,8 @@ const ChatRoom = ({ description }) => {
   const [editedMessage, setEditedMessage] = useState()
   const [editingMessage, setEditingMessage] = useState(null)
   const [editingMessageId, setEditingMessageId] = useState()
+  const [copied, setCopied] = useState(false)
+  const toast = useToast()
   const owner = Math.round(Math.random())
 
   const { id } = useParams()
@@ -106,6 +109,11 @@ const ChatRoom = ({ description }) => {
     setEditingMessage(true)
   }
 
+  const handleCopiedMessage = () => {
+    setCopied(true)
+    setIsOpen(false)
+  }
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
@@ -116,60 +124,67 @@ const ChatRoom = ({ description }) => {
         <form className={styles.form}>
           <div className={styles.messages} ref={scrollRef}>
             {currentChat && currentChat.messages.length !== 0 ? (
-              currentChat.messages.map(message => (
-                <>
-                  <div
+              currentChat.messages.map((message, index) => (
+                <div key={index} className={styles['container-context-menu']}>
+                  <Message
                     key={message.id}
-                    className={styles['container-context-menu']}
-                  >
-                    <Message
-                      key={`${message.id}`}
-                      isOwner={message.owner}
-                      message={message.text.replace(/\n/g, '<br>')}
-                      time={message.time}
-                      onMouseDown={e => {
-                        handleClickMessage(e, message.id)
+                    isOwner={message.owner}
+                    message={message.text.replace(/\n/g, '<br>')}
+                    time={message.time}
+                    onMouseDown={e => {
+                      handleClickMessage(e, message.id)
+                    }}
+                    onContextMenu={e => {
+                      e.preventDefault()
+                    }}
+                    editedText={
+                      editedMessage === message.text
+                        ? ''
+                        : editingMessageId === message.id
+                        ? ' Ред.'
+                        : ''
+                    }
+                  />
+                  {isOpen === message.id && (
+                    <div
+                      onMouseLeave={() => {
+                        setIsOpen(false)
                       }}
                       onContextMenu={e => {
                         e.preventDefault()
                       }}
-                      editedText={
-                        editedMessage === message.text
-                          ? ''
-                          : editingMessageId === message.id
-                          ? ' Ред.'
-                          : ''
+                      className={
+                        message.owner === 0
+                          ? styles['my-context-menu']
+                          : styles['opponent-context-menu']
                       }
-                    />
-                    {isOpen === message.id && (
-                      <div
-                        onMouseLeave={() => {
-                          setIsOpen(false)
+                    >
+                      <MessageContextMenu
+                        onClickDeleteMessage={() => {
+                          dispatch(clickDeleteMessage({ id: message.id }))
                         }}
-                        onContextMenu={e => {
-                          e.preventDefault()
+                        onClickEditMessage={e => {
+                          handleEditMessage(e, message.text, message.id)
                         }}
-                        className={
-                          message.owner === 0
-                            ? styles['my-context-menu']
-                            : styles['opponent-context-menu']
+                        value={message.text}
+                        onCopy={handleCopiedMessage}
+                        onClickToast={() =>
+                          toast({
+                            position: 'bottom-left',
+                            title: 'Скопирован текст:',
+                            description: message.text,
+                            status: 'success',
+                            duration: 2200,
+                            isClosable: true,
+                          })
                         }
-                      >
-                        <MessageContextMenu
-                          onClickDeleteMessage={() => {
-                            dispatch(clickDeleteMessage({ id: message.id }))
-                          }}
-                          onClickEditMessage={e => {
-                            handleEditMessage(e, message.text, message.id)
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </>
+                      />
+                    </div>
+                  )}
+                </div>
               ))
             ) : (
-              <NoMessages key='no-messages' />
+              <NoMessages />
             )}
           </div>
         </form>
