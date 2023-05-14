@@ -1,9 +1,10 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard/src'
-import { CopyIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { CloseIcon, CopyIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
 import FormButton from '../UI/FormButton/FormButton'
 
 import styles from './MessageContextMenu.module.scss'
+import { Box, IconButton, Text } from '@chakra-ui/react'
 
 const MessageContextMenu = ({
   onClickDeleteMessage,
@@ -11,15 +12,19 @@ const MessageContextMenu = ({
   value,
   onCopy,
   onClickToast,
+  onClickClose,
+  onChangeClose,
 }) => {
   return (
-    <>
-      <div className={styles.container}>
+    <Box onChange={onChangeClose} className={styles.container}>
+      <Box className={styles.wrapper}>
         <FormButton
           className={styles['action-message']}
           onClick={onClickDeleteMessage}
         >
-          <DeleteIcon className={styles.button} /> Удалить сообщение
+          <Text className={styles['danger-zone']}>
+            <DeleteIcon className={styles.button} /> Удалить сообщение
+          </Text>
         </FormButton>
         <FormButton
           className={styles['action-message']}
@@ -36,8 +41,15 @@ const MessageContextMenu = ({
             <CopyIcon className={styles.button} /> Копировать сообщение
           </FormButton>
         </CopyToClipboard>
-      </div>
-    </>
+
+        <IconButton
+          className={styles['close-button']}
+          onClick={onClickClose}
+          icon={<CloseIcon />}
+          aria-label={'Close context menu'}
+        />
+      </Box>
+    </Box>
   )
 }
 

@@ -151,30 +151,18 @@
   }
 }
 
-.context-menu {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 230px;
-  height: auto;
-  font-size: 16px;
-  color: $color-text;
-  padding: 7px 10px 7px 10px;
-  border-radius: 12px;
-  background: $color-chat;
-  z-index: 1;
-}
-
 .container-context-menu {
-  position: relative;
+  background: $color-edit-message;
 
-  .my-context-menu {
-    @extend .context-menu;
-    right: 30px;
-  }
-
-  .opponent-context-menu {
-    @extend .context-menu;
-    left: 30px;
+  .context-menu {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    font-size: 16px;
+    color: $color-text;
+    padding: 7px 10px 7px 10px;
+    background: $color-chat;
+    z-index: 1;
   }
 }

@@ -95,7 +95,7 @@ const ChatRoom = ({ description }) => {
 
   const handleClickMessage = (e, messageId) => {
     e.preventDefault()
-    if (e.button === 2) {
+    if (e.detail === 2) {
       setIsOpen(messageId)
     }
   }
@@ -114,6 +114,20 @@ const ChatRoom = ({ description }) => {
     setIsOpen(false)
   }
 
+  const handleCloseContext = e => {
+    if (e.keyCode === 27) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleCloseContext)
+
+    return () => {
+      document.removeEventListener('keydown', handleCloseContext)
+    }
+  }, [isOpen])
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
@@ -125,7 +139,12 @@ const ChatRoom = ({ description }) => {
           <div className={styles.messages} ref={scrollRef}>
             {currentChat && currentChat.messages.length !== 0 ? (
               currentChat.messages.map((message, index) => (
-                <div key={index} className={styles['container-context-menu']}>
+                <div
+                  key={index}
+                  className={
+                    isOpen === message.id && styles['container-context-menu']
+                  }
+                >
                   <Message
                     key={message.id}
                     isOwner={message.owner}
@@ -145,20 +164,9 @@ const ChatRoom = ({ description }) => {
                         : ''
                     }
                   />
+
                   {isOpen === message.id && (
-                    <div
-                      onMouseLeave={() => {
-                        setIsOpen(false)
-                      }}
-                      onContextMenu={e => {
-                        e.preventDefault()
-                      }}
-                      className={
-                        message.owner === 0
-                          ? styles['my-context-menu']
-                          : styles['opponent-context-menu']
-                      }
-                    >
+                    <div className={styles['context-menu']}>
                       <MessageContextMenu
                         onClickDeleteMessage={() => {
                           dispatch(clickDeleteMessage({ id: message.id }))
@@ -177,6 +185,10 @@ const ChatRoom = ({ description }) => {
                             isClosable: true,
                           })
                         }
+                        onClickClose={() => {
+                          setIsOpen(false)
+                        }}
+                        onChangeClose={handleCloseContext}
                       />
                     </div>
                   )}
@@ -251,6 +263,7 @@ const ChatRoom = ({ description }) => {
                   }),
                 )
                 setEditingMessage(false)
+                setIsOpen(false)
                 setMessage('')
               }}
               className={styles['button-edit']}
