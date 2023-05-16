@@ -11,13 +11,13 @@ import { getCaretPosition } from '../../helper/getCaretPosition'
 import { getTime } from '../../helper/getTime'
 import { addMessage, clickEditMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
-
-import styles from './ChatRoom.module.scss'
 import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
 import { useToast } from '@chakra-ui/react'
+
+import styles from './ChatRoom.module.scss'
 
 const ChatRoom = ({ description }) => {
   const time = getTime()
@@ -95,7 +95,7 @@ const ChatRoom = ({ description }) => {
 
   const handleClickMessage = (e, messageId) => {
     e.preventDefault()
-    if (e.detail === 2) {
+    if (e.detail === 1) {
       setIsOpen(messageId)
     }
   }

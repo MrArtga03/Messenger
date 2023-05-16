@@ -10,6 +10,9 @@ const Message = ({
   onContextMenu,
   editedText,
 }) => {
+  const smilesRegex = /^[\uD83C-\uDBFF\uDC00-\uDFFF]+$/
+  const containsOnlySmiles = message && smilesRegex.test(message.trim())
+
   return (
     <section
       onMouseDown={onMouseDown}
@@ -21,11 +24,15 @@ const Message = ({
       }
     >
       <div className={styles.container}>
-        <div className={styles.polygon} />
+        <div className={!containsOnlySmiles && styles.polygon} />
         <div
           className={
             isOwner === 0
-              ? styles['my-box-context']
+              ? containsOnlySmiles
+                ? styles['my-box-context-smiles']
+                : styles['my-box-context']
+              : containsOnlySmiles
+              ? styles['opponent-box-context-smiles']
               : styles['opponent-box-context']
           }
         >
