@@ -7,7 +7,14 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Stack,
+  Text,
 } from '@chakra-ui/react'
 import { DeleteIcon, HamburgerIcon } from '@chakra-ui/icons'
 
@@ -16,6 +23,8 @@ import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
 import AddChatItem from '../AddItemChat/AddChatItem'
 import ChatSearch from '../ChatSearch/ChatSearch'
+import FormButton from '../UI/FormButton/FormButton'
+import { useState } from 'react'
 
 import styles from './ChatList.module.scss'
 
@@ -45,6 +54,17 @@ const ChatList = () => {
   let lastMessage = ''
   let lastTime = ''
 
+  const [modalChatId, setModalChatId] = useState(null)
+
+  const openModal = chatId => {
+    setModalChatId(chatId)
+  }
+
+  const closeModal = () => {
+    setModalChatId(null)
+  }
+
+  const isModalOpen = chatId => modalChatId === chatId
   return (
     <>
       <ChatSearch
@@ -91,17 +111,53 @@ const ChatList = () => {
                       <MenuItem className={styles['menu-item']}>
                         <Box
                           className={styles['delete-item-button']}
-                          size='sm'
                           onClick={() => {
-                            dispatch(clickDelete({ id: chat.id }))
-                            navigate(noChatsUrl)
+                            openModal(chat.id)
                           }}
                         >
-                          <DeleteIcon
-                            className={styles['delete-icon-button']}
-                          />
-                          Удалить чат
+                          <Text className={styles['danger-zone']}>
+                            <DeleteIcon /> Удалить сообщение
+                          </Text>
                         </Box>
+
+                        <Modal
+                          isOpen={isModalOpen(chat.id)}
+                          onClose={() => {
+                            closeModal(chat.id)
+                          }}
+                        >
+                          <ModalOverlay />
+                          <ModalContent background={'#1c1d22'}>
+                            <ModalHeader color={'#fff'}>
+                              Хотите удалить сообщение?
+                            </ModalHeader>
+                            <ModalCloseButton color={'#fff'} />
+                            <ModalFooter
+                              display={'flex'}
+                              justifyContent={'center'}
+                            >
+                              <Box
+                                className={styles['delete']}
+                                onClick={() => {
+                                  dispatch(clickDelete({ id: chat.id }))
+                                  navigate(noChatsUrl)
+                                }}
+                              >
+                                Да
+                              </Box>
+
+                              <FormButton
+                                colorScheme='blue'
+                                ml={3}
+                                onClick={() => {
+                                  closeModal(chat.id)
+                                }}
+                              >
+                                Нет
+                              </FormButton>
+                            </ModalFooter>
+                          </ModalContent>
+                        </Modal>
                       </MenuItem>
                     </MenuList>
                   </Menu>
