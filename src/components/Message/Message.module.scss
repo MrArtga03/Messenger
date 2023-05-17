@@ -1,167 +1,182 @@
 @import '/src/styles/colors';
 
-.my-message-box {
+
+.container-image {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  position: relative;
-  word-break: break-all;
-  margin-right: 20px;
-  width: 98%;
+  align-items: center;
+  justify-content: space-around;
 
-  .container {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    cursor: pointer;
-
-    .polygon {
-      width: 17px;
-      height: 15px;
-      background: $color-my-message;
-      clip-path: polygon(100% 0, 0% 100%, 0 0);
-      border-radius: 0 5px 0 0;
-      margin: 3px 0 3px 0;
-    }
-
-    .my-box-context {
-      display: flex;
-      align-items: flex-end;
-      flex-direction: column;
-      position: relative;
-      max-width: 400px;
-      margin: 3px 0 3px 0;
-      padding: 5px 10px;
-      border-radius: 6px 0 6px 6px;
-      background: $color-my-message;
-
-      .my-context-message {
-        margin-right: 5px;
-        font-size: 16px;
-        border: none;
-      }
-
-      .my-context-time {
-        display: flex;
-        justify-content: flex-end;
-        min-width: 40px;
-        margin-right: 5px;
-        font-size: 10px;
-        color: $color-default;
-      }
-    }
-
+  .wrapper-image {
+    display: none;
   }
-}
 
-.opponent-message-box {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 17px;
-  width: 98%;
+  .wrapper-image-opponent {
+    width: 52px;
+    height: 52px;
+    margin-left: 17px;
+  }
 
-  .container {
+  .my-message-box {
     display: flex;
-    align-items: flex-start;
-    cursor: pointer;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    word-break: break-all;
+    margin-right: 20px;
+    width: 98%;
 
-    .polygon {
-      width: 17px;
-      height: 15px;
-      background: $color-interlocutors-message;
-      clip-path: polygon(100% 0, 0 0, 100% 100%);
-      border-radius: 5px 0 0 0;
-      margin: 3px 0 3px 0;
+    .container {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      cursor: pointer;
+
+      .polygon {
+        width: 17px;
+        height: 15px;
+        background: $color-my-message;
+        clip-path: polygon(100% 0, 0% 100%, 0 0);
+        border-radius: 0 5px 0 0;
+        margin: 3px 0 3px 0;
+      }
+
+      .my-box-context {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        position: relative;
+        max-width: 400px;
+        margin: 3px 0 3px 0;
+        padding: 5px 10px;
+        border-radius: 6px 0 6px 6px;
+        background: $color-my-message;
+
+        .my-context-message {
+          margin-right: 5px;
+          font-size: 16px;
+          border: none;
+        }
+
+        .my-context-time {
+          display: flex;
+          justify-content: flex-end;
+          min-width: 40px;
+          margin-right: 5px;
+          font-size: 10px;
+          color: $color-default;
+        }
+      }
     }
+  }
 
-    .opponent-box-context {
+  .opponent-message-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 98%;
+
+    .container {
       display: flex;
       align-items: flex-start;
-      flex-direction: column;
-      position: relative;
-      max-width: 400px;
-      margin: 3px 0 3px 0;
-      padding: 5px 10px;
-      border-radius: 0 6px 6px 6px;
-      background: $color-interlocutors-message;
-      word-break: break-word;
+      cursor: pointer;
 
-      .opponent-context-message {
-        color: $color-text;
-        margin-right: 5px;
-        font-size: 16px;
-        word-wrap: break-word;
-        border: none;
+      .polygon {
+        width: 17px;
+        height: 15px;
+        background: $color-interlocutors-message;
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
+        border-radius: 5px 0 0 0;
+        margin: 3px 0 3px 0;
       }
 
-      .opponent-context-time {
+      .opponent-box-context {
         display: flex;
-        justify-content: flex-start;
-        color: $color-text;
-        min-width: 40px;
-        font-size: 10px;
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+        max-width: 400px;
+        margin: 3px 0 3px 0;
+        padding: 5px 10px;
+        border-radius: 0 6px 6px 6px;
+        background: $color-interlocutors-message;
+        word-break: break-word;
+
+        .opponent-context-message {
+          color: $color-text;
+          margin-right: 5px;
+          font-size: 16px;
+          word-wrap: break-word;
+          border: none;
+        }
+
+        .opponent-context-time {
+          display: flex;
+          justify-content: flex-start;
+          color: $color-text;
+          min-width: 40px;
+          font-size: 10px;
+        }
       }
     }
   }
-}
 
-.my-box-context-smiles {
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-  position: relative;
-  max-width: 400px;
-  margin: 3px 0 3px 0;
-  padding: 5px 10px;
-  border-radius: 6px 0 6px 6px;
-  background: none;
-
-  .my-context-message {
-    margin-right: 5px;
-    font-size: 26px;
-    border: none;
-  }
-
-  .my-context-time {
+  .my-box-context-smiles {
     display: flex;
-    justify-content: center;
-    min-width: 40px;
-    margin-right: 5px;
-    font-size: 10px;
-    border-radius: 20px;
-    color: $color-text;
-    background: $color-time-smiles;
-  }
-}
+    align-items: flex-end;
+    flex-direction: column;
+    position: relative;
+    max-width: 400px;
+    margin: 3px 0 3px 0;
+    padding: 5px 10px;
+    border-radius: 6px 0 6px 6px;
+    background: none;
 
-.opponent-box-context-smiles {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  position: relative;
-  max-width: 400px;
-  margin: 3px 0 3px 0;
-  padding: 5px 10px;
-  border-radius: 0 6px 6px 6px;
-  background: none;
-  word-break: break-word;
+    .my-context-message {
+      margin-right: 5px;
+      font-size: 26px;
+      border: none;
+    }
 
-  .opponent-context-message {
-    color: $color-text;
-    margin-right: 5px;
-    font-size: 26px;
-    word-wrap: break-word;
-    border: none;
+    .my-context-time {
+      display: flex;
+      justify-content: center;
+      min-width: 40px;
+      margin-right: 5px;
+      font-size: 10px;
+      border-radius: 20px;
+      color: $color-text;
+      background: $color-time-smiles;
+    }
   }
 
-  .opponent-context-time {
+  .opponent-box-context-smiles {
     display: flex;
-    justify-content: center;
-    border-radius: 20px;
-    color: $color-text;
-    background: $color-time-smiles;
-    min-width: 40px;
-    font-size: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+    max-width: 400px;
+    margin: 3px 0 3px 0;
+    padding: 5px 10px;
+    border-radius: 0 6px 6px 6px;
+    background: none;
+    word-break: break-word;
+
+    .opponent-context-message {
+      color: $color-text;
+      margin-right: 5px;
+      font-size: 26px;
+      word-wrap: break-word;
+      border: none;
+    }
+
+    .opponent-context-time {
+      display: flex;
+      justify-content: center;
+      border-radius: 20px;
+      color: $color-text;
+      background: $color-time-smiles;
+      min-width: 40px;
+      font-size: 10px;
+    }
   }
 }
