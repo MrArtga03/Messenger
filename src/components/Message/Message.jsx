@@ -60,6 +60,17 @@ const Message = ({
             }
           >
             <span
+              className={
+                isOwner === 1
+                  ? containsOnlySmiles
+                    ? styles['name-user-smile']
+                    : styles['name-user']
+                  : ''
+              }
+            >
+              {isOwner === 1 ? users[avatarIndex].name : ''}
+            </span>
+            <span
               dangerouslySetInnerHTML={{ __html: message }}
               className={
                 isOwner === 0

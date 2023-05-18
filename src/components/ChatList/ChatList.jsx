@@ -129,7 +129,7 @@ const ChatList = () => {
                           <ModalOverlay />
                           <ModalContent background={'#1c1d22'}>
                             <ModalHeader color={'#fff'}>
-                              Хотите удалить сообщение?
+                              Хотите удалить чат?
                             </ModalHeader>
                             <ModalCloseButton color={'#fff'} />
                             <ModalFooter
