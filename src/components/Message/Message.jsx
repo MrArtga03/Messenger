@@ -22,7 +22,7 @@ const Message = ({
   ]
   const [avatarIndex] = useState(() => Math.floor(Math.random() * users.length))
   return (
-    <Box className={styles['container-image']}>
+    <Box className={styles['container-message']}>
       <Wrap
         className={
           isOwner === 1
@@ -40,6 +40,7 @@ const Message = ({
       <section
         onMouseDown={onMouseDown}
         onContextMenu={onContextMenu}
+        onMouseOver={() => {}}
         className={
           isOwner === 0
             ? styles['my-message-box']

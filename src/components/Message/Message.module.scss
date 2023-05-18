@@ -1,7 +1,6 @@
 @import '/src/styles/colors';
 
-
-.container-image {
+.container-message {
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
@@ -66,6 +65,19 @@
           color: $color-default;
         }
       }
+
+      .reaction {
+        height: 15px;
+        width: 15px;
+        display: flex;
+        margin: 3px 0 0 0;
+        background: none;
+
+        .smile {
+          color: $color-text;
+          font-size: 25px;
+        }
+      }
     }
   }
 
@@ -115,6 +127,19 @@
           color: $color-text;
           min-width: 40px;
           font-size: 10px;
+        }
+      }
+
+      .reaction {
+        height: 15px;
+        width: 15px;
+        display: flex;
+        margin: 3px 0 0 0;
+        background: none;
+
+        .smile {
+          color: $color-text;
+          font-size: 25px;
         }
       }
     }
