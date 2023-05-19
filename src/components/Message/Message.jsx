@@ -1,7 +1,12 @@
 import React, { memo, useState } from 'react'
 import { Avatar, Box, Wrap, WrapItem } from '@chakra-ui/react'
 
+import FormButton from '../UI/FormButton/FormButton'
+import SmileReaction from '../../assets/svg/SmileReaction.svg'
+import ReactionsList from '../ReactionsList/ReactionsList'
+
 import styles from './Message.module.scss'
+import Reaction from '../Reaction/Reaction'
 
 const Message = ({
   message,
@@ -11,6 +16,9 @@ const Message = ({
   onContextMenu,
   editedText,
 }) => {
+  const [isHover, setIsHover] = useState(false)
+  const [isReaction, setIsReaction] = useState(false)
+  const [selectedReaction, setSelectedReaction] = useState(null)
   const smilesRegex = /^[\uD83C-\uDBFF\uDC00-\uDFFF]+$/
   const containsOnlySmiles = message && smilesRegex.test(message.trim())
 
@@ -21,6 +29,15 @@ const Message = ({
     { name: 'Kourin Daniel', image: 'https://bit.ly/sage-adebayo' },
   ]
   const [avatarIndex] = useState(() => Math.floor(Math.random() * users.length))
+
+  const handleSelectReaction = reaction => {
+    setSelectedReaction(reaction)
+  }
+
+  const handleChangeReaction = () => {
+    setSelectedReaction(null)
+  }
+
   return (
     <Box className={styles['container-message']}>
       <Wrap
@@ -40,14 +57,22 @@ const Message = ({
       <section
         onMouseDown={onMouseDown}
         onContextMenu={onContextMenu}
-        onMouseOver={() => {}}
         className={
           isOwner === 0
             ? styles['my-message-box']
             : styles['opponent-message-box']
         }
       >
-        <div className={styles.container}>
+        <div
+          onMouseOver={() => {
+            setIsHover(true)
+          }}
+          onMouseLeave={() => {
+            setIsHover(false)
+            setIsReaction(false)
+          }}
+          className={styles.container}
+        >
           <div className={!containsOnlySmiles && styles.polygon} />
           <div
             className={
@@ -90,7 +115,26 @@ const Message = ({
               {editedText}
             </span>
           </div>
+          <FormButton
+            onClick={() => {
+              setIsReaction(!isReaction)
+            }}
+            className={
+              isHover
+                ? styles['reaction-message']
+                : styles['reaction-message_none']
+            }
+          >
+            <img src={SmileReaction} alt={'Reaction Message'} />
+          </FormButton>
+
+          {isReaction && (
+            <ReactionsList onSelectReaction={handleSelectReaction} />
+          )}
         </div>
+        {selectedReaction && (
+          <Reaction onClick={handleChangeReaction}>{selectedReaction}</Reaction>
+        )}
       </section>
     </Box>
   )

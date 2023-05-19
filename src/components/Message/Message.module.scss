@@ -78,6 +78,14 @@
           font-size: 25px;
         }
       }
+
+      .reaction-message {
+        background: none;
+      }
+
+      .reaction-message_none {
+        display: none;
+      }
     }
   }
 
@@ -141,6 +149,14 @@
           color: $color-text;
           font-size: 25px;
         }
+      }
+
+      .reaction-message {
+        background: none;
+      }
+
+      .reaction-message_none {
+        display: none;
       }
     }
   }
