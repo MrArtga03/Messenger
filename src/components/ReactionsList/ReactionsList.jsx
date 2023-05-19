@@ -10,37 +10,49 @@ const ReactionsList = ({ onSelectReaction }) => {
       <Stack className={styles.wrapper}>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('😂')}
+          onClick={() => {
+            onSelectReaction('😂')
+          }}
         >
           😂
         </FormButton>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('😭')}
+          onClick={() => {
+            onSelectReaction('😭')
+          }}
         >
           😭
         </FormButton>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('😡')}
+          onClick={() => {
+            onSelectReaction('😡')
+          }}
         >
           😡
         </FormButton>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('👍')}
+          onClick={() => {
+            onSelectReaction('👍')
+          }}
         >
           👍
         </FormButton>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('👎')}
+          onClick={() => {
+            onSelectReaction('👎')
+          }}
         >
           👎
         </FormButton>
         <FormButton
           className={styles.smile}
-          onClick={() => onSelectReaction('❓')}
+          onClick={() => {
+            onSelectReaction('❓')
+          }}
         >
           ❓
         </FormButton>

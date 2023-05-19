@@ -2,11 +2,11 @@ import React, { memo, useState } from 'react'
 import { Avatar, Box, Wrap, WrapItem } from '@chakra-ui/react'
 
 import FormButton from '../UI/FormButton/FormButton'
-import SmileReaction from '../../assets/svg/SmileReaction.svg'
 import ReactionsList from '../ReactionsList/ReactionsList'
+import Reaction from '../Reaction/Reaction'
+import SmileReaction from '../../assets/svg/SmileReaction.svg'
 
 import styles from './Message.module.scss'
-import Reaction from '../Reaction/Reaction'
 
 const Message = ({
   message,
