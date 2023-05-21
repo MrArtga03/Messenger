@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Avatar, Box, Wrap, WrapItem } from '@chakra-ui/react'
 
 import FormButton from '../UI/FormButton/FormButton'
@@ -28,7 +28,11 @@ const Message = ({
     { name: 'Ivan Solovyov', image: 'https://bit.ly/ryan-florence' },
     { name: 'Kourin Daniel', image: 'https://bit.ly/sage-adebayo' },
   ]
-  const [avatarIndex] = useState(() => Math.floor(Math.random() * users.length))
+  const [avatarIndex, setAvatarIndex] = useState(null)
+
+  useEffect(() => {
+    setAvatarIndex(Math.floor(Math.random() * users.length))
+  }, [])
 
   const handleSelectReaction = reaction => {
     setSelectedReaction(reaction)
@@ -49,8 +53,8 @@ const Message = ({
       >
         <WrapItem>
           <Avatar
-            name={users[avatarIndex].name}
-            src={users[avatarIndex].image}
+            name={users[avatarIndex]?.name}
+            src={users[avatarIndex]?.image}
           />
         </WrapItem>
       </Wrap>
@@ -94,7 +98,7 @@ const Message = ({
                   : ''
               }
             >
-              {isOwner === 1 ? users[avatarIndex].name : ''}
+              {isOwner === 1 ? users[avatarIndex]?.name : ''}
             </span>
             <span
               dangerouslySetInnerHTML={{ __html: message }}

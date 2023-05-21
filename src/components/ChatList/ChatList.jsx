@@ -116,7 +116,7 @@ const ChatList = () => {
                           }}
                         >
                           <Text className={styles['danger-zone']}>
-                            <DeleteIcon /> Удалить сообщение
+                            <DeleteIcon /> Удалить чат
                           </Text>
                         </Box>
 
