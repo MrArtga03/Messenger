@@ -95,7 +95,7 @@ const Message = ({
                   ? containsOnlySmiles
                     ? styles['name-user-smile']
                     : styles['name-user']
-                  : ''
+                  : null
               }
             >
               {isOwner === 1 ? users[avatarIndex]?.name : ''}

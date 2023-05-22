@@ -33,7 +33,7 @@ const ChatRoom = ({ description }) => {
   const [editedMessage, setEditedMessage] = useState()
   const [editingMessage, setEditingMessage] = useState(null)
   const [editingMessageId, setEditingMessageId] = useState()
-  const [copied, setCopied] = useState(false)
+  const [, setCopied] = useState(false)
   const toast = useToast()
   const owner = Math.round(Math.random())
 
