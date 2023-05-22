@@ -142,7 +142,9 @@ const ChatRoom = ({ description }) => {
                 <div
                   key={index}
                   className={
-                    isOpen === message.id && styles['container-context-menu']
+                    isOpen === message.id
+                      ? styles['container-context-menu']
+                      : styles['container-context-menu_none']
                   }
                 >
                   <Message
@@ -229,7 +231,7 @@ const ChatRoom = ({ description }) => {
         >
           <div
             className={styles['button-emoji']}
-            onMouseOver={() => {
+            onClick={() => {
               setShowEmojiPicker(true)
             }}
           >
