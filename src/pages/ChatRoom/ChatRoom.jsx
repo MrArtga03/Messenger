@@ -48,11 +48,11 @@ const ChatRoom = ({ description }) => {
     const diapason = /[0-9A-Za-zА-Яа-я]|[\uD83C-\uDBFF\uDC00-\uDFFF]+/
     e.preventDefault()
 
-    if (!message || !diapason.test(message)) {
+    if (!message.trim() || !diapason.test(message.trim())) {
       return
     }
 
-    dispatch(addMessage({ chatId: id, owner, text: message, time }))
+    dispatch(addMessage({ chatId: id, owner, text: message.trim(), time }))
 
     scrollRef.current.scrollTo({
       top: scrollRef.current.scrollHeight,
@@ -84,14 +84,21 @@ const ChatRoom = ({ description }) => {
 
   const handleInput = e => {
     setMessage(e.currentTarget.textContent)
-    setCaretPosition(window.getSelection().focusOffset)
+    setCaretPosition(getCaretPosition(e.currentTarget))
   }
 
   useEffect(() => {
     const selection = window.getSelection()
-    selection.collapse(inputRef.current.firstChild, caretPosition)
-    selection.setPosition(inputRef.current.firstChild, caretPosition)
-  }, [message, caretPosition, inputRef])
+    const textNode = inputRef.current.firstChild
+
+    if (textNode) {
+      const textLength = textNode.length
+      const position = Math.min(caretPosition, textLength)
+
+      selection.collapse(textNode, position)
+      selection.setPosition(textNode, position)
+    }
+  }, [caretPosition, inputRef])
 
   const handleClickMessage = (e, messageId) => {
     e.preventDefault()
