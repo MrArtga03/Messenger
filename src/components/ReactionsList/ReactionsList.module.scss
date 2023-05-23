@@ -1,0 +1,26 @@
+@import '/src/styles/colors';
+
+.container {
+  display: flex;
+  background: $color-background-reactions;
+  border-radius: 20px;
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px 10px;
+
+    .smile {
+      width: 20px;
+      height: 25px;
+      margin: 0 8px;
+      background: $color-background-reactions;
+
+      &:hover {
+        background: $color-button-hover;
+      }
+    }
+  }
+}

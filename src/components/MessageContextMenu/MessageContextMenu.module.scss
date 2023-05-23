@@ -2,22 +2,42 @@
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-  .action-message {
+  .wrapper {
     display: flex;
-    justify-content: left;
-    font-size: 13px;
-    font-weight: 600;
-    background: $color-chat;
-    color: $color-text;
+    flex-direction: row;
 
-    &:hover {
-      background: $color-button-hover;
+    .action-message {
+      display: flex;
+      justify-content: left;
+      font-size: 13px;
+      font-weight: 600;
+      background: $color-chat;
+      color: $color-text;
+      margin-right: 8px;
+
+      .danger-zone {
+        color: $color-danger-zone;
+      }
+
+      &:hover {
+        background: $color-button-hover;
+      }
+
+      .button {
+        margin-right: 10px;
+      }
     }
 
-    .button {
-      margin-right: 10px;
+    .close-button {
+      background: none;
+      border-radius: 100%;
+
+      &:hover {
+        background: $color-button-hover;
+      }
     }
   }
 }

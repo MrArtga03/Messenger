@@ -8,12 +8,10 @@ import {
   regUrl,
   noMatchUrl,
   settingsUrl,
-  organizationsUrl,
   accountUrl,
   noChatsUrl,
 } from './constants/urls'
 import HomePage from './pages/HomePage/HomePage'
-import OrganizationsPage from './pages/OrganizationsPage/OrganizationsPage'
 import SettingsPage from './pages/SettingsPage/SettingsPage'
 import Layout from './components/Layout/Layout'
 import ChatPage from './pages/ChatPage/ChatPage'
@@ -39,27 +37,11 @@ const App = () => {
                 />
                 <Route path={authUrl} element={<AuthPage />} />
                 <Route path={regUrl} element={<RegistrationPage />} />
-                <Route
-                  path={organizationsUrl}
-                  element={getProtectedPage(<OrganizationsPage />)}
-                />
-                <Route
-                  path={accountUrl}
-                  element={getProtectedPage(<AccountPage />)}
-                />
-                <Route
-                  path={chatIdUrl}
-                  element={getProtectedPage(<ChatPage />)}
-                />
-                <Route
-                  path={settingsUrl}
-                  element={getProtectedPage(<SettingsPage />)}
-                />
+                <Route path={accountUrl} element={<AccountPage />} />
+                <Route path={chatIdUrl} element={<ChatPage />} />
+                <Route path={settingsUrl} element={<SettingsPage />} />
                 <Route path={noChatsUrl} element={<NoChats />} />
-                <Route
-                  path={noMatchUrl}
-                  element={getProtectedPage(<NoMatch />)}
-                />
+                <Route path={noMatchUrl} element={<NoMatch />} />
               </Routes>
             </Layout>
           </BrowserRouter>

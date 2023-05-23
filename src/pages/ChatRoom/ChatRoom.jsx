@@ -11,13 +11,13 @@ import { getCaretPosition } from '../../helper/getCaretPosition'
 import { getTime } from '../../helper/getTime'
 import { addMessage, clickEditMessage } from '../../store/chatSlice'
 import { clickDeleteMessage } from '../../store/chatSlice'
-
-import styles from './ChatRoom.module.scss'
 import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
 import { useToast } from '@chakra-ui/react'
+
+import styles from './ChatRoom.module.scss'
 
 const ChatRoom = ({ description }) => {
   const time = getTime()
@@ -33,7 +33,7 @@ const ChatRoom = ({ description }) => {
   const [editedMessage, setEditedMessage] = useState()
   const [editingMessage, setEditingMessage] = useState(null)
   const [editingMessageId, setEditingMessageId] = useState()
-  const [copied, setCopied] = useState(false)
+  const [, setCopied] = useState(false)
   const toast = useToast()
   const owner = Math.round(Math.random())
 
@@ -48,11 +48,11 @@ const ChatRoom = ({ description }) => {
     const diapason = /[0-9A-Za-zА-Яа-я]|[\uD83C-\uDBFF\uDC00-\uDFFF]+/
     e.preventDefault()
 
-    if (!message || !diapason.test(message)) {
+    if (!message.trim() || !diapason.test(message.trim())) {
       return
     }
 
-    dispatch(addMessage({ chatId: id, owner, text: message, time }))
+    dispatch(addMessage({ chatId: id, owner, text: message.trim(), time }))
 
     scrollRef.current.scrollTo({
       top: scrollRef.current.scrollHeight,
@@ -84,18 +84,25 @@ const ChatRoom = ({ description }) => {
 
   const handleInput = e => {
     setMessage(e.currentTarget.textContent)
-    setCaretPosition(window.getSelection().focusOffset)
+    setCaretPosition(getCaretPosition(e.currentTarget))
   }
 
   useEffect(() => {
     const selection = window.getSelection()
-    selection.collapse(inputRef.current.firstChild, caretPosition)
-    selection.setPosition(inputRef.current.firstChild, caretPosition)
-  }, [message, caretPosition, inputRef])
+    const textNode = inputRef.current.firstChild
+
+    if (textNode) {
+      const textLength = textNode.length
+      const position = Math.min(caretPosition, textLength)
+
+      selection.collapse(textNode, position)
+      selection.setPosition(textNode, position)
+    }
+  }, [caretPosition, inputRef])
 
   const handleClickMessage = (e, messageId) => {
     e.preventDefault()
-    if (e.button === 2) {
+    if (e.detail === 1) {
       setIsOpen(messageId)
     }
   }
@@ -114,6 +121,20 @@ const ChatRoom = ({ description }) => {
     setIsOpen(false)
   }
 
+  const handleCloseContext = e => {
+    if (e.keyCode === 27) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleCloseContext)
+
+    return () => {
+      document.removeEventListener('keydown', handleCloseContext)
+    }
+  }, [isOpen])
+
   return (
     <div className={styles.chat}>
       <div className={styles.container}>
@@ -125,7 +146,14 @@ const ChatRoom = ({ description }) => {
           <div className={styles.messages} ref={scrollRef}>
             {currentChat && currentChat.messages.length !== 0 ? (
               currentChat.messages.map((message, index) => (
-                <div key={index} className={styles['container-context-menu']}>
+                <div
+                  key={index}
+                  className={
+                    isOpen === message.id
+                      ? styles['container-context-menu']
+                      : styles['container-context-menu_none']
+                  }
+                >
                   <Message
                     key={message.id}
                     isOwner={message.owner}
@@ -145,20 +173,9 @@ const ChatRoom = ({ description }) => {
                         : ''
                     }
                   />
+
                   {isOpen === message.id && (
-                    <div
-                      onMouseLeave={() => {
-                        setIsOpen(false)
-                      }}
-                      onContextMenu={e => {
-                        e.preventDefault()
-                      }}
-                      className={
-                        message.owner === 0
-                          ? styles['my-context-menu']
-                          : styles['opponent-context-menu']
-                      }
-                    >
+                    <div className={styles['context-menu']}>
                       <MessageContextMenu
                         onClickDeleteMessage={() => {
                           dispatch(clickDeleteMessage({ id: message.id }))
@@ -171,13 +188,16 @@ const ChatRoom = ({ description }) => {
                         onClickToast={() =>
                           toast({
                             position: 'bottom-left',
-                            title: 'Скопирован текст:',
-                            description: message.text,
+                            title: 'Скопирован текст',
                             status: 'success',
                             duration: 2200,
                             isClosable: true,
                           })
                         }
+                        onClickClose={() => {
+                          setIsOpen(false)
+                        }}
+                        onChangeClose={handleCloseContext}
                       />
                     </div>
                   )}
@@ -218,7 +238,7 @@ const ChatRoom = ({ description }) => {
         >
           <div
             className={styles['button-emoji']}
-            onMouseOver={() => {
+            onClick={() => {
               setShowEmojiPicker(true)
             }}
           >
@@ -252,6 +272,7 @@ const ChatRoom = ({ description }) => {
                   }),
                 )
                 setEditingMessage(false)
+                setIsOpen(false)
                 setMessage('')
               }}
               className={styles['button-edit']}
