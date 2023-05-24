@@ -37,10 +37,22 @@ const App = () => {
                 />
                 <Route path={authUrl} element={<AuthPage />} />
                 <Route path={regUrl} element={<RegistrationPage />} />
-                <Route path={accountUrl} element={<AccountPage />} />
-                <Route path={chatIdUrl} element={<ChatPage />} />
-                <Route path={settingsUrl} element={<SettingsPage />} />
-                <Route path={noChatsUrl} element={<NoChats />} />
+                <Route
+                  path={accountUrl}
+                  element={getProtectedPage(<AccountPage />)}
+                />
+                <Route
+                  path={chatIdUrl}
+                  element={getProtectedPage(<ChatPage />)}
+                />
+                <Route
+                  path={settingsUrl}
+                  element={getProtectedPage(<SettingsPage />)}
+                />
+                <Route
+                  path={noChatsUrl}
+                  element={getProtectedPage(<NoChats />)}
+                />
                 <Route path={noMatchUrl} element={<NoMatch />} />
               </Routes>
             </Layout>

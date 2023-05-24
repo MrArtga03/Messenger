@@ -1,6 +1,6 @@
 import { createRef, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
@@ -16,6 +16,7 @@ import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
 import { useToast } from '@chakra-ui/react'
+import { noChatsUrl } from '../../constants/urls'
 
 import styles from './ChatRoom.module.scss'
 
@@ -42,6 +43,21 @@ const ChatRoom = ({ description }) => {
   const dispatch = useDispatch()
   const chatsList = useSelector(state => state.chats.chatsList)
   const currentChat = chatsList.find(chat => chat.id === id)
+  const history = useNavigate()
+
+  const handleCloseChat = e => {
+    if (e.keyCode === 27) {
+      history(noChatsUrl)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleCloseChat)
+
+    return () => {
+      document.removeEventListener('keydown', handleCloseChat)
+    }
+  }, [])
 
   // Отправка сообщения по кнопке
   const handleSubmit = e => {
@@ -62,11 +78,23 @@ const ChatRoom = ({ description }) => {
     inputRef.current.focus()
   }
 
-  const handleKeyDown = e => {
+  const handleEnterSubmit = e => {
     if (!e.shiftKey && e.key === 'Enter') {
       e.preventDefault()
-      handleSubmit(e)
-      setEditingMessage(false)
+      if (editingMessage) {
+        dispatch(
+          clickEditMessage({
+            chatId: id,
+            messageId: editingMessageId,
+            newText: message,
+          }),
+        )
+        setEditingMessage(false)
+        setIsOpen(false)
+        setMessage('')
+      } else {
+        handleSubmit(e)
+      }
     }
   }
 
@@ -136,7 +164,7 @@ const ChatRoom = ({ description }) => {
   }, [isOpen])
 
   return (
-    <div className={styles.chat}>
+    <div onKeyDown={handleCloseChat} className={styles.chat}>
       <div className={styles.container}>
         <div className={styles['container-info']}>
           <div className={styles.title}>{id}</div>
@@ -249,10 +277,10 @@ const ChatRoom = ({ description }) => {
             ref={inputRef}
             onBlur={handleBlur}
             onInput={handleInput}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleEnterSubmit}
             contentEditable={true}
             dangerouslySetInnerHTML={{ __html: message }}
-            placeholder={'Enter message...'}
+            placeholder={'Напишите сообщение...'}
             className={styles['input-text']}
           />
 
