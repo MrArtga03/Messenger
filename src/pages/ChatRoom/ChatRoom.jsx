@@ -78,11 +78,23 @@ const ChatRoom = ({ description }) => {
     inputRef.current.focus()
   }
 
-  const handleKeyDown = e => {
+  const handleEnterSubmit = e => {
     if (!e.shiftKey && e.key === 'Enter') {
       e.preventDefault()
-      handleSubmit(e)
-      setEditingMessage(false)
+      if (editingMessage) {
+        dispatch(
+          clickEditMessage({
+            chatId: id,
+            messageId: editingMessageId,
+            newText: message,
+          }),
+        )
+        setEditingMessage(false)
+        setIsOpen(false)
+        setMessage('')
+      } else {
+        handleSubmit(e)
+      }
     }
   }
 
@@ -265,7 +277,7 @@ const ChatRoom = ({ description }) => {
             ref={inputRef}
             onBlur={handleBlur}
             onInput={handleInput}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleEnterSubmit}
             contentEditable={true}
             dangerouslySetInnerHTML={{ __html: message }}
             placeholder={'Напишите сообщение...'}
