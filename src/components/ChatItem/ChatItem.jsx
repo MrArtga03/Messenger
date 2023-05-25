@@ -28,8 +28,8 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
               <Text className={styles['title']}>{title}</Text>
 
               <Stack className={styles['chat-data']}>
-                <Text className={styles['text']}>{lastMessage}</Text>
-                <Text className={styles['time']}>{lastTime}</Text>
+                <Text className={styles.text}>{lastMessage}</Text>
+                <Text className={styles.time}>{lastTime}</Text>
               </Stack>
             </Box>
           </>

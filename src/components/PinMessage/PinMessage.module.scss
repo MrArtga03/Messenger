@@ -1,0 +1,40 @@
+@import '/src/styles/colors';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background: $color-background;
+  height: 60px;
+  margin-right: 40px;
+
+  .wrapper {
+    width: 200px;
+    margin-right: 10px;
+
+    .title {
+      color: $color-add-chat-button;
+    }
+
+    .wrapper-message {
+
+      .text {
+        font-size: 14px;
+        color: $color-text;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+    .close-button {
+      color: $color-text;
+      background: none;
+      border-radius: 100%;
+
+      &:hover {
+        background: $color-button-hover;
+      }
+    }
+}

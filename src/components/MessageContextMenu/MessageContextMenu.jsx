@@ -1,9 +1,4 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard/src'
-import { CloseIcon, CopyIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
-
-import FormButton from '../UI/FormButton/FormButton'
-
-import styles from './MessageContextMenu.module.scss'
 import {
   Box,
   IconButton,
@@ -16,6 +11,17 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import {
+  AttachmentIcon,
+  CloseIcon,
+  CopyIcon,
+  DeleteIcon,
+  EditIcon,
+} from '@chakra-ui/icons'
+
+import FormButton from '../UI/FormButton/FormButton'
+
+import styles from './MessageContextMenu.module.scss'
 
 const MessageContextMenu = ({
   onClickDeleteMessage,
@@ -25,6 +31,7 @@ const MessageContextMenu = ({
   onClickToast,
   onClickClose,
   onChangeClose,
+  onClickPinMessage,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
@@ -33,7 +40,7 @@ const MessageContextMenu = ({
         <Box>
           <FormButton className={styles['action-message']} onClick={onOpen}>
             <Text className={styles['danger-zone']}>
-              <DeleteIcon className={styles.button} /> Удалить сообщение
+              <DeleteIcon className={styles.button} /> Удалить
             </Text>
           </FormButton>
 
@@ -64,7 +71,7 @@ const MessageContextMenu = ({
           className={styles['action-message']}
           onClick={onClickEditMessage}
         >
-          <EditIcon className={styles.button} /> Редактировать сообщение
+          <EditIcon className={styles.button} /> Редактировать
         </FormButton>
 
         <CopyToClipboard onCopy={onCopy} text={value}>
@@ -72,9 +79,16 @@ const MessageContextMenu = ({
             onClick={onClickToast}
             className={styles['action-message']}
           >
-            <CopyIcon className={styles.button} /> Копировать сообщение
+            <CopyIcon className={styles.button} /> Копировать
           </FormButton>
         </CopyToClipboard>
+
+        <FormButton
+          onClick={onClickPinMessage}
+          className={styles['action-message']}
+        >
+          <AttachmentIcon className={styles.button} /> Закрепить
+        </FormButton>
 
         <IconButton
           className={styles['close-button']}
