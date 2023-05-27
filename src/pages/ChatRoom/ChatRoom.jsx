@@ -17,9 +17,9 @@ import MessageContextMenu from '../../components/MessageContextMenu/MessageConte
 import EditMessage from '../../components/EditMessage/EditMessage'
 import { useToast } from '@chakra-ui/react'
 import { noChatsUrl } from '../../constants/urls'
+import PinMessage from '../../components/PinMessage/PinMessage'
 
 import styles from './ChatRoom.module.scss'
-import PinMessage from '../../components/PinMessage/PinMessage'
 
 const ChatRoom = ({ description }) => {
   const time = getTime()
