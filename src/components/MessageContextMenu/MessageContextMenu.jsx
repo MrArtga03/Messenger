@@ -47,7 +47,7 @@ const MessageContextMenu = ({
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent background={'#1c1d22'}>
-              <ModalHeader color={'#fff'}>
+              <ModalHeader textAlign={'center'} color={'#fff'}>
                 Хотите удалить сообщение?
               </ModalHeader>
               <ModalCloseButton color={'#fff'} />

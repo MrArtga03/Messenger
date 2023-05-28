@@ -17,9 +17,9 @@ import {
 import { onAddChat } from '../../store/chatSlice'
 import AddImageChat from '../AddImageChat/AddImageChat'
 
-import styles from './AddChatItem.module.scss'
+import styles from './AddItemChat.module.scss'
 
-const AddChatItem = () => {
+const AddItemChat = () => {
   const inputTitleRef = useRef(null)
 
   const [title, setTitle] = useState('')
@@ -119,11 +119,11 @@ const AddChatItem = () => {
       <Collapse in={isOpen} onChange={handleKeyDown} animateOpacity>
         <Stack position={'relative'}>
           <Box className={styles['container-form']} rounded='md' shadow='md'>
-            <Heading className={styles.header}>Создать чат</Heading>
+            <Heading className={styles.header}>Создание чата</Heading>
 
             <Box className={styles.body}>
               <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form className={styles['form-data']} onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   {...register('chat-name', {
                     required: 'Поле опязательно к заполнению!',
@@ -156,16 +156,16 @@ const AddChatItem = () => {
                   autoComplete='off'
                 />
               </form>
-            </Box>
 
-            <Box className={styles.footer}>
-              <Button
-                type={'submit'}
-                onClick={addChat}
-                className={styles['button-add']}
-              >
-                Создать
-              </Button>
+              <Box className={styles.footer}>
+                <Button
+                  type={'submit'}
+                  onClick={addChat}
+                  className={styles['button-add']}
+                >
+                  Создать
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Stack>
@@ -183,4 +183,4 @@ const AddChatItem = () => {
   )
 }
 
-export default memo(AddChatItem)
+export default memo(AddItemChat)

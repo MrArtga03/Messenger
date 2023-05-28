@@ -21,7 +21,7 @@ import { DeleteIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { chatUrl, noChatsUrl } from '../../constants/urls'
 import { clickDelete } from '../../store/chatSlice'
 import ChatItem from '../ChatItem/ChatItem'
-import AddChatItem from '../AddItemChat/AddChatItem'
+import AddItemChat from '../AddItemChat/AddItemChat'
 import ChatSearch from '../ChatSearch/ChatSearch'
 import FormButton from '../UI/FormButton/FormButton'
 import { useState } from 'react'
@@ -128,7 +128,7 @@ const ChatList = () => {
                         >
                           <ModalOverlay />
                           <ModalContent background={'#1c1d22'}>
-                            <ModalHeader color={'#fff'}>
+                            <ModalHeader textAlign={'center'} color={'#fff'}>
                               Хотите удалить чат?
                             </ModalHeader>
                             <ModalCloseButton color={'#fff'} />
@@ -166,7 +166,7 @@ const ChatList = () => {
             })}
         </Stack>
       </Stack>
-      <AddChatItem />
+      <AddItemChat />
     </>
   )
 }

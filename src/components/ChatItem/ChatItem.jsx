@@ -1,5 +1,7 @@
 import { Box, Text, Stack, Wrap, Image, WrapItem } from '@chakra-ui/react'
 
+import {defaultImage} from "../../constants/urls";
+
 import styles from './ChatItem.module.scss'
 
 const ChatItem = ({ title, lastMessage, lastTime, file }) => {
@@ -16,7 +18,7 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
                 src={
                   file
                     ? file
-                    : 'https://media.istockphoto.com/id/1392182937/zh/%E5%90%91%E9%87%8F/no-image-available-photo-coming-soon.jpg?s=612x612&w=0&k=20&c=Ot9bY5dAFt9KaAIJHv5sKhU88-Hn89XEJzuD1TwuV8Q='
+                    : defaultImage
                 }
               />
             </WrapItem>

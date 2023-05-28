@@ -1,4 +1,4 @@
-@import '/src/styles/colors';
+@import "/src/styles/colors";
 
 .container {
 
@@ -31,7 +31,7 @@
   .header {
     background: $color-background;
     color: $color-text;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .body {
@@ -40,15 +40,20 @@
     height: calc(100vh - 134px);
     background: $color-background;
     color: $color-text;
+
+    .form-data {
+      margin-top: 20px;
+    }
   }
 
   .footer {
-    margin-top: 10px;
+    margin-top: 25px;
     background: $color-background;
     color: $color-text;
 
     .button-add {
-      background: blue;
+      width: 100%;
+      background: $color-add-chat-button;
       margin-right: 3px;
     }
   }
