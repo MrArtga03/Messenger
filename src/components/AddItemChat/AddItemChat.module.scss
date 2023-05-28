@@ -1,14 +1,29 @@
-@import "/src/styles/colors";
+@import '/src/styles/colors';
 
 .container {
+  display: flex;
+  justify-content: space-between;
 
-  .button-add {
-    width: 100%;
+  .button-add-chat{
+    width: 49%;
     background: $color-add-chat-button;
     margin-top: 5px;
 
     &:hover {
       background: $color-hover-add-chat-button;
+    }
+  }
+
+  .link-reg {
+    margin-left: 5px;
+
+    .button-add-user {
+      background: $color-add-chat-button;
+      margin-top: 5px;
+
+      &:hover {
+        background: $color-hover-add-chat-button;
+      }
     }
   }
 }

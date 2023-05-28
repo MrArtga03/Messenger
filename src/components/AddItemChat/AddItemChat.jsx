@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { AddIcon } from '@chakra-ui/icons'
 import {
   Box,
   Heading,
@@ -11,11 +10,12 @@ import {
   useDisclosure,
   Collapse,
   Button,
-  IconButton,
 } from '@chakra-ui/react'
 
 import { onAddChat } from '../../store/chatSlice'
 import AddImageChat from '../AddImageChat/AddImageChat'
+import {NavLink} from "react-router-dom";
+import {regUrl} from "../../constants/urls";
 
 import styles from './AddItemChat.module.scss'
 
@@ -166,18 +166,26 @@ const AddItemChat = () => {
                   Создать
                 </Button>
               </Box>
+
             </Box>
           </Box>
         </Stack>
       </Collapse>
 
       <div className={styles.container}>
-        <IconButton
-          className={styles['button-add']}
+        <Button
+          className={styles['button-add-chat']}
           onClick={onToggle}
-          icon={<AddIcon />}
           aria-label={'Add Item'}
-        />
+        >
+          Создать чат
+        </Button>
+
+        <NavLink className={styles['link-reg']} to={regUrl}>
+          <Button className={styles['button-add-user']}>
+            Добавить пользователя
+          </Button>
+        </NavLink>
       </div>
     </>
   )

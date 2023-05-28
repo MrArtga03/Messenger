@@ -28,4 +28,29 @@
       }
     }
   }
+
+  .body {
+
+    .form-data {
+      margin-top: 5px;
+
+      p {
+        height: 12px;
+      }
+
+      span {
+        color: $color-danger-zone;
+      }
+    }
+
+    .button-show-password {
+      color: $color-text;
+      background: none;
+      height: 1.75rem;
+    }
+
+    .button-enter {
+      width: 100%;
+    }
+  }
 }

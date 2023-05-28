@@ -13,9 +13,8 @@ import {
   Divider,
   HStack,
 } from '@chakra-ui/react'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
-import { authUrl } from '../../constants/urls'
-import CustomLink from '../../components/CustomLink/CustomLink'
 import FormButton from '../../components/UI/FormButton/FormButton'
 import InfoPopover from '../../components/UI/InfoPopover/InfoPopover'
 
@@ -64,9 +63,9 @@ const RegContent = () => {
 
         <Divider />
 
-        <CardBody>
+        <CardBody className={styles.body}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack mt='3' spacing='3'>
+            <Stack className={styles['form-data']}>
               <Input
                 {...register('fullorgname', {
                   required: 'Поле обязательно к заполнению!',
@@ -76,9 +75,9 @@ const RegContent = () => {
                 autoComplete='off'
               />
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.fullorgname && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.fullorgname?.message ||
                       'Вы должны написать полное имя организации!'}
                   </span>
@@ -94,9 +93,9 @@ const RegContent = () => {
                 autoComplete='off'
               />
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.shortname && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.shortname?.message ||
                       'Вы должны написать короткое имя организации!'}
                   </span>
@@ -112,15 +111,15 @@ const RegContent = () => {
                 autoComplete='off'
               />
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.email && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.email?.message || 'Вы должны написать ваш email!'}
                   </span>
                 )}
               </Text>
 
-              <InputGroup size='md'>
+              <InputGroup>
                 <Input
                   {...register('newpass', {
                     required: 'Поле обязательно к заполнению!',
@@ -129,57 +128,47 @@ const RegContent = () => {
                       message: 'Минимум 5 символов!',
                     },
                   })}
-                  pr='4.5rem'
                   variant={'flushed'}
                   type={showPas ? 'text' : 'password'}
                   placeholder={'Введите новый пароль'}
                   autoComplete='off'
                 />
-                <InputRightElement width='4.5rem'>
-                  <FormButton
-                    h='1.75rem'
-                    size='sm'
-                    onClick={handleClickPassword}
-                  >
-                    {showPas ? 'Показать' : 'Скрыть'}
+                <InputRightElement>
+                  <FormButton className={styles['button-show-password']} onClick={handleClickPassword}>
+                    {showPas ? <ViewOffIcon/> : <ViewIcon/>}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.newpass && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.newpass?.message ||
                       'Вы должны написать новый пароль!'}
                   </span>
                 )}
               </Text>
 
-              <InputGroup size='md'>
+              <InputGroup>
                 <Input
                   {...register('repass', {
                     required: 'Поле обязательно к заполнению!',
                   })}
-                  pr='4.5rem'
                   variant={'flushed'}
                   type={showRepPas ? 'text' : 'password'}
                   placeholder={'Повторите пароль'}
                   autoComplete='off'
                 />
-                <InputRightElement width='4.5rem'>
-                  <FormButton
-                    h='1.75rem'
-                    size='sm'
-                    onClick={handleClickRepPassword}
-                  >
-                    {showRepPas ? 'Показать' : 'Скрыть'}
+                <InputRightElement>
+                  <FormButton className={styles['button-show-password']} onClick={handleClickRepPassword}>
+                    {showRepPas ? <ViewOffIcon/> : <ViewIcon/>}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.reppass && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.reppass?.message ||
                       'Вы должны повторно написать пароль!'}
                   </span>
@@ -187,18 +176,8 @@ const RegContent = () => {
               </Text>
             </Stack>
 
-            <Divider mt={'4px'} />
-
-            <HStack mt={'10px'}>
-              <FormButton type={'submit'}>Зарегистрироваться</FormButton>
-              <Divider orientation={'vertical'} />
-              <Stack>
-                <Text>
-                  <span>
-                    <CustomLink to={authUrl}>Войти</CustomLink>
-                  </span>
-                </Text>
-              </Stack>
+            <HStack>
+              <FormButton className={styles['button-enter']} type={'submit'}>Зарегистрироваться</FormButton>
             </HStack>
           </form>
         </CardBody>
