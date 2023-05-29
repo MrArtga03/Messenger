@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
   Card,
   CardBody,
@@ -32,6 +33,10 @@ const Layout = ({ children }) => {
       </main>
     </>
   )
+}
+
+Layout.propTypes = {
+  children: PropTypes.object,
 }
 
 export default Layout

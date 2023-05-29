@@ -1,10 +1,13 @@
+import PropTypes from 'prop-types'
 import { Box, Text, Stack, Wrap, Image, WrapItem } from '@chakra-ui/react'
 
-import {defaultImage} from "../../constants/urls";
+import { defaultImage } from '../../constants/urls'
 
 import styles from './ChatItem.module.scss'
 
-const ChatItem = ({ title, lastMessage, lastTime, file }) => {
+const ChatItem = props => {
+  const { title, lastMessage, lastTime, file } = props
+
   return (
     <Box className={styles.container}>
       <Box className={styles['container-chat-data']}>
@@ -13,13 +16,7 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
             <WrapItem>
               <Image
                 className={styles['avatar-chat']}
-                boxSize={'45px'}
-                borderRadius='full'
-                src={
-                  file
-                    ? file
-                    : defaultImage
-                }
+                src={file ? file : defaultImage}
               />
             </WrapItem>
           </Wrap>
@@ -44,6 +41,13 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
       </Box>
     </Box>
   )
+}
+
+ChatItem.propTypes = {
+  title: PropTypes.string,
+  lastMessage: PropTypes.string,
+  lastTime: PropTypes.string,
+  file: PropTypes.string,
 }
 
 export default ChatItem

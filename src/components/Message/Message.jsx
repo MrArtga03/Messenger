@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { memo, useEffect, useState } from 'react'
 import { Avatar, Box, Wrap, WrapItem } from '@chakra-ui/react'
 
@@ -8,14 +9,10 @@ import SmileReaction from '../../assets/svg/SmileReaction.svg'
 
 import styles from './Message.module.scss'
 
-const Message = ({
-  message,
-  isOwner,
-  time,
-  onMouseDown,
-  onContextMenu,
-  editedText,
-}) => {
+const Message = props => {
+  const { message, isOwner, time, onMouseDown, onContextMenu, editedText } =
+    props
+
   const [isHover, setIsHover] = useState(false)
   const [isReaction, setIsReaction] = useState(false)
   const [selectedReaction, setSelectedReaction] = useState(null)
@@ -142,6 +139,15 @@ const Message = ({
       </section>
     </Box>
   )
+}
+
+Message.propTypes = {
+  message: PropTypes.string,
+  isOwner: PropTypes.number,
+  time: PropTypes.string,
+  onMouseDown: PropTypes.func,
+  onContextMenu: PropTypes.func,
+  editedText: PropTypes.string,
 }
 
 export default memo(Message)

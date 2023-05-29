@@ -21,7 +21,7 @@ import PinMessage from '../../components/PinMessage/PinMessage'
 
 import styles from './ChatRoom.module.scss'
 
-const ChatRoom = ({ description }) => {
+const ChatRoom = () => {
   const time = getTime()
   //Рефы на DOM элементы
   const scrollRef = useRef(null)
@@ -181,7 +181,6 @@ const ChatRoom = ({ description }) => {
           <div className={styles['wrapper-info']}>
             <div className={styles['description-info']}>
               <div className={styles.title}>{id}</div>
-              <div className={styles.description}>{description}</div>
             </div>
             <div className={styles.pin}>
               {isPinMessage && (
