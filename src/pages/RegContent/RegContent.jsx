@@ -188,8 +188,8 @@ const RegContent = () => {
                     })}
                     className={styles['select-role']}
                   >
-                    <option value='Администратор'>Администратор</option>
                     <option value='Сотрудник'>Сотрудник</option>
+                    <option value='Администратор'>Администратор</option>
                   </Select>
 
                   <Text>
