@@ -12,6 +12,9 @@ import {
   InputRightElement,
   Divider,
   HStack,
+  Box,
+  InputLeftElement,
+  Select,
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
@@ -66,58 +69,139 @@ const RegContent = () => {
         <CardBody className={styles.body}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack className={styles['form-data']}>
-              <Input
-                {...register('fullorgname', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Полное имя организации'}
-                autoComplete='off'
-              />
+              <Stack className={styles['bio-block']}>
+                <Box className={styles['full-name']}>
+                  <Input
+                    {...register('fullname', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'ФИО сотрудника'}
+                    autoComplete='off'
+                  />
 
-              <Text>
-                {errors?.fullorgname && (
-                  <span>
-                    {errors?.fullorgname?.message ||
-                      'Вы должны написать полное имя организации!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.fullname && (
+                      <span>
+                        {errors?.fullname?.message ||
+                          'Вы должны ФИО сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
 
-              <Input
-                {...register('shortname', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Короткое имя организации'}
-                autoComplete='off'
-              />
+                <Box className={styles['birthday']}>
+                  <Input
+                    {...register('birthday', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    autoComplete='off'
+                    type='date'
+                  />
 
-              <Text>
-                {errors?.shortname && (
-                  <span>
-                    {errors?.shortname?.message ||
-                      'Вы должны написать короткое имя организации!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.birthday && (
+                      <span>
+                        {errors?.birthday?.message ||
+                          'Вы должны указать д/р сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
 
-              <Input
-                {...register('email', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Email'}
-                autoComplete='off'
-              />
+              <Stack className={styles['contact-block']}>
+                <Box className={styles.email}>
+                  <Input
+                    {...register('email', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'Email'}
+                    autoComplete='off'
+                  />
 
-              <Text>
-                {errors?.email && (
-                  <span>
-                    {errors?.email?.message || 'Вы должны написать ваш email!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.email && (
+                      <span>
+                        {errors?.email?.message ||
+                          'Вы должны написать ваш email!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+
+                <Box className={styles['contact-number']}>
+                  <InputGroup>
+                    <InputLeftElement
+                      className={styles['format-number']}
+                      children='+7'
+                    />
+                    <Input
+                      type='tel'
+                      placeholder='Контакный номер'
+                      {...register('number', {
+                        required: 'Поле обязательно к заполнению!',
+                      })}
+                      variant={'flushed'}
+                      autoComplete='off'
+                    />
+                  </InputGroup>
+
+                  <Text>
+                    {errors?.number && (
+                      <span>
+                        {errors?.number?.message ||
+                          'Вы должны написать номер телефона сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
+
+              <Stack className={styles['corporate-block']}>
+                <Box className={styles.organization}>
+                  <Input
+                    {...register('organization', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'Имя организации'}
+                    autoComplete='off'
+                  />
+
+                  <Text>
+                    {errors?.organization && (
+                      <span>
+                        {errors?.organization?.message ||
+                          'Вы должны написать имя организации!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+
+                <Box className={styles.role}>
+                  <Select
+                    {...register('role', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    className={styles['select-role']}
+                  >
+                    <option value='Администратор'>Администратор</option>
+                    <option value='Сотрудник'>Сотрудник</option>
+                  </Select>
+
+                  <Text>
+                    {errors?.role && (
+                      <span>
+                        {errors?.role?.message ||
+                          'Вы должны написать номер телефона сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
 
               <InputGroup>
                 <Input
@@ -134,8 +218,11 @@ const RegContent = () => {
                   autoComplete='off'
                 />
                 <InputRightElement>
-                  <FormButton className={styles['button-show-password']} onClick={handleClickPassword}>
-                    {showPas ? <ViewOffIcon/> : <ViewIcon/>}
+                  <FormButton
+                    className={styles['button-show-password']}
+                    onClick={handleClickPassword}
+                  >
+                    {showPas ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
@@ -160,8 +247,11 @@ const RegContent = () => {
                   autoComplete='off'
                 />
                 <InputRightElement>
-                  <FormButton className={styles['button-show-password']} onClick={handleClickRepPassword}>
-                    {showRepPas ? <ViewOffIcon/> : <ViewIcon/>}
+                  <FormButton
+                    className={styles['button-show-password']}
+                    onClick={handleClickRepPassword}
+                  >
+                    {showRepPas ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
@@ -177,7 +267,9 @@ const RegContent = () => {
             </Stack>
 
             <HStack>
-              <FormButton className={styles['button-enter']} type={'submit'}>Зарегистрироваться</FormButton>
+              <FormButton className={styles['button-enter']} type={'submit'}>
+                Зарегистрировать
+              </FormButton>
             </HStack>
           </form>
         </CardBody>

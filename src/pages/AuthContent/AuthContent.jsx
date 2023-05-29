@@ -137,8 +137,11 @@ const AuthContent = () => {
                 />
 
                 <InputRightElement>
-                  <FormButton className={styles['button-show-password']} onClick={handleChangeShow}>
-                    {show ? <ViewOffIcon/> : <ViewIcon/>}
+                  <FormButton
+                    className={styles['button-show-password']}
+                    onClick={handleChangeShow}
+                  >
+                    {show ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
@@ -154,7 +157,11 @@ const AuthContent = () => {
             </Stack>
 
             <HStack>
-              <FormButton className={styles['button-enter']} type={'submit'} onClick={handleSendData}>
+              <FormButton
+                className={styles['button-enter']}
+                type={'submit'}
+                onClick={handleSendData}
+              >
                 Войти
               </FormButton>
             </HStack>

@@ -14,8 +14,8 @@ import {
 
 import { onAddChat } from '../../store/chatSlice'
 import AddImageChat from '../AddImageChat/AddImageChat'
-import {NavLink} from "react-router-dom";
-import {regUrl} from "../../constants/urls";
+import { NavLink } from 'react-router-dom'
+import { regUrl } from '../../constants/urls'
 
 import styles from './AddItemChat.module.scss'
 
@@ -123,7 +123,10 @@ const AddItemChat = () => {
 
             <Box className={styles.body}>
               <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
-              <form className={styles['form-data']} onSubmit={handleSubmit(onSubmit)}>
+              <form
+                className={styles['form-data']}
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <Input
                   {...register('chat-name', {
                     required: 'Поле опязательно к заполнению!',
@@ -166,7 +169,6 @@ const AddItemChat = () => {
                   Создать
                 </Button>
               </Box>
-
             </Box>
           </Box>
         </Stack>

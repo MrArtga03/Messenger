@@ -6,7 +6,7 @@ const NoMessages = () => {
   return (
     <Box className={styles.container}>
       <Stack className={styles.wrapper}>
-        <Text className={styles.text}>Пока нет сообщений...</Text>
+        <Text className={styles.text}>Пока нет сообщений</Text>
       </Stack>
     </Box>
   )

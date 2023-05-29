@@ -4,7 +4,7 @@
 
   .card-container {
     margin-top: 10%;
-    width: 400px;
+    width: 600px;
     background: $color-chat;
     border-radius: 20px;
 
@@ -40,6 +40,63 @@
 
       span {
         color: $color-danger-zone;
+      }
+
+      .bio-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+
+        .full-name {
+          display: flex;
+          flex-direction: column;
+          width: 50%;
+        }
+
+        .birthday {
+          display: flex;
+          flex-direction: column;
+          height: 60px;
+          width: 45%;
+        }
+      }
+
+      .contact-block {
+        @extend .bio-block;
+
+        .email {
+          @extend .full-name;
+        }
+
+        .contact-number {
+          @extend .birthday;
+
+          .format-number {
+            color: $color-text;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .corporate-block {
+        @extend .bio-block;
+
+        .organization {
+          @extend .full-name;
+        }
+
+        .role {
+          @extend .birthday;
+
+          .select-role {
+            color: $color-text;
+
+            option {
+              color: $color-default;
+            }
+          }
+        }
       }
     }
 
