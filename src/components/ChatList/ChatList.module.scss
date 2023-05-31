@@ -4,55 +4,61 @@
   position: relative;
   flex: 1;
   overflow: auto;
-  .chats {
-    display: flex;
-    position: relative;
-    border-top: 1px solid $color-close-button;
-    border-bottom: 1px solid $color-close-button;
 
-    &:hover {
-      background: $color-close-button;
-    }
+  .wrapper-chats {
+    height: 100vh;
 
-    .menu-button {
-      border: none;
-      border-radius: 0;
-      height: 100%;
+    .chats {
+      display: flex;
+      position: relative;
+      border-top: 1px solid $color-close-button;
+      border-bottom: 1px solid $color-close-button;
 
       &:hover {
-        background: none;
+        background: $color-close-button;
       }
-    }
 
-    .menu-list {
-      border: none;
-      background: $color-list;
+      .menu-button {
+        border: none;
+        border-radius: 0;
+        height: 100%;
 
-      .menu-item {
-        background: $color-list-item;
-        height: 32px;
+        &:hover {
+          background: none;
+        }
+      }
 
-        .delete-item-button {
-          display: flex;
-          align-items: center;
-          padding: 5px 8px;
-          border-radius: 5px;
-          width: 100%;
-          font-weight: 400;
-          background: $color-close-button;
-          color: $color-danger-zone;
+      .menu-list {
+        border: none;
+        background: $color-list;
 
-          &:hover {
-            background: $color-button-hover;
-          }
+        .menu-item {
+          background: $color-list-item;
+          height: 32px;
 
-          .delete-icon-button {
-            margin-right: 8px;
+          .delete-item-button {
+            display: flex;
+            align-items: center;
+            padding: 5px 8px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 400;
+            background: $color-close-button;
+            color: $color-danger-zone;
+
+            &:hover {
+              background: $color-button-hover;
+            }
+
+            .delete-icon-button {
+              margin-right: 8px;
+            }
           }
         }
       }
     }
   }
+
 }
 
 .delete {
