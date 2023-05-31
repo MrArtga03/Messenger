@@ -69,7 +69,7 @@ const RegContent = () => {
             <Stack mt='3' spacing='3'>
               <Input
                 {...register('fullorgname', {
-                  required: 'Поле является обязательным!',
+                  required: 'Поле обязательно к заполнению!',
                 })}
                 variant={'flushed'}
                 placeholder={'Полное имя организации'}
@@ -78,16 +78,16 @@ const RegContent = () => {
 
               <Text h={'15px'}>
                 {errors?.fullorgname && (
-                  <p style={{ color: 'red' }}>
+                  <span style={{ color: 'red' }}>
                     {errors?.fullorgname?.message ||
                       'Вы должны написать полное имя организации!'}
-                  </p>
+                  </span>
                 )}
               </Text>
 
               <Input
                 {...register('shortname', {
-                  required: 'Поле является обязательным!',
+                  required: 'Поле обязательно к заполнению!',
                 })}
                 variant={'flushed'}
                 placeholder={'Короткое имя организации'}
@@ -96,16 +96,16 @@ const RegContent = () => {
 
               <Text h={'15px'}>
                 {errors?.shortname && (
-                  <p style={{ color: 'red' }}>
+                  <span style={{ color: 'red' }}>
                     {errors?.shortname?.message ||
                       'Вы должны написать короткое имя организации!'}
-                  </p>
+                  </span>
                 )}
               </Text>
 
               <Input
                 {...register('email', {
-                  required: 'Поле является обязательным!',
+                  required: 'Поле обязательно к заполнению!',
                 })}
                 variant={'flushed'}
                 placeholder={'Email'}
@@ -114,16 +114,16 @@ const RegContent = () => {
 
               <Text h={'15px'}>
                 {errors?.email && (
-                  <p style={{ color: 'red' }}>
+                  <span style={{ color: 'red' }}>
                     {errors?.email?.message || 'Вы должны написать ваш email!'}
-                  </p>
+                  </span>
                 )}
               </Text>
 
               <InputGroup size='md'>
                 <Input
                   {...register('newpass', {
-                    required: 'Поле является обязательным!',
+                    required: 'Поле обязательно к заполнению!',
                     minLength: {
                       value: 5,
                       message: 'Минимум 5 символов!',
@@ -148,17 +148,17 @@ const RegContent = () => {
 
               <Text h={'15px'}>
                 {errors?.newpass && (
-                  <p style={{ color: 'red' }}>
+                  <span style={{ color: 'red' }}>
                     {errors?.newpass?.message ||
                       'Вы должны написать новый пароль!'}
-                  </p>
+                  </span>
                 )}
               </Text>
 
               <InputGroup size='md'>
                 <Input
                   {...register('repass', {
-                    required: 'Поле является обязательным!',
+                    required: 'Поле обязательно к заполнению!',
                   })}
                   pr='4.5rem'
                   variant={'flushed'}
@@ -179,10 +179,10 @@ const RegContent = () => {
 
               <Text h={'15px'}>
                 {errors?.reppass && (
-                  <p style={{ color: 'red' }}>
+                  <span style={{ color: 'red' }}>
                     {errors?.reppass?.message ||
                       'Вы должны повторно написать пароль!'}
-                  </p>
+                  </span>
                 )}
               </Text>
             </Stack>

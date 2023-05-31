@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Box, Stack, Text } from '@chakra-ui/react'
 
 import PageLoader from '../../components/PageLoader/PageLoader'
+
+import styles from './HomePage.module.scss'
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -15,11 +18,16 @@ const HomePage = () => {
     }
   }, [])
 
-  return isLoading ? <PageLoader /> : (
-    <section style={{background: '#000', color: '#fff', width: '100%'}}>
-      <h1>Home Page</h1>
-    </section>
-  );
-};
+  return isLoading ? (
+    <PageLoader />
+  ) : (
+    <Box className={styles.container}>
+      <Stack className={styles.wrapper}>
+        <Text className={styles.title}>Добро пожаловать!</Text>
+        <Box className={styles.image}></Box>
+      </Stack>
+    </Box>
+  )
+}
 
 export default HomePage

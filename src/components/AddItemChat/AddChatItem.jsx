@@ -10,18 +10,22 @@ import {
   Text,
   useDisclosure,
   Collapse,
+  Button,
+  IconButton,
 } from '@chakra-ui/react'
 
-import FormButton from '../UI/FormButton/FormButton'
 import { onAddChat } from '../../store/chatSlice'
+import AddImageChat from '../AddImageChat/AddImageChat'
 
-import styles from './AddItemChat.module.scss'
+import styles from './AddChatItem.module.scss'
 
-const AddItemChat = () => {
+const AddChatItem = () => {
   const inputTitleRef = useRef(null)
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [imageURL, setImageURL] = useState()
+  const fileReader = new FileReader()
 
   const { isOpen, onToggle, onClose } = useDisclosure()
 
@@ -36,9 +40,10 @@ const AddItemChat = () => {
       return
     }
 
-    dispatch(onAddChat({ title, description }))
+    dispatch(onAddChat({ title, description, imageURL }))
     setTitle('')
     setDescription('')
+    setImageURL(null)
     reset()
     onClose()
   }
@@ -49,9 +54,10 @@ const AddItemChat = () => {
     }
 
     if (e.key === 'Enter') {
-      dispatch(onAddChat({ title, description }))
+      dispatch(onAddChat({ title, description, imageURL }))
       setTitle('')
       setDescription('')
+      setImageURL(null)
       reset()
       onClose()
     }
@@ -64,6 +70,23 @@ const AddItemChat = () => {
   const handleDescriptionChange = useCallback(event => {
     setDescription(event.target.value)
   }, [])
+
+  const handleKeyDown = e => {
+    if (e.keyCode === 27) {
+      setImageURL(null)
+      onClose()
+    }
+  }
+
+  useEffect(() => {
+    inputTitleRef.current.focus()
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen, onClose, inputTitleRef])
 
   const {
     register,
@@ -79,14 +102,27 @@ const AddItemChat = () => {
     reset()
   }
 
+  fileReader.onloadend = () => {
+    setImageURL(fileReader.result)
+  }
+
+  const handleImageChange = e => {
+    e.preventDefault()
+    const files = e.target.files
+    if (files && files.length > 0) {
+      fileReader.readAsDataURL(files[0])
+    }
+  }
+
   return (
     <>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isOpen} onChange={handleKeyDown} animateOpacity>
         <Stack position={'relative'}>
           <Box className={styles['container-form']} rounded='md' shadow='md'>
             <Heading className={styles.header}>Создать чат</Heading>
 
             <Box className={styles.body}>
+              <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   {...register('chat-name', {
@@ -123,26 +159,28 @@ const AddItemChat = () => {
             </Box>
 
             <Box className={styles.footer}>
-              <FormButton
+              <Button
                 type={'submit'}
                 onClick={addChat}
-                colorScheme='blue'
-                mr={3}
+                className={styles['button-add']}
               >
                 Создать
-              </FormButton>
+              </Button>
             </Box>
           </Box>
         </Stack>
       </Collapse>
 
       <div className={styles.container}>
-        <FormButton className={styles['button-add']} onClick={onToggle}>
-          <AddIcon className={styles.icon} />
-        </FormButton>
+        <IconButton
+          className={styles['button-add']}
+          onClick={onToggle}
+          icon={<AddIcon />}
+          aria-label={'Add Item'}
+        />
       </div>
     </>
   )
 }
 
-export default memo(AddItemChat)
+export default memo(AddChatItem)

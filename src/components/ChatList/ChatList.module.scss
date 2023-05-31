@@ -33,6 +33,10 @@
         height: 32px;
 
         .delete-item-button {
+          display: flex;
+          align-items: center;
+          padding: 5px 8px;
+          border-radius: 5px;
           width: 100%;
           font-weight: 400;
           background: $color-close-button;
@@ -41,8 +45,31 @@
           &:hover {
             background: $color-button-hover;
           }
+
+          .delete-icon-button {
+            margin-right: 8px;
+          }
         }
       }
     }
+  }
+}
+
+.delete {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 5px;
+  width: 59px;
+  height: 40px;
+  font-weight: 400;
+  background: $color-close-button;
+  color: $color-text;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: $color-button-hover;
   }
 }

@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon, SearchIcon } from '@chakra-ui/icons'
 
-import { accountUrl, organizationsUrl, settingsUrl } from '../../constants/urls'
+import { accountUrl, settingsUrl } from '../../constants/urls'
 import FormInput from '../UI/FormInput/FormInput'
 import CustomLink from '../CustomLink/CustomLink'
 
@@ -31,13 +31,6 @@ const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
                   Профиль
                 </CustomLink>
 
-                <CustomLink
-                  to={organizationsUrl}
-                  className={styles['menu-item']}
-                >
-                  Организации
-                </CustomLink>
-
                 <CustomLink to={settingsUrl} className={styles['menu-item']}>
                   Настройки
                 </CustomLink>
@@ -57,7 +50,7 @@ const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
               <IconButton
                 className={styles.icon}
                 type='submit'
-                aria-label='Search database'
+                aria-label={'Search database'}
                 icon={<SearchIcon />}
               />
             </form>

@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom'
-import { Card, CardBody, CardHeader, Heading, Stack } from '@chakra-ui/react'
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 
-import { homeUrl } from '../../constants/urls'
-import styles from './Layout.module.scss'
 import ChatList from '../ChatList/ChatList'
+
+import styles from './Layout.module.scss'
 
 const Layout = ({ children }) => {
   return (
@@ -13,9 +19,7 @@ const Layout = ({ children }) => {
           <Card>
             <CardHeader className={styles['header-container']}>
               <Heading className={styles['header']}>
-                <Link to={homeUrl} className={styles['nav-link']}>
-                  Мессенджер
-                </Link>
+                <Text className={styles['nav-link']}>Мессенджер</Text>
               </Heading>
             </CardHeader>
 

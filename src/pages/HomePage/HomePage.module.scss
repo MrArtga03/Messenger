@@ -1,0 +1,32 @@
+@import "/src/styles/colors";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $color-background;
+  color: $color-text;
+  width: 100%;
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    background: $color-greetings;
+    border-radius: 20px;
+    padding: 20px;
+
+    .title {
+      font-size: 30px;
+    }
+
+    .image {
+      width: 250px;
+      height: 250px;
+      background-image: url('../../assets/imgs/Hello.png');
+      background-size: cover;
+    }
+  }
+}

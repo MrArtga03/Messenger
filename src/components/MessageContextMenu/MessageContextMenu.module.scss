@@ -1,0 +1,43 @@
+@import '/src/styles/colors';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+
+    .action-message {
+      display: flex;
+      justify-content: left;
+      font-size: 13px;
+      font-weight: 600;
+      background: $color-chat;
+      color: $color-text;
+      margin-right: 8px;
+
+      .danger-zone {
+        color: $color-danger-zone;
+      }
+
+      &:hover {
+        background: $color-button-hover;
+      }
+
+      .button {
+        margin-right: 10px;
+      }
+    }
+
+    .close-button {
+      background: none;
+      border-radius: 100%;
+
+      &:hover {
+        background: $color-button-hover;
+      }
+    }
+  }
+}

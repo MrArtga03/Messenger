@@ -14,6 +14,7 @@ const chatSlice = createSlice({
         id: `${action.payload.title}-${state.chatsList.length + 1}`,
         title: action.payload.title,
         description: action.payload.description,
+        imageURL: action.payload.imageURL,
         messages: [],
       })
     },
@@ -59,10 +60,36 @@ const chatSlice = createSlice({
         return chat
       })
     },
+
+    clickEditMessage(state, action) {
+      const { chatId, messageId, newText } = action.payload
+      state.chatsList = state.chatsList.map(chat => {
+        if (chat.id === chatId) {
+          return {
+            ...chat,
+            messages: chat.messages.map(message => {
+              if (message.id === messageId) {
+                return {
+                  ...message,
+                  text: newText,
+                }
+              }
+              return message
+            }),
+          }
+        }
+        return chat
+      })
+    },
   },
 })
 
-export const { onAddChat, addMessage, clickDelete, clickDeleteMessage } =
-  chatSlice.actions
+export const {
+  onAddChat,
+  addMessage,
+  clickDelete,
+  clickDeleteMessage,
+  clickEditMessage,
+} = chatSlice.actions
 
 export default chatSlice.reducer
