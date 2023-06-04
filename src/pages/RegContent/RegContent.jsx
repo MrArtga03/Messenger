@@ -84,7 +84,7 @@ const RegContent = () => {
                     {errors?.fullname && (
                       <span>
                         {errors?.fullname?.message ||
-                          'Вы должны ФИО сотрудника!'}
+                          'Вы должны написать ФИО сотрудника!'}
                       </span>
                     )}
                   </Text>
@@ -126,7 +126,7 @@ const RegContent = () => {
                     {errors?.email && (
                       <span>
                         {errors?.email?.message ||
-                          'Вы должны написать ваш email!'}
+                          'Вы должны написать email сотрудника!'}
                       </span>
                     )}
                   </Text>

@@ -9,4 +9,17 @@
   background: $color-background;
   color: $color-text;
   font-size: 30px;
+  text-align: center;
+
+  .navigations {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .nochats {
+    .navigations {
+      display: block;
+    }
+  }
 }

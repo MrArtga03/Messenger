@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {
+  Box,
   Card,
   CardBody,
   CardHeader,
@@ -16,10 +17,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <main className={styles['main-container']}>
-        <Stack className={styles['wrapper']}>
+        <Stack className={styles.wrapper}>
           <Card>
             <CardHeader className={styles['header-container']}>
-              <Heading className={styles['header']}>
+              <Heading className={styles.header}>
                 <Text className={styles['nav-link']}>Мессенджер</Text>
               </Heading>
             </CardHeader>
@@ -28,8 +29,9 @@ const Layout = ({ children }) => {
               <ChatList />
             </CardBody>
           </Card>
+          w
         </Stack>
-        {children}
+        <Box className={styles.children}>{children}</Box>
       </main>
     </>
   )

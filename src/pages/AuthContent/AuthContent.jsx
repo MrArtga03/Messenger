@@ -70,11 +70,6 @@ const AuthContent = () => {
     setShow(show => !show)
   }, [])
 
-  const handleSendData = useCallback(() => {
-    console.log(formData.name)
-    console.log(formData.password)
-  }, [formData])
-
   return (
     <section className={styles.card}>
       <Card className={styles['card-container']}>
@@ -115,7 +110,7 @@ const AuthContent = () => {
                 {errorsMemo?.username && (
                   <span>
                     {errorsMemo?.username?.message ||
-                      'Вы должны написать ваше имя!'}
+                      'Вы должны написать ваш логин!'}
                   </span>
                 )}
               </Text>
@@ -150,18 +145,14 @@ const AuthContent = () => {
                 {errorsMemo?.password && (
                   <span>
                     {errorsMemo?.password?.message ||
-                      'Вы должны написать ваше имя!'}
+                      'Вы должны написать ваш пароль!'}
                   </span>
                 )}
               </Text>
             </Stack>
 
             <HStack>
-              <FormButton
-                className={styles['button-enter']}
-                type={'submit'}
-                onClick={handleSendData}
-              >
+              <FormButton className={styles['button-enter']} type={'submit'}>
                 Войти
               </FormButton>
             </HStack>

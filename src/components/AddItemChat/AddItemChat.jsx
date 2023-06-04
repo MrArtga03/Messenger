@@ -35,16 +35,22 @@ const AddItemChat = () => {
     inputTitleRef.current.focus()
   }, [isOpen])
 
+  const {
+    register,
+    formState: { errors },
+    reset,
+  } = useForm()
+
   const addChat = () => {
     if (!title) {
       return
     }
 
     dispatch(onAddChat({ title, description, imageURL }))
+    reset()
     setTitle('')
     setDescription('')
     setImageURL(null)
-    reset()
     onClose()
   }
 
@@ -55,10 +61,10 @@ const AddItemChat = () => {
 
     if (e.key === 'Enter') {
       dispatch(onAddChat({ title, description, imageURL }))
+      reset()
       setTitle('')
       setDescription('')
       setImageURL(null)
-      reset()
       onClose()
     }
   }
@@ -88,20 +94,6 @@ const AddItemChat = () => {
     }
   }, [isOpen, onClose, inputTitleRef])
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm({
-    mode: 'onBlur',
-  })
-
-  const onSubmit = data => {
-    console.log(JSON.stringify(data))
-    reset()
-  }
-
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
@@ -123,13 +115,10 @@ const AddItemChat = () => {
 
             <Box className={styles.body}>
               <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
-              <form
-                className={styles['form-data']}
-                onSubmit={handleSubmit(onSubmit)}
-              >
+              <form className={styles['form-data']}>
                 <Input
-                  {...register('chat-name', {
-                    required: 'Поле опязательно к заполнению!',
+                  {...register('chatName', {
+                    required: true,
                   })}
                   value={title}
                   onChange={handleTitleChange}
@@ -140,12 +129,12 @@ const AddItemChat = () => {
                   ref={inputTitleRef}
                 />
 
-                <Text h={'20px'}>
-                  {errors?.chatname && (
-                    <p style={{ color: 'red' }}>
-                      {errors?.chatname?.message ||
+                <Text>
+                  {errors?.chatName && (
+                    <span>
+                      {errors?.chatName?.message ||
                         'Вы должны написать название вашего чата!'}
-                    </p>
+                    </span>
                   )}
                 </Text>
 

@@ -111,3 +111,36 @@
     }
   }
 }
+
+@media screen and (max-width: 900px){
+  .container {
+
+    .card-container {
+      background: $color-chat;
+      width: 450px;
+      border-radius: 20px;
+
+      .title-wrapper {
+        display: flex;
+      }
+
+      .body {
+
+        .form-data {
+
+          .bio-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+
+            & > div {
+              margin-top: 8px;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
