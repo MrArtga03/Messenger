@@ -15,11 +15,12 @@ import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
-import { useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import { noChatsUrl } from '../../constants/urls'
 import PinMessage from '../../components/PinMessage/PinMessage'
 
 import styles from './ChatRoom.module.scss'
+import PageNavigation from '../../components/PageNavigation/PageNavigation'
 
 const ChatRoom = () => {
   const time = getTime()
@@ -179,6 +180,9 @@ const ChatRoom = () => {
       <div className={styles.container}>
         <div className={styles['container-info']}>
           <div className={styles['wrapper-info']}>
+            <Box className={styles.navigation}>
+              <PageNavigation />
+            </Box>
             <div className={styles['description-info']}>
               <div className={styles.title}>{id}</div>
             </div>

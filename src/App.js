@@ -10,6 +10,7 @@ import {
   settingsUrl,
   accountUrl,
   noChatsUrl,
+  mainPage,
 } from './constants/urls'
 import HomePage from './pages/HomePage/HomePage'
 import SettingsPage from './pages/SettingsPage/SettingsPage'
@@ -37,6 +38,7 @@ const App = () => {
                 />
                 <Route path={authUrl} element={<AuthPage />} />
                 <Route path={regUrl} element={<RegistrationPage />} />
+                <Route path={mainPage} element={<Layout />} />
                 <Route
                   path={accountUrl}
                   element={getProtectedPage(<AccountPage />)}

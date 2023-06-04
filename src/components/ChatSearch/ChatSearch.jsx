@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
   Box,
   IconButton,
@@ -14,7 +15,7 @@ import CustomLink from '../CustomLink/CustomLink'
 
 import styles from './ChatSearch.module.scss'
 
-const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
+const ChatSearch = ({ handleSubmit }) => {
   return (
     <>
       <section className={styles.container}>
@@ -59,6 +60,10 @@ const ChatSearch = ({ handleSubmit, handleEnterSubmit }) => {
       </section>
     </>
   )
+}
+
+ChatSearch.propTypes = {
+  handleSubmit: PropTypes.func,
 }
 
 export default ChatSearch

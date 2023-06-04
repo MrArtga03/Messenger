@@ -10,6 +10,7 @@
 
     .chats {
       display: flex;
+      justify-content: space-between;
       position: relative;
       border-top: 1px solid $color-close-button;
       border-bottom: 1px solid $color-close-button;
@@ -22,6 +23,7 @@
         border: none;
         border-radius: 0;
         height: 100%;
+        margin-right: 5px;
 
         &:hover {
           background: none;

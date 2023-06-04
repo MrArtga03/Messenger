@@ -51,8 +51,10 @@
 
       .search-form {
         display: flex;
+        justify-content: space-between;
         flex-direction: row;
         align-items: center;
+        width: 100%;
 
         .input-search {
           width: 250px;
@@ -71,5 +73,11 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .search {
+    width: 100%;
   }
 }

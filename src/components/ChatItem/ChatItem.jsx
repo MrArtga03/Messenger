@@ -15,6 +15,7 @@ const ChatItem = props => {
           <Wrap>
             <WrapItem>
               <Image
+                boxSize='45px'
                 className={styles['avatar-chat']}
                 src={file ? file : defaultImage}
               />

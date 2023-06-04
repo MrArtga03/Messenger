@@ -34,6 +34,10 @@
         display: flex;
         flex-direction: row;
 
+        .navigation {
+          display: none;
+        }
+
         .description-info {
           width: 50%;
 
@@ -95,6 +99,7 @@
       background: $color-interlocutors-message;
       padding: 5px 10px;
       border-radius: 8px;
+      width: 100%;
 
       .button-emoji {
         display: flex;
@@ -173,5 +178,31 @@
     padding: 7px 10px 7px 10px;
     background: $color-chat;
     z-index: 1;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper-info {
+
+    .navigation {
+      display: block !important;
+    }
+
+    .description-info {
+
+      .title {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .form-input {
+
+    .input-text {
+      max-width: calc(608px - 500px);
+      min-width: 260px !important;
+    }
   }
 }
