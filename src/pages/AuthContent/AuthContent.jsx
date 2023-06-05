@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -163,4 +163,4 @@ const AuthContent = () => {
   )
 }
 
-export default memo(AuthContent)
+export default AuthContent

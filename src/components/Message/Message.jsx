@@ -6,6 +6,7 @@ import FormButton from '../UI/FormButton/FormButton'
 import ReactionsList from '../ReactionsList/ReactionsList'
 import Reaction from '../Reaction/Reaction'
 import SmileReaction from '../../assets/svg/SmileReaction.svg'
+import { userGalkin, userKourin, userSolovyov } from '../../constants/urls'
 
 import styles from './Message.module.scss'
 
@@ -21,9 +22,9 @@ const Message = props => {
 
   const users = [
     { name: 'Artyom Derbin', image: '' },
-    { name: 'Artyom Galkin', image: 'https://bit.ly/kent-c-dodds' },
-    { name: 'Ivan Solovyov', image: 'https://bit.ly/ryan-florence' },
-    { name: 'Kourin Daniel', image: 'https://bit.ly/sage-adebayo' },
+    { name: 'Artyom Galkin', image: userGalkin },
+    { name: 'Ivan Solovyov', image: userSolovyov },
+    { name: 'Kourin Daniel', image: userKourin },
   ]
   const [avatarIndex, setAvatarIndex] = useState(null)
 

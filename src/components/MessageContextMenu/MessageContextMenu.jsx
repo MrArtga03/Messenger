@@ -44,6 +44,15 @@ const MessageContextMenu = ({
             </Text>
           </FormButton>
 
+          <FormButton
+            className={styles['action-message_none']}
+            onClick={onOpen}
+          >
+            <Text className={styles['danger-zone']}>
+              <DeleteIcon className={styles.button} />
+            </Text>
+          </FormButton>
+
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent background={'#1c1d22'}>
@@ -74,13 +83,29 @@ const MessageContextMenu = ({
           <EditIcon className={styles.button} /> Редактировать
         </FormButton>
 
+        <FormButton
+          className={styles['action-message_none']}
+          onClick={onClickEditMessage}
+        >
+          <EditIcon className={styles.button} />
+        </FormButton>
+
         <CopyToClipboard onCopy={onCopy} text={value}>
-          <FormButton
-            onClick={onClickToast}
-            className={styles['action-message']}
-          >
-            <CopyIcon className={styles.button} /> Копировать
-          </FormButton>
+          <Box>
+            <FormButton
+              onClick={onClickToast}
+              className={styles['action-message']}
+            >
+              <CopyIcon className={styles.button} /> Копировать
+            </FormButton>
+
+            <FormButton
+              onClick={onClickToast}
+              className={styles['action-message_none']}
+            >
+              <CopyIcon className={styles.button} />
+            </FormButton>
+          </Box>
         </CopyToClipboard>
 
         <FormButton
@@ -88,6 +113,13 @@ const MessageContextMenu = ({
           className={styles['action-message']}
         >
           <AttachmentIcon className={styles.button} /> Закрепить
+        </FormButton>
+
+        <FormButton
+          onClick={onClickPinMessage}
+          className={styles['action-message_none']}
+        >
+          <AttachmentIcon className={styles.button} />
         </FormButton>
 
         <IconButton

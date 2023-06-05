@@ -199,10 +199,9 @@
 
 @media screen and (max-width: 900px) {
   .form-input {
-
     .input-text {
-      max-width: calc(608px - 500px);
-      min-width: 260px !important;
+      max-width: 270px !important;
+      min-width: 270px !important;
     }
   }
 }

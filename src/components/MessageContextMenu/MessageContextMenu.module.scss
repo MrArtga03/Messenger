@@ -7,6 +7,7 @@
 
   .wrapper {
     display: flex;
+    align-items: center;
     flex-direction: row;
 
     .action-message {
@@ -31,6 +32,24 @@
       }
     }
 
+    .action-message_none {
+      display: none;
+      justify-content: left;
+      font-size: 20px;
+      font-weight: 600;
+      background: $color-chat;
+      color: $color-text;
+      margin-right: 8px;
+
+      .danger-zone {
+        color: $color-danger-zone;
+      }
+
+      .button {
+        margin-right: 10px;
+      }
+    }
+
     .close-button {
       background: none;
       border-radius: 100%;
@@ -39,5 +58,15 @@
         background: $color-button-hover;
       }
     }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .action-message {
+    display: none !important;
+  }
+
+  .action-message_none {
+    display: block !important;
   }
 }

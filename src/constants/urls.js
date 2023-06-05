@@ -8,6 +8,9 @@ export const settingsUrl = '/setting'
 export const noChatsUrl = '/nochats'
 export const mainPage = '/mainPage'
 export const noMatchUrl = '*'
+export const userGalkin = 'https://bit.ly/kent-c-dodds'
+export const userSolovyov = 'https://bit.ly/ryan-florence'
+export const userKourin = 'https://bit.ly/sage-adebayo'
 export const defaultImage =
   'https://media.istockphoto.com/id/1392182937/zh/%E5%90%91%E9%87%8F/no-image-available-photo-coming-soon.jpg?s=612x612&w=0&k=20&c=Ot9bY5dAFt9KaAIJHv5sKhU88-Hn89XEJzuD1TwuV8Q='
 export const welcomeImage =
