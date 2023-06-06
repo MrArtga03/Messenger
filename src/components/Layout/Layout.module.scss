@@ -33,4 +33,20 @@
       max-height: calc(100vh - 50px);
     }
   }
+
+  .children {
+    width: 100%;
+  }
 }
+
+@media screen and (max-width: 900px){
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .children {
+      position: absolute;
+    }
+  }
+}
+

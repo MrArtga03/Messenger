@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -14,10 +14,9 @@ import {
   Divider,
   HStack,
 } from '@chakra-ui/react'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
-import { regUrl } from '../../constants/urls'
 import { useAuth } from '../../hook/useAuth'
-import CustomLink from '../../components/CustomLink/CustomLink'
 import FormButton from '../../components/UI/FormButton/FormButton'
 import InfoPopover from '../../components/UI/InfoPopover/InfoPopover'
 
@@ -71,11 +70,6 @@ const AuthContent = () => {
     setShow(show => !show)
   }, [])
 
-  const handleSendData = useCallback(() => {
-    console.log(formData.name)
-    console.log(formData.password)
-  }, [formData])
-
   return (
     <section className={styles.card}>
       <Card className={styles['card-container']}>
@@ -95,9 +89,9 @@ const AuthContent = () => {
 
         <Divider />
 
-        <CardBody>
+        <CardBody className={styles.body}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack mt='3' spacing='3'>
+            <Stack className={styles['form-data']}>
               <Input
                 {...register('username', {
                   required: 'Поле обязательно к заполнению!',
@@ -112,16 +106,16 @@ const AuthContent = () => {
                 autoComplete='off'
               />
 
-              <Text h={'20px'}>
+              <Text>
                 {errorsMemo?.username && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errorsMemo?.username?.message ||
-                      'Вы должны написать ваше имя!'}
+                      'Вы должны написать ваш логин!'}
                   </span>
                 )}
               </Text>
 
-              <InputGroup size='md'>
+              <InputGroup>
                 <Input
                   {...register('password', {
                     required: 'Поле обязательно к заполнению!',
@@ -131,46 +125,36 @@ const AuthContent = () => {
                     setFormData({ ...formData, password: e.target.value })
                   }
                   onKeyUp={onEnterSubmit}
-                  pr='4.5rem'
                   variant={'flushed'}
                   type={show ? 'text' : 'password'}
                   placeholder={'Пароль'}
                   autoComplete='off'
                 />
 
-                <InputRightElement width='4.5rem'>
-                  <FormButton h='1.75rem' size='sm' onClick={handleChangeShow}>
-                    {show ? 'Скрыть' : 'Показать'}
+                <InputRightElement>
+                  <FormButton
+                    className={styles['button-show-password']}
+                    onClick={handleChangeShow}
+                  >
+                    {show ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
 
-              <Text h={'20px'}>
+              <Text>
                 {errorsMemo?.password && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errorsMemo?.password?.message ||
-                      'Вы должны написать ваше имя!'}
+                      'Вы должны написать ваш пароль!'}
                   </span>
                 )}
               </Text>
             </Stack>
 
-            <Divider mt={'20px'} />
-
-            <HStack mt={'5px'}>
-              <FormButton type={'submit'} onClick={handleSendData}>
+            <HStack>
+              <FormButton className={styles['button-enter']} type={'submit'}>
                 Войти
               </FormButton>
-              <Divider orientation={'vertical'} />
-
-              <Stack>
-                <Text>
-                  Если вы не зарегистрированы, пройдите по ссылке-
-                  <span>
-                    <CustomLink to={regUrl}>Зарегистрироваться</CustomLink>
-                  </span>
-                </Text>
-              </Stack>
             </HStack>
           </form>
         </CardBody>
@@ -179,4 +163,4 @@ const AuthContent = () => {
   )
 }
 
-export default memo(AuthContent)
+export default AuthContent

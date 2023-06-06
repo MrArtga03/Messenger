@@ -23,20 +23,33 @@
 
     .container-info {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       background: $color-background;
       width: 100%;
-      height: 45px;
+      height: 60px;
 
-      .title {
-        font-size: 14px;
-        color: $color-text;
-        border-bottom: 2px solid $color-line;
-      }
+      .wrapper-info {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
 
-      .description {
-        font-size: 14px;
-        color: $color-text;
+        .navigation {
+          display: none;
+        }
+
+        .description-info {
+          width: 50%;
+
+          .title {
+            font-size: 14px;
+            color: $color-text;
+          }
+        }
+
+        .pin {
+          width: 50%;
+        }
       }
     }
 
@@ -86,6 +99,7 @@
       background: $color-interlocutors-message;
       padding: 5px 10px;
       border-radius: 8px;
+      width: 100%;
 
       .button-emoji {
         display: flex;
@@ -164,5 +178,30 @@
     padding: 7px 10px 7px 10px;
     background: $color-chat;
     z-index: 1;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper-info {
+
+    .navigation {
+      display: block !important;
+    }
+
+    .description-info {
+
+      .title {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .form-input {
+    .input-text {
+      max-width: 270px !important;
+      min-width: 270px !important;
+    }
   }
 }

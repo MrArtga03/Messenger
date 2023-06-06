@@ -1,14 +1,31 @@
 @import '/src/styles/colors';
 
 .container {
+  display: flex;
+  justify-content: space-between;
 
-  .button-add {
+  .button-add-chat{
     width: 100%;
     background: $color-add-chat-button;
     margin-top: 5px;
 
     &:hover {
       background: $color-hover-add-chat-button;
+    }
+  }
+
+  .link-reg {
+    width: 100%;
+    margin-left: 5px;
+
+    .button-add-user {
+      background: $color-add-chat-button;
+      margin-top: 5px;
+      width: 100%;
+
+      &:hover {
+        background: $color-hover-add-chat-button;
+      }
     }
   }
 }
@@ -31,7 +48,7 @@
   .header {
     background: $color-background;
     color: $color-text;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .body {
@@ -40,15 +57,25 @@
     height: calc(100vh - 134px);
     background: $color-background;
     color: $color-text;
+
+    .form-data {
+      margin-top: 20px;
+
+      p {
+        height: 20px;
+        color: red;
+      }
+    }
   }
 
   .footer {
-    margin-top: 10px;
+    margin-top: 25px;
     background: $color-background;
     color: $color-text;
 
     .button-add {
-      background: blue;
+      width: 100%;
+      background: $color-add-chat-button;
       margin-right: 3px;
     }
   }

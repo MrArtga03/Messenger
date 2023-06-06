@@ -1,31 +1,30 @@
+import PropTypes from 'prop-types'
 import { CopyToClipboard } from 'react-copy-to-clipboard/src'
-import { CloseIcon, CopyIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { Box, IconButton, Text, useDisclosure } from '@chakra-ui/react'
+import {
+  AttachmentIcon,
+  CloseIcon,
+  CopyIcon,
+  DeleteIcon,
+  EditIcon,
+} from '@chakra-ui/icons'
 
 import FormButton from '../UI/FormButton/FormButton'
+import ModalItem from '../UI/ModalItem/ModalItem'
 
 import styles from './MessageContextMenu.module.scss'
-import {
-  Box,
-  IconButton,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
 
-const MessageContextMenu = ({
-  onClickDeleteMessage,
-  onClickEditMessage,
-  value,
-  onCopy,
-  onClickToast,
-  onClickClose,
-  onChangeClose,
-}) => {
+const MessageContextMenu = props => {
+  const {
+    onClickDeleteMessage,
+    onClickEditMessage,
+    value,
+    onCopy,
+    onClickToast,
+    onClickClose,
+    onChangeClose,
+    onClickPinMessage,
+  } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box onChange={onChangeClose} className={styles.container}>
@@ -33,48 +32,74 @@ const MessageContextMenu = ({
         <Box>
           <FormButton className={styles['action-message']} onClick={onOpen}>
             <Text className={styles['danger-zone']}>
-              <DeleteIcon className={styles.button} /> Удалить сообщение
+              <DeleteIcon className={styles.button} /> Удалить
             </Text>
           </FormButton>
 
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent background={'#1c1d22'}>
-              <ModalHeader color={'#fff'}>
-                Хотите удалить сообщение?
-              </ModalHeader>
-              <ModalCloseButton color={'#fff'} />
-              <ModalFooter display={'flex'} justifyContent={'center'}>
-                <FormButton
-                  className={styles['action-message']}
-                  onClick={onClickDeleteMessage}
-                >
-                  <Text className={styles['danger-zone']}>Да</Text>
-                </FormButton>
+          <FormButton
+            className={styles['action-message_none']}
+            onClick={onOpen}
+          >
+            <Text className={styles['danger-zone']}>
+              <DeleteIcon className={styles.button} />
+            </Text>
+          </FormButton>
 
-                <FormButton colorScheme='blue' ml={3} onClick={onClose}>
-                  Нет
-                </FormButton>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <ModalItem
+            isOpen={isOpen}
+            onClose={onClose}
+            onClickRemove={onClickDeleteMessage}
+            onClickClose={onClose}
+          >
+            Хотите удалить сообщение?
+          </ModalItem>
         </Box>
 
         <FormButton
           className={styles['action-message']}
           onClick={onClickEditMessage}
         >
-          <EditIcon className={styles.button} /> Редактировать сообщение
+          <EditIcon className={styles.button} /> Редактировать
+        </FormButton>
+
+        <FormButton
+          className={styles['action-message_none']}
+          onClick={onClickEditMessage}
+        >
+          <EditIcon className={styles.button} />
         </FormButton>
 
         <CopyToClipboard onCopy={onCopy} text={value}>
-          <FormButton
-            onClick={onClickToast}
-            className={styles['action-message']}
-          >
-            <CopyIcon className={styles.button} /> Копировать сообщение
-          </FormButton>
+          <Box>
+            <FormButton
+              onClick={onClickToast}
+              className={styles['action-message']}
+            >
+              <CopyIcon className={styles.button} /> Копировать
+            </FormButton>
+
+            <FormButton
+              onClick={onClickToast}
+              className={styles['action-message_none']}
+            >
+              <CopyIcon className={styles.button} />
+            </FormButton>
+          </Box>
         </CopyToClipboard>
+
+        <FormButton
+          onClick={onClickPinMessage}
+          className={styles['action-message']}
+        >
+          <AttachmentIcon className={styles.button} /> Закрепить
+        </FormButton>
+
+        <FormButton
+          onClick={onClickPinMessage}
+          className={styles['action-message_none']}
+        >
+          <AttachmentIcon className={styles.button} />
+        </FormButton>
 
         <IconButton
           className={styles['close-button']}
@@ -85,6 +110,17 @@ const MessageContextMenu = ({
       </Box>
     </Box>
   )
+}
+
+MessageContextMenu.propsTypes = {
+  onClickDeleteMessage: PropTypes.func,
+  onClickEditMessage: PropTypes.func,
+  value: PropTypes.string,
+  onCopy: PropTypes.func,
+  onClickToast: PropTypes.func,
+  onClickClose: PropTypes.func,
+  onChangeClose: PropTypes.func,
+  onClickPinMessage: PropTypes.func,
 }
 
 export default MessageContextMenu

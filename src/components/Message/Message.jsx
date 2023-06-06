@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { memo, useEffect, useState } from 'react'
 import { Avatar, Box, Wrap, WrapItem } from '@chakra-ui/react'
 
@@ -5,17 +6,13 @@ import FormButton from '../UI/FormButton/FormButton'
 import ReactionsList from '../ReactionsList/ReactionsList'
 import Reaction from '../Reaction/Reaction'
 import SmileReaction from '../../assets/svg/SmileReaction.svg'
+import { userGalkin, userKourin, userSolovyov } from '../../constants/urls'
 
 import styles from './Message.module.scss'
+const Message = props => {
+  const { message, isOwner, time, onMouseDown, onContextMenu, editedText } =
+    props
 
-const Message = ({
-  message,
-  isOwner,
-  time,
-  onMouseDown,
-  onContextMenu,
-  editedText,
-}) => {
   const [isHover, setIsHover] = useState(false)
   const [isReaction, setIsReaction] = useState(false)
   const [selectedReaction, setSelectedReaction] = useState(null)
@@ -24,9 +21,9 @@ const Message = ({
 
   const users = [
     { name: 'Artyom Derbin', image: '' },
-    { name: 'Artyom Galkin', image: 'https://bit.ly/kent-c-dodds' },
-    { name: 'Ivan Solovyov', image: 'https://bit.ly/ryan-florence' },
-    { name: 'Kourin Daniel', image: 'https://bit.ly/sage-adebayo' },
+    { name: 'Artyom Galkin', image: userGalkin },
+    { name: 'Ivan Solovyov', image: userSolovyov },
+    { name: 'Kourin Daniel', image: userKourin },
   ]
   const [avatarIndex, setAvatarIndex] = useState(null)
 
@@ -142,6 +139,15 @@ const Message = ({
       </section>
     </Box>
   )
+}
+
+Message.propTypes = {
+  message: PropTypes.string,
+  isOwner: PropTypes.number,
+  time: PropTypes.string,
+  onMouseDown: PropTypes.func,
+  onContextMenu: PropTypes.func,
+  editedText: PropTypes.string,
 }
 
 export default memo(Message)

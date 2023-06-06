@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { AddIcon } from '@chakra-ui/icons'
 import {
   Box,
   Heading,
@@ -11,15 +10,16 @@ import {
   useDisclosure,
   Collapse,
   Button,
-  IconButton,
 } from '@chakra-ui/react'
 
 import { onAddChat } from '../../store/chatSlice'
 import AddImageChat from '../AddImageChat/AddImageChat'
+import { NavLink } from 'react-router-dom'
+import { regUrl } from '../../constants/urls'
 
-import styles from './AddChatItem.module.scss'
+import styles from './AddItemChat.module.scss'
 
-const AddChatItem = () => {
+const AddItemChat = () => {
   const inputTitleRef = useRef(null)
 
   const [title, setTitle] = useState('')
@@ -35,16 +35,22 @@ const AddChatItem = () => {
     inputTitleRef.current.focus()
   }, [isOpen])
 
+  const {
+    register,
+    formState: { errors },
+    reset,
+  } = useForm()
+
   const addChat = () => {
     if (!title) {
       return
     }
 
     dispatch(onAddChat({ title, description, imageURL }))
+    reset()
     setTitle('')
     setDescription('')
     setImageURL(null)
-    reset()
     onClose()
   }
 
@@ -55,10 +61,10 @@ const AddChatItem = () => {
 
     if (e.key === 'Enter') {
       dispatch(onAddChat({ title, description, imageURL }))
+      reset()
       setTitle('')
       setDescription('')
       setImageURL(null)
-      reset()
       onClose()
     }
   }
@@ -88,20 +94,6 @@ const AddChatItem = () => {
     }
   }, [isOpen, onClose, inputTitleRef])
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm({
-    mode: 'onBlur',
-  })
-
-  const onSubmit = data => {
-    console.log(JSON.stringify(data))
-    reset()
-  }
-
   fileReader.onloadend = () => {
     setImageURL(fileReader.result)
   }
@@ -119,14 +111,14 @@ const AddChatItem = () => {
       <Collapse in={isOpen} onChange={handleKeyDown} animateOpacity>
         <Stack position={'relative'}>
           <Box className={styles['container-form']} rounded='md' shadow='md'>
-            <Heading className={styles.header}>Создать чат</Heading>
+            <Heading className={styles.header}>Создание чата</Heading>
 
             <Box className={styles.body}>
               <AddImageChat imageURL={imageURL} onChange={handleImageChange} />
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form className={styles['form-data']}>
                 <Input
-                  {...register('chat-name', {
-                    required: 'Поле опязательно к заполнению!',
+                  {...register('chatName', {
+                    required: true,
                   })}
                   value={title}
                   onChange={handleTitleChange}
@@ -137,12 +129,12 @@ const AddChatItem = () => {
                   ref={inputTitleRef}
                 />
 
-                <Text h={'20px'}>
-                  {errors?.chatname && (
-                    <p style={{ color: 'red' }}>
-                      {errors?.chatname?.message ||
+                <Text>
+                  {errors?.chatName && (
+                    <span>
+                      {errors?.chatName?.message ||
                         'Вы должны написать название вашего чата!'}
-                    </p>
+                    </span>
                   )}
                 </Text>
 
@@ -156,31 +148,38 @@ const AddChatItem = () => {
                   autoComplete='off'
                 />
               </form>
-            </Box>
 
-            <Box className={styles.footer}>
-              <Button
-                type={'submit'}
-                onClick={addChat}
-                className={styles['button-add']}
-              >
-                Создать
-              </Button>
+              <Box className={styles.footer}>
+                <Button
+                  type={'submit'}
+                  onClick={addChat}
+                  className={styles['button-add']}
+                >
+                  Создать
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Stack>
       </Collapse>
 
       <div className={styles.container}>
-        <IconButton
-          className={styles['button-add']}
+        <Button
+          className={styles['button-add-chat']}
           onClick={onToggle}
-          icon={<AddIcon />}
           aria-label={'Add Item'}
-        />
+        >
+          Создать чат
+        </Button>
+
+        <NavLink className={styles['link-reg']} to={regUrl}>
+          <Button className={styles['button-add-user']}>
+            Добавить пользователя
+          </Button>
+        </NavLink>
       </div>
     </>
   )
 }
 
-export default memo(AddChatItem)
+export default memo(AddItemChat)

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Stack, Text } from '@chakra-ui/react'
+import {Box, Image, Stack, Text} from '@chakra-ui/react'
 
 import PageLoader from '../../components/PageLoader/PageLoader'
+import {welcomeImage} from "../../constants/urls";
 
 import styles from './HomePage.module.scss'
 
@@ -24,7 +25,10 @@ const HomePage = () => {
     <Box className={styles.container}>
       <Stack className={styles.wrapper}>
         <Text className={styles.title}>Добро пожаловать!</Text>
-        <Box className={styles.image}></Box>
+        <Image
+            className={styles.image}
+            src={welcomeImage}
+        />
       </Stack>
     </Box>
   )
