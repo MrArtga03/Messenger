@@ -14,4 +14,5 @@
 3.	npm install - устанавливает все зависимости, указанные в файле package.json. Эта команда должна быть выполнена перед запуском проекта или при установке новой зависимости.
 
 ## Ссылка на рабочий проект:
-mrartga03.github.io/Messenger/
+GitHub - https://github.com/MrArtga03/Messenger
+Рабочий сайт - mrartga03.github.io/Messenger/
