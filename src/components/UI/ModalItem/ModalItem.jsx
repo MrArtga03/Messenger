@@ -14,13 +14,13 @@ import FormButton from '../FormButton/FormButton'
 import styles from './ModalItem.module.scss'
 
 const ModalItem = props => {
-  const { isOpen, onClose, onClickRemove, onClickClose } = props
+  const { children, isOpen, onClose, onClickRemove, onClickClose } = props
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent background={'#1c1d22'}>
         <ModalHeader textAlign={'center'} color={'#fff'}>
-          Хотите удалить чат?
+          {children}
         </ModalHeader>
         <ModalCloseButton color={'#fff'} />
         <ModalFooter display={'flex'} justifyContent={'center'}>
@@ -37,7 +37,8 @@ const ModalItem = props => {
   )
 }
 
-ModalItem.prototype = {
+ModalItem.propsTypes = {
+  children: PropTypes.string,
   isOpen: PropTypes.func,
   onClose: PropTypes.func,
   onClickRemove: PropTypes.func,

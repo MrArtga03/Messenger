@@ -1,16 +1,6 @@
+import PropTypes from 'prop-types'
 import { CopyToClipboard } from 'react-copy-to-clipboard/src'
-import {
-  Box,
-  IconButton,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Box, IconButton, Text, useDisclosure } from '@chakra-ui/react'
 import {
   AttachmentIcon,
   CloseIcon,
@@ -20,19 +10,21 @@ import {
 } from '@chakra-ui/icons'
 
 import FormButton from '../UI/FormButton/FormButton'
+import ModalItem from '../UI/ModalItem/ModalItem'
 
 import styles from './MessageContextMenu.module.scss'
 
-const MessageContextMenu = ({
-  onClickDeleteMessage,
-  onClickEditMessage,
-  value,
-  onCopy,
-  onClickToast,
-  onClickClose,
-  onChangeClose,
-  onClickPinMessage,
-}) => {
+const MessageContextMenu = props => {
+  const {
+    onClickDeleteMessage,
+    onClickEditMessage,
+    value,
+    onCopy,
+    onClickToast,
+    onClickClose,
+    onChangeClose,
+    onClickPinMessage,
+  } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box onChange={onChangeClose} className={styles.container}>
@@ -53,27 +45,14 @@ const MessageContextMenu = ({
             </Text>
           </FormButton>
 
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent background={'#1c1d22'}>
-              <ModalHeader textAlign={'center'} color={'#fff'}>
-                Хотите удалить сообщение?
-              </ModalHeader>
-              <ModalCloseButton color={'#fff'} />
-              <ModalFooter display={'flex'} justifyContent={'center'}>
-                <FormButton
-                  className={styles['action-message']}
-                  onClick={onClickDeleteMessage}
-                >
-                  <Text className={styles['danger-zone']}>Да</Text>
-                </FormButton>
-
-                <FormButton colorScheme='blue' ml={3} onClick={onClose}>
-                  Нет
-                </FormButton>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <ModalItem
+            isOpen={isOpen}
+            onClose={onClose}
+            onClickRemove={onClickDeleteMessage}
+            onClickClose={onClose}
+          >
+            Хотите удалить сообщение?
+          </ModalItem>
         </Box>
 
         <FormButton
@@ -131,6 +110,17 @@ const MessageContextMenu = ({
       </Box>
     </Box>
   )
+}
+
+MessageContextMenu.propsTypes = {
+  onClickDeleteMessage: PropTypes.func,
+  onClickEditMessage: PropTypes.func,
+  value: PropTypes.string,
+  onCopy: PropTypes.func,
+  onClickToast: PropTypes.func,
+  onClickClose: PropTypes.func,
+  onChangeClose: PropTypes.func,
+  onClickPinMessage: PropTypes.func,
 }
 
 export default MessageContextMenu

@@ -126,7 +126,9 @@ const ChatList = () => {
                           onClickClose={() => {
                             closeModal(chat.id)
                           }}
-                        />
+                        >
+                          Хотите удалить чат?
+                        </ModalItem>
                       </MenuItem>
                     </MenuList>
                   </Menu>

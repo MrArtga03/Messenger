@@ -9,7 +9,6 @@ import SmileReaction from '../../assets/svg/SmileReaction.svg'
 import { userGalkin, userKourin, userSolovyov } from '../../constants/urls'
 
 import styles from './Message.module.scss'
-
 const Message = props => {
   const { message, isOwner, time, onMouseDown, onContextMenu, editedText } =
     props

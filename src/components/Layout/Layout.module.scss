@@ -46,6 +46,25 @@
     flex-wrap: wrap;
     .children {
       position: absolute;
+
+    }
+  }
+}
+
+@media screen and (max-width: 500px){
+  .main-container {
+
+    .children {
+      width: calc(100vh - 30vh);
+    }
+  }
+}
+
+@media screen and (max-width: 390px){
+  .main-container {
+
+    .children {
+      width: calc(100vh - 51vh);
     }
   }
 }
