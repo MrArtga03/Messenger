@@ -1,8 +1,13 @@
+import PropTypes from 'prop-types'
 import { Box, Text, Stack, Wrap, Image, WrapItem } from '@chakra-ui/react'
+
+import { defaultImage } from '../../constants/urls'
 
 import styles from './ChatItem.module.scss'
 
-const ChatItem = ({ title, lastMessage, lastTime, file }) => {
+const ChatItem = props => {
+  const { title, lastMessage, lastTime, file } = props
+
   return (
     <Box className={styles.container}>
       <Box className={styles['container-chat-data']}>
@@ -10,14 +15,9 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
           <Wrap>
             <WrapItem>
               <Image
+                boxSize='45px'
                 className={styles['avatar-chat']}
-                boxSize={'45px'}
-                borderRadius='full'
-                src={
-                  file
-                    ? file
-                    : 'https://media.istockphoto.com/id/1392182937/zh/%E5%90%91%E9%87%8F/no-image-available-photo-coming-soon.jpg?s=612x612&w=0&k=20&c=Ot9bY5dAFt9KaAIJHv5sKhU88-Hn89XEJzuD1TwuV8Q='
-                }
+                src={file ? file : defaultImage}
               />
             </WrapItem>
           </Wrap>
@@ -28,8 +28,8 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
               <Text className={styles['title']}>{title}</Text>
 
               <Stack className={styles['chat-data']}>
-                <Text className={styles['text']}>{lastMessage}</Text>
-                <Text className={styles['time']}>{lastTime}</Text>
+                <Text className={styles.text}>{lastMessage}</Text>
+                <Text className={styles.time}>{lastTime}</Text>
               </Stack>
             </Box>
           </>
@@ -42,6 +42,13 @@ const ChatItem = ({ title, lastMessage, lastTime, file }) => {
       </Box>
     </Box>
   )
+}
+
+ChatItem.propTypes = {
+  title: PropTypes.string,
+  lastMessage: PropTypes.string,
+  lastTime: PropTypes.string,
+  file: PropTypes.string,
 }
 
 export default ChatItem

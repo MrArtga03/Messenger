@@ -12,10 +12,12 @@ import {
   InputRightElement,
   Divider,
   HStack,
+  Box,
+  InputLeftElement,
+  Select,
 } from '@chakra-ui/react'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
-import { authUrl } from '../../constants/urls'
-import CustomLink from '../../components/CustomLink/CustomLink'
 import FormButton from '../../components/UI/FormButton/FormButton'
 import InfoPopover from '../../components/UI/InfoPopover/InfoPopover'
 
@@ -64,63 +66,144 @@ const RegContent = () => {
 
         <Divider />
 
-        <CardBody>
+        <CardBody className={styles.body}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack mt='3' spacing='3'>
-              <Input
-                {...register('fullorgname', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Полное имя организации'}
-                autoComplete='off'
-              />
+            <Stack className={styles['form-data']}>
+              <Stack className={styles['bio-block']}>
+                <Box className={styles['full-name']}>
+                  <Input
+                    {...register('fullname', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'ФИО сотрудника'}
+                    autoComplete='off'
+                  />
 
-              <Text h={'15px'}>
-                {errors?.fullorgname && (
-                  <span style={{ color: 'red' }}>
-                    {errors?.fullorgname?.message ||
-                      'Вы должны написать полное имя организации!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.fullname && (
+                      <span>
+                        {errors?.fullname?.message ||
+                          'Вы должны написать ФИО сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
 
-              <Input
-                {...register('shortname', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Короткое имя организации'}
-                autoComplete='off'
-              />
+                <Box className={styles['birthday']}>
+                  <Input
+                    {...register('birthday', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    autoComplete='off'
+                    type='date'
+                  />
 
-              <Text h={'15px'}>
-                {errors?.shortname && (
-                  <span style={{ color: 'red' }}>
-                    {errors?.shortname?.message ||
-                      'Вы должны написать короткое имя организации!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.birthday && (
+                      <span>
+                        {errors?.birthday?.message ||
+                          'Вы должны указать д/р сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
 
-              <Input
-                {...register('email', {
-                  required: 'Поле обязательно к заполнению!',
-                })}
-                variant={'flushed'}
-                placeholder={'Email'}
-                autoComplete='off'
-              />
+              <Stack className={styles['contact-block']}>
+                <Box className={styles.email}>
+                  <Input
+                    {...register('email', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'Email'}
+                    autoComplete='off'
+                  />
 
-              <Text h={'15px'}>
-                {errors?.email && (
-                  <span style={{ color: 'red' }}>
-                    {errors?.email?.message || 'Вы должны написать ваш email!'}
-                  </span>
-                )}
-              </Text>
+                  <Text>
+                    {errors?.email && (
+                      <span>
+                        {errors?.email?.message ||
+                          'Вы должны написать email сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
 
-              <InputGroup size='md'>
+                <Box className={styles['contact-number']}>
+                  <InputGroup>
+                    <InputLeftElement
+                      className={styles['format-number']}
+                      children='+7'
+                    />
+                    <Input
+                      type='tel'
+                      placeholder='Контакный номер'
+                      {...register('number', {
+                        required: 'Поле обязательно к заполнению!',
+                      })}
+                      variant={'flushed'}
+                      autoComplete='off'
+                    />
+                  </InputGroup>
+
+                  <Text>
+                    {errors?.number && (
+                      <span>
+                        {errors?.number?.message ||
+                          'Вы должны написать номер телефона сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
+
+              <Stack className={styles['corporate-block']}>
+                <Box className={styles.organization}>
+                  <Input
+                    {...register('organization', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    variant={'flushed'}
+                    placeholder={'Имя организации'}
+                    autoComplete='off'
+                  />
+
+                  <Text>
+                    {errors?.organization && (
+                      <span>
+                        {errors?.organization?.message ||
+                          'Вы должны написать имя организации!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+
+                <Box className={styles.role}>
+                  <Select
+                    {...register('role', {
+                      required: 'Поле обязательно к заполнению!',
+                    })}
+                    className={styles['select-role']}
+                  >
+                    <option value='Сотрудник'>Сотрудник</option>
+                    <option value='Администратор'>Администратор</option>
+                  </Select>
+
+                  <Text>
+                    {errors?.role && (
+                      <span>
+                        {errors?.role?.message ||
+                          'Вы должны написать номер телефона сотрудника!'}
+                      </span>
+                    )}
+                  </Text>
+                </Box>
+              </Stack>
+
+              <InputGroup>
                 <Input
                   {...register('newpass', {
                     required: 'Поле обязательно к заполнению!',
@@ -129,57 +212,53 @@ const RegContent = () => {
                       message: 'Минимум 5 символов!',
                     },
                   })}
-                  pr='4.5rem'
                   variant={'flushed'}
                   type={showPas ? 'text' : 'password'}
                   placeholder={'Введите новый пароль'}
                   autoComplete='off'
                 />
-                <InputRightElement width='4.5rem'>
+                <InputRightElement>
                   <FormButton
-                    h='1.75rem'
-                    size='sm'
+                    className={styles['button-show-password']}
                     onClick={handleClickPassword}
                   >
-                    {showPas ? 'Показать' : 'Скрыть'}
+                    {showPas ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.newpass && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.newpass?.message ||
                       'Вы должны написать новый пароль!'}
                   </span>
                 )}
               </Text>
 
-              <InputGroup size='md'>
+              <InputGroup>
                 <Input
                   {...register('repass', {
                     required: 'Поле обязательно к заполнению!',
                   })}
-                  pr='4.5rem'
                   variant={'flushed'}
                   type={showRepPas ? 'text' : 'password'}
                   placeholder={'Повторите пароль'}
                   autoComplete='off'
                 />
-                <InputRightElement width='4.5rem'>
+                <InputRightElement>
                   <FormButton
-                    h='1.75rem'
-                    size='sm'
+                    className={styles['button-show-password']}
                     onClick={handleClickRepPassword}
                   >
-                    {showRepPas ? 'Показать' : 'Скрыть'}
+                    {showRepPas ? <ViewOffIcon /> : <ViewIcon />}
                   </FormButton>
                 </InputRightElement>
               </InputGroup>
 
-              <Text h={'15px'}>
+              <Text>
                 {errors?.reppass && (
-                  <span style={{ color: 'red' }}>
+                  <span>
                     {errors?.reppass?.message ||
                       'Вы должны повторно написать пароль!'}
                   </span>
@@ -187,18 +266,10 @@ const RegContent = () => {
               </Text>
             </Stack>
 
-            <Divider mt={'4px'} />
-
-            <HStack mt={'10px'}>
-              <FormButton type={'submit'}>Зарегистрироваться</FormButton>
-              <Divider orientation={'vertical'} />
-              <Stack>
-                <Text>
-                  <span>
-                    <CustomLink to={authUrl}>Войти</CustomLink>
-                  </span>
-                </Text>
-              </Stack>
+            <HStack>
+              <FormButton className={styles['button-enter']} type={'submit'}>
+                Зарегистрировать
+              </FormButton>
             </HStack>
           </form>
         </CardBody>

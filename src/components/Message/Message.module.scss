@@ -234,3 +234,14 @@
   color: $color-add-chat-button;
 }
 
+@media screen and (max-width: 900px) {
+  .my-box-context,
+  .opponent-box-context {
+    max-width: 250px !important;
+  }
+
+  .my-box-context .my-context-message,
+  .opponent-box-context .opponent-context-message {
+    font-size: 14px !important;
+  }
+}

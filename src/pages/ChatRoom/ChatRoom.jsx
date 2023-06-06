@@ -15,12 +15,14 @@ import { CheckIcon } from '@chakra-ui/icons'
 import NoMessages from '../NoMessages/NoMessages'
 import MessageContextMenu from '../../components/MessageContextMenu/MessageContextMenu'
 import EditMessage from '../../components/EditMessage/EditMessage'
-import { useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import { noChatsUrl } from '../../constants/urls'
+import PinMessage from '../../components/PinMessage/PinMessage'
 
 import styles from './ChatRoom.module.scss'
+import PageNavigation from '../../components/PageNavigation/PageNavigation'
 
-const ChatRoom = ({ description }) => {
+const ChatRoom = () => {
   const time = getTime()
   //Рефы на DOM элементы
   const scrollRef = useRef(null)
@@ -35,11 +37,11 @@ const ChatRoom = ({ description }) => {
   const [editingMessage, setEditingMessage] = useState(null)
   const [editingMessageId, setEditingMessageId] = useState()
   const [, setCopied] = useState(false)
+  const [pinMessage, setPinMessage] = useState('')
+  const [isPinMessage, setIsPinMessage] = useState(false)
   const toast = useToast()
   const owner = Math.round(Math.random())
-
   const { id } = useParams()
-
   const dispatch = useDispatch()
   const chatsList = useSelector(state => state.chats.chatsList)
   const currentChat = chatsList.find(chat => chat.id === id)
@@ -163,12 +165,36 @@ const ChatRoom = ({ description }) => {
     }
   }, [isOpen])
 
+  const handlePinMessage = message => {
+    setPinMessage(message)
+    setIsPinMessage(true)
+    setIsOpen(false)
+  }
+
+  const handleClickClose = () => {
+    setIsPinMessage(false)
+  }
+
   return (
     <div onKeyDown={handleCloseChat} className={styles.chat}>
       <div className={styles.container}>
         <div className={styles['container-info']}>
-          <div className={styles.title}>{id}</div>
-          <div className={styles.description}>{description}</div>
+          <div className={styles['wrapper-info']}>
+            <Box className={styles.navigation}>
+              <PageNavigation />
+            </Box>
+            <div className={styles['description-info']}>
+              <div className={styles.title}>{id}</div>
+            </div>
+            <div className={styles.pin}>
+              {isPinMessage && (
+                <PinMessage
+                  message={pinMessage}
+                  onClickClose={handleClickClose}
+                />
+              )}
+            </div>
+          </div>
         </div>
         <form className={styles.form}>
           <div className={styles.messages} ref={scrollRef}>
@@ -226,6 +252,9 @@ const ChatRoom = ({ description }) => {
                           setIsOpen(false)
                         }}
                         onChangeClose={handleCloseContext}
+                        onClickPinMessage={() => {
+                          handlePinMessage(message.text, id)
+                        }}
                       />
                     </div>
                   )}
